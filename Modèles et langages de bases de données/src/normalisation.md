@@ -191,7 +191,7 @@ Dans cette section, nous verrons comment passer de la deuxième forme normale
 
 Une relation qui est dans la première et deuxième forme normale
 et dans laquelle aucun attribut qui ne fait pas partie de la clé 
-primaire est transitivement dépendant de la clé primaire.
+primaire est *transitivement dépendant* de la clé primaire.
 
 #### Technique de normalisation
 
@@ -199,3 +199,19 @@ Pour passer de la deuxième forme normale à la troisième, il faut enlever
 les dépendances transitives. Si une dépendance transitive existe, il faut
 l'enlever de la relation en mettant l'attribut dans une nouvelle relation
 avec une copie du déterminant.
+
+Voici un exemple:
+
+Nous avons les attributs *emp_id*, *emp_name*, *emp_zip*,
+*emp_state*, *emp_city* et *emp_district*. L'attribut 
+*emp_id* est la clé primaire. 
+
+![Exemple de la normalisation d'une table en 2NF - Première photo](images/2NF_to_3NF.png)
+
+On remarque que *emp_state*, *emp_city* et *emp_district* sont 
+dépendants de l'attribut *emp_zip* qui lui-même est dépendant 
+de l'attribut *emp_id*. Nous avons donc une dépendance 
+transitive. Pour s'en débarrasser, on sépare la table de la 
+façon suivante:
+
+![Exemple de la normalisation d'une table en 2NF - Deuxième photo](images/2NF_to_3NF_2nd_image.png)

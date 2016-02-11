@@ -29,7 +29,8 @@ code > span.al { color: #ff0000; font-weight: bold; }
 code > span.fu { color: #06287e; }
 code > span.er { color: #ff0000; font-weight: bold; }
   </style>
-  <link rel="stylesheet" href="../web_notes/css/notes_style.css">
+  <link rel="stylesheet" href="../../web_notes/css/notes_style.css">
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 </head>
 <body>
 <div class="navbar">
@@ -170,10 +171,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul></li>
 </ul></li>
-<li><a href="#sql"><span class="toc-section-number">4</span> SQL</a><ul>
-<li><a href="#exemple"><span class="toc-section-number">4.1</span> Exemple</a></li>
+<li><a href="#normalisation-avancée"><span class="toc-section-number">4</span> Normalisation avancée</a><ul>
+<li><a href="#règles-dinférence-des-dépendances-fonctionnelles"><span class="toc-section-number">4.1</span> Règles d’inférence des dépendances fonctionnelles</a></li>
 </ul></li>
-<li><a href="#annexe"><span class="toc-section-number">5</span> Annexe</a></li>
+<li><a href="#sql"><span class="toc-section-number">5</span> SQL</a><ul>
+<li><a href="#exemple"><span class="toc-section-number">5.1</span> Exemple</a></li>
+</ul></li>
+<li><a href="#annexe"><span class="toc-section-number">6</span> Annexe</a></li>
 </ul>
 </nav>
 <p>Ce document regroupe l’ensemble de mes notes pour le cours <strong>Modèles et langages de bases de données</strong>.</p>
@@ -374,7 +378,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Un système de gestion de bases de données est composées de plusieurs choses.</p>
 <section id="matériel" class="level5">
 <h5><a href="#matériel"><span class="header-section-number">1.2.2.6.1</span> Matériel</a></h5>
-<p>Un système de gestion de bases de données a besoin de matériel pour fonctionner. Ce matériel peut aller d’un simple ordinateur personnel à un réseau d’ordinateurs. Quelques systèmes de gestion de bases de données nécessite un système d’exploitation particulier ou du matériel spécifique alors que d’autres, non. Les système de gestion de bases de données ont besoin d’un minimum de mémoire et d’espace disque pour fonctionner, mais ce minimum ne garantit pas une performance adéquate. Un exemple d’<strong>architecture client-serveur</strong> se retrouve à la figure suivante. Dans cette figure, on remarque le serveur central qui sert de <strong>backend</strong> au système de gestion de bases de données et les différents ordinateurs qui servent de <strong>frontend</strong> au système de gestion de bases de données. <img src="images/exemple_materiel_SGBD.png" alt="Exemple d’architecture client-serveur" /></p>
+<p>Un système de gestion de bases de données a besoin de matériel pour fonctionner. Ce matériel peut aller d’un simple ordinateur personnel à un réseau d’ordinateurs. Quelques systèmes de gestion de bases de données nécessite un système d’exploitation particulier ou du matériel spécifique alors que d’autres, non. Les système de gestion de bases de données ont besoin d’un minimum de mémoire et d’espace disque pour fonctionner, mais ce minimum ne garantit pas une performance adéquate. Un exemple d’<strong>architecture client-serveur</strong> se retrouve à la figure suivante. Dans cette figure, on remarque le serveur central qui sert de <strong>backend</strong> au système de gestion de bases de données et les différents ordinateurs qui servent de <strong>frontend</strong> au système de gestion de bases de données.</p>
+<figure>
+<img src="images/exemple_materiel_SGBD.png" alt="Exemple d’architecture client-serveur" /><figcaption>Exemple d’architecture client-serveur</figcaption>
+</figure>
 </section>
 <section id="logiciel" class="level5">
 <h5><a href="#logiciel"><span class="header-section-number">1.2.2.6.2</span> Logiciel</a></h5>
@@ -473,17 +480,18 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section id="relations-mathématiques" class="level2">
 <h2><a href="#relations-mathématiques"><span class="header-section-number">2.2</span> Relations mathématiques</a></h2>
 <p>Une relation mathématique est définie comme étant le <strong>produit cartésien</strong> de plusieurs ensembles. Le <strong>produit cartésien</strong> est défini comme suit:</p>
-<p>Soit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>D</mi><mn>1</mn></msub><mo>,</mo><msub><mi>D</mi><mn>2</mn></msub><mo>,</mo><mo>…</mo><msub><mi>D</mi><mi>n</mi></msub></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi></mrow></math> ensembles. Leur produit cartésien est défini comme:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>D</mi><mn>1</mn></msub><mo>×</mo><msub><mi>D</mi><mn>2</mn></msub><mo>×</mo><mo>…</mo><mo>×</mo><msub><mi>D</mi><mi>n</mi></msub><mo>=</mo><mo stretchy="false">{</mo><mo stretchy="false">(</mo><msub><mi>d</mi><mn>1</mn></msub><mo>,</mo><msub><mi>d</mi><mn>2</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>d</mi><mi>n</mi></msub><mo stretchy="false">)</mo><mo>∣</mo><msub><mi>d</mi><mn>1</mn></msub><mo>∈</mo><msub><mi>D</mi><mn>1</mn></msub><mo>,</mo><msub><mi>d</mi><mn>2</mn></msub><mo>∈</mo><msub><mi>D</mi><mn>2</mn></msub><mo>,</mo><mo>…</mo><msub><mi>d</mi><mi>n</mi></msub><mo>∈</mo><msub><mi>D</mi><mi>n</mi></msub><mo stretchy="false">}</mo></mrow></math></p>
+<p>Soit <span class="math">\(D_1, D_2, \dots D_n\)</span>, <span class="math">\(n\)</span> ensembles. Leur produit cartésien est défini comme:</p>
+<p><span class="math">\[D_1 \times D_2 \times \dots \times D_n = \{ (d_1, d_2, \dots, d_n) 
+\mid d_1 \in D_1, d_2 \in D_2, \dots d_n \in D_n\}\]</span></p>
 <p>qui peut être réécrit comme</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><munderover><mo>∏</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>D</mi><mi>i</mi></msub></mrow></math></p>
+<p><span class="math">\[\prod_{i = 1}^n D_i\]</span></p>
 </section>
 <section id="relations-des-bases-de-données" class="level2">
 <h2><a href="#relations-des-bases-de-données"><span class="header-section-number">2.3</span> Relations des bases de données</a></h2>
-<p>En applicant les notions vues à la section précédente, nous pouvons désormais définir un schéma de relation. Soit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>A</mi><mn>1</mn></msub><mo>,</mo><msub><mi>A</mi><mn>2</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>A</mi><mi>n</mi></msub></mrow></math> des attributs avec comme domaines <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>D</mi><mn>1</mn></msub><mo>,</mo><msub><mi>D</mi><mn>2</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>D</mi><mi>n</mi></msub></mrow></math>. Alors, l’ensemble <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">{</mo><msub><mi>A</mi><mn>1</mn></msub><mo>:</mo><msub><mi>D</mi><mn>1</mn></msub><mo>,</mo><msub><mi>A</mi><mn>2</mn></msub><mo>:</mo><msub><mi>D</mi><mn>2</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>A</mi><mi>n</mi></msub><mo>:</mo><msub><mi>D</mi><mi>n</mi></msub><mo stretchy="false">}</mo></mrow></math> est un schéma de relation. Une relation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> définie par le schéma de relation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> est un ensemble qui met en relation les noms des attributs avec leurs domaines respectifs. Ainsi, la relation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> est un ensemble de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>n</mi></mrow></math>-tuples:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><msub><mi>A</mi><mn>1</mn></msub><mo>:</mo><msub><mi>d</mi><mn>1</mn></msub><mo>,</mo><msub><mi>A</mi><mn>2</mn></msub><mo>:</mo><msub><mi>d</mi><mn>2</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>A</mi><mi>n</mi></msub><mo>:</mo><msub><mi>d</mi><mi>n</mi></msub><mo stretchy="false">)</mo><mspace width="0.333em"></mspace><mtext mathvariant="normal">tel que</mtext><mspace width="0.333em"></mspace><msub><mi>d</mi><mn>1</mn></msub><mo>∈</mo><msub><mi>D</mi><mn>1</mn></msub><mo>,</mo><msub><mi>d</mi><mn>2</mn></msub><mo>∈</mo><msub><mi>D</mi><mn>2</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>d</mi><mi>n</mi></msub><mo>∈</mo><msub><mi>D</mi><mi>n</mi></msub></mrow></math></p>
-<p>Chaque élément du n-tuple consiste d’un attribut et d’une valeur pour cet attribut. Finalement, nous pouvons définir le <strong>schéma relationnel de bases de données</strong>. Soit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>R</mi><mn>1</mn></msub><mo>,</mo><msub><mi>R</mi><mn>2</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>R</mi><mi>n</mi></msub></mrow></math> des ensembles de schémas de relation, alors nous pouvons écrire le schéma relationnel de bases de données comme:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi><mo>=</mo><mo stretchy="false">{</mo><msub><mi>R</mi><mn>1</mn></msub><mo>,</mo><msub><mi>R</mi><mn>2</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>R</mi><mi>n</mi></msub><mo stretchy="false">}</mo></mrow></math></p>
+<p>En applicant les notions vues à la section précédente, nous pouvons désormais définir un schéma de relation. Soit <span class="math">\(A_1, A_2, \dots, A_n\)</span> des attributs avec comme domaines <span class="math">\(D_1, D_2, \dots, D_n\)</span>. Alors, l’ensemble <span class="math">\(\{A_1: D_1, A_2: D_2, \dots, A_n: D_n\}\)</span> est un schéma de relation. Une relation <span class="math">\(R\)</span> définie par le schéma de relation <span class="math">\(S\)</span> est un ensemble qui met en relation les noms des attributs avec leurs domaines respectifs. Ainsi, la relation <span class="math">\(R\)</span> est un ensemble de <span class="math">\(n\)</span>-tuples:</p>
+<p><span class="math">\[(A_1: d_1, A_2: d_2, \dots, A_n: d_n)~\textrm{tel que}~d_1 \in D_1, d_2 \in D_2, \dots, d_n \in D_n\]</span></p>
+<p>Chaque élément du n-tuple consiste d’un attribut et d’une valeur pour cet attribut. Finalement, nous pouvons définir le <strong>schéma relationnel de bases de données</strong>. Soit <span class="math">\(R_1, R_2, \dots, R_n\)</span> des ensembles de schémas de relation, alors nous pouvons écrire le schéma relationnel de bases de données comme:</p>
+<p><span class="math">\[R = \{R_1, R_2, \dots, R_n\}\]</span></p>
 </section>
 <section id="propriétés-des-relations" class="level2">
 <h2><a href="#propriétés-des-relations"><span class="header-section-number">2.4</span> Propriétés des relations</a></h2>
@@ -507,10 +515,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section id="clé-candidate" class="level3">
 <h3><a href="#clé-candidate"><span class="header-section-number">2.5.2</span> Clé candidate</a></h3>
-<p>Une <strong>clé candidate</strong> est une superclé tel qu’aucun sous-ensemble propre est une superclé dans la relation. Une clé candidate <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>K</mi></mrow></math> d’une relation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> possède deux propriétés:</p>
+<p>Une <strong>clé candidate</strong> est une superclé tel qu’aucun sous-ensemble propre est une superclé dans la relation. Une clé candidate <span class="math">\(K\)</span> d’une relation <span class="math">\(R\)</span> possède deux propriétés:</p>
 <ul>
-<li><em>Unicité</em>: Pour chaque tuple de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math>, les valeurs de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>K</mi></mrow></math> identifient de manière unique ce tuple.</li>
-<li><em>Irréductibilité</em>: Aucun sous-ensemble de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>K</mi></mrow></math> a la propriété d’unicité.</li>
+<li><em>Unicité</em>: Pour chaque tuple de <span class="math">\(R\)</span>, les valeurs de <span class="math">\(K\)</span> identifient de manière unique ce tuple.</li>
+<li><em>Irréductibilité</em>: Aucun sous-ensemble de <span class="math">\(K\)</span> a la propriété d’unicité.</li>
 </ul>
 </section>
 <section id="clé-composée" class="level3">
@@ -611,7 +619,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Les <strong>dépendances fonctionnelles</strong> jouent un rôle important dans la normalisation des bases de données.</p>
 <section id="définition-3" class="level3">
 <h3><a href="#définition-3"><span class="header-section-number">3.2.1</span> Définition</a></h3>
-<p>Assumons un schéma relationnel possédant les attributs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo>,</mo><mi>C</mi><mo>,</mo><mo>…</mo><mo>,</mo><mi>Z</mi><mo stretchy="false">)</mo></mrow></math> et une base de données décrite par une <strong>relation universelle</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi><mo>=</mo><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>B</mi><mo>,</mo><mi>C</mi><mo>,</mo><mo>…</mo><mo>,</mo><mi>Z</mi><mo stretchy="false">)</mo></mrow></math>. Cela veut dire que tous les attributs dans la base de données ont un nom unique. Une <strong>dépendance fonctionnelle</strong> décrit le lien entre les attributs d’une relation. Par exemple, si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> sont des attributs de la relation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> est fonctionnellement dépendant de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> (dénoté <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mo>↦</mo><mi>B</mi></mrow></math>), si chaque valeur de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> est associée à seulement une valeur de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> peuvent consister de plus d’un attributs).</p>
+<p>Assumons un schéma relationnel possédant les attributs <span class="math">\((A, B, C, \dots, Z)\)</span> et une base de données décrite par une <strong>relation universelle</strong> <span class="math">\(R = (A, B, C, \dots, Z)\)</span>. Cela veut dire que tous les attributs dans la base de données ont un nom unique. Une <strong>dépendance fonctionnelle</strong> décrit le lien entre les attributs d’une relation. Par exemple, si <span class="math">\(A\)</span> et <span class="math">\(B\)</span> sont des attributs de la relation <span class="math">\(R\)</span>, <span class="math">\(B\)</span> est fonctionnellement dépendant de <span class="math">\(A\)</span> (dénoté <span class="math">\(A \mapsto B\)</span>), si chaque valeur de <span class="math">\(A\)</span> est associée à seulement une valeur de <span class="math">\(B\)</span> (<span class="math">\(A\)</span> et <span class="math">\(B\)</span> peuvent consister de plus d’un attributs).</p>
 </section>
 <section id="déterminant" class="level3">
 <h3><a href="#déterminant"><span class="header-section-number">3.2.2</span> Déterminant</a></h3>
@@ -627,7 +635,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section id="dépendance-transitive" class="level3">
 <h3><a href="#dépendance-transitive"><span class="header-section-number">3.2.5</span> Dépendance transitive</a></h3>
-<p>Si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math> sont des attributs d’une relation tel que si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mo>↦</mo><mi>B</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi><mo>↦</mo><mi>C</mi></mrow></math>, alors <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math> est dépendant transitif de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> via <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> (si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> n’est pas fonctionnellement dépendant de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> ou <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math>).</p>
+<p>Si <span class="math">\(A\)</span>, <span class="math">\(B\)</span> et <span class="math">\(C\)</span> sont des attributs d’une relation tel que si <span class="math">\(A \mapsto B\)</span> et <span class="math">\(B \mapsto C\)</span>, alors <span class="math">\(C\)</span> est dépendant transitif de <span class="math">\(A\)</span> via <span class="math">\(B\)</span> (si <span class="math">\(A\)</span> n’est pas fonctionnellement dépendant de <span class="math">\(B\)</span> ou <span class="math">\(C\)</span>).</p>
 </section>
 <section id="résumé-1" class="level3">
 <h3><a href="#résumé-1"><span class="header-section-number">3.2.6</span> Résumé</a></h3>
@@ -701,19 +709,36 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Dans cette section, nous verrons comment passer de la deuxième forme normale à la troisième forme normale.</p>
 <section id="définition-de-la-troisième-forme-normale-3nf" class="level4">
 <h4><a href="#définition-de-la-troisième-forme-normale-3nf"><span class="header-section-number">3.3.4.1</span> Définition de la troisième forme normale (3NF)</a></h4>
-<p>Une relation qui est dans la première et deuxième forme normale et dans laquelle aucun attribut qui ne fait pas partie de la clé primaire est transitivement dépendant de la clé primaire.</p>
+<p>Une relation qui est dans la première et deuxième forme normale et dans laquelle aucun attribut qui ne fait pas partie de la clé primaire est <em>transitivement dépendant</em> de la clé primaire.</p>
 </section>
 <section id="technique-de-normalisation-2" class="level4">
 <h4><a href="#technique-de-normalisation-2"><span class="header-section-number">3.3.4.2</span> Technique de normalisation</a></h4>
 <p>Pour passer de la deuxième forme normale à la troisième, il faut enlever les dépendances transitives. Si une dépendance transitive existe, il faut l’enlever de la relation en mettant l’attribut dans une nouvelle relation avec une copie du déterminant.</p>
+<p>Voici un exemple:</p>
+<p>Nous avons les attributs <em>emp_id</em>, <em>emp_name</em>, <em>emp_zip</em>, <em>emp_state</em>, <em>emp_city</em> et <em>emp_district</em>. L’attribut <em>emp_id</em> est la clé primaire.</p>
+<figure>
+<img src="images/2NF_to_3NF.png" alt="Exemple de la normalisation d’une table en 2NF - Première photo" /><figcaption>Exemple de la normalisation d’une table en 2NF - Première photo</figcaption>
+</figure>
+<p>On remarque que <em>emp_state</em>, <em>emp_city</em> et <em>emp_district</em> sont dépendants de l’attribut <em>emp_zip</em> qui lui-même est dépendant de l’attribut <em>emp_id</em>. Nous avons donc une dépendance transitive. Pour s’en débarrasser, on sépare la table de la façon suivante:</p>
+<figure>
+<img src="images/2NF_to_3NF_2nd_image.png" alt="Exemple de la normalisation d’une table en 2NF - Deuxième photo" /><figcaption>Exemple de la normalisation d’une table en 2NF - Deuxième photo</figcaption>
+</figure>
 </section>
 </section>
+</section>
+</section>
+<section id="normalisation-avancée" class="level1">
+<h1><a href="#normalisation-avancée"><span class="header-section-number">4</span> Normalisation avancée</a></h1>
+<p>Ce chapitre traitera de notions de normalisations avancées telles que la <strong>forme normale Boyce-Codd</strong>.</p>
+<section id="règles-dinférence-des-dépendances-fonctionnelles" class="level2">
+<h2><a href="#règles-dinférence-des-dépendances-fonctionnelles"><span class="header-section-number">4.1</span> Règles d’inférence des dépendances fonctionnelles</a></h2>
+<p>Comme il peut y avoir beaucoup de dépendances fonctionnelles, il faut trouver des règles pour nous permettre d’identifier les plus importantes plus facilement. L’ensemble des dépendances fonctionnelles qui sont sous-entendues pour un ensemble de dépendances fonctionnelles <span class="math">\(X\)</span> est appelé la <strong>fermeture</strong> de <span class="math">\(X\)</span>, écrit <span class="math">\(X^+\)</span></p>
 </section>
 </section>
 <section id="sql" class="level1">
-<h1><a href="#sql"><span class="header-section-number">4</span> SQL</a></h1>
+<h1><a href="#sql"><span class="header-section-number">5</span> SQL</a></h1>
 <section id="exemple" class="level2">
-<h2><a href="#exemple"><span class="header-section-number">4.1</span> Exemple</a></h2>
+<h2><a href="#exemple"><span class="header-section-number">5.1</span> Exemple</a></h2>
 <pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">create</span> <span class="kw">table</span> PROPRIETE_A_LOUER
     (NUM PROPRIETE <span class="dt">varchar</span>(<span class="dv">5</span>) <span class="kw">not</span> <span class="kw">null</span>,
         PIECES <span class="dt">number</span>(<span class="dv">2</span>) <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="dv">4</span>,
@@ -737,7 +762,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 </section>
 <section id="annexe" class="level1">
-<h1><a href="#annexe"><span class="header-section-number">5</span> Annexe</a></h1>
+<h1><a href="#annexe"><span class="header-section-number">6</span> Annexe</a></h1>
 <dl>
 <dt><strong>Application de base de données</strong></dt>
 <dd><p>Une application qui interagit avec la base de données à un certain point dans son exécution.</p>
@@ -824,22 +849,24 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Dépendance fonctionnelle complète</strong></dt>
 <dd><strong>Définition 1</strong>: Une dépendance fonctionnelle dans laquelle le déterminant à le nombre minimal d’attribut pour avoir une dépendance fonctionnelle avec les attributs à droite de la flèche.
 </dd>
-<dd><strong>Définition 2</strong>: Indique que si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> sont des attributs d’une relation, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> est complètement fonctionnellement dépendant de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> est fonctionnellement dépendant de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math>, mais pas aucun sous-ensemble de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math>.
+<dd><strong>Définition 2</strong>: Indique que si <span class="math">\(A\)</span> et <span class="math">\(B\)</span> sont des attributs d’une relation, <span class="math">\(B\)</span> est complètement fonctionnellement dépendant de <span class="math">\(A\)</span> si <span class="math">\(B\)</span> est fonctionnellement dépendant de <span class="math">\(A\)</span>, mais pas aucun sous-ensemble de <span class="math">\(A\)</span>.
 </dd>
-<dd><p><strong>Définition 3</strong>: Soit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math>, deux attributs d’une relation et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi><mo>⊂</mo><mi>A</mi></mrow></math>, alors <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>B</mi><mo stretchy="false">)</mo><mo>∧</mo><mo>¬</mo><mo stretchy="false">(</mo><mi>C</mi><mo>↦</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math>.</p>
+<dd><p><strong>Définition 3</strong>: Soit <span class="math">\(A\)</span> et <span class="math">\(B\)</span>, deux attributs d’une relation et <span class="math">\(C \subset A\)</span>, alors <span class="math">\((A \mapsto B) \land \neg (C \mapsto B)\)</span>.</p>
 </dd>
 <dt><strong>Dépendance partielle (DP)</strong></dt>
 <dd><strong>Définition 1</strong>: Une dépendance fonctionnelle dans laquelle un des attributs peut être enlevé du déterminant et la dépendance fonctionnelle est encore valide.
 </dd>
-<dd><p><strong>Définition 2</strong>: Soit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math>, deux attributs d’une relation et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi><mo>⊆</mo><mi>A</mi></mrow></math>, alors <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi><mo>↦</mo><mi>B</mi></mrow></math>.</p>
+<dd><p><strong>Définition 2</strong>: Soit <span class="math">\(A\)</span> et <span class="math">\(B\)</span>, deux attributs d’une relation et <span class="math">\(C \subseteq A\)</span>, alors <span class="math">\(C \mapsto B\)</span>.</p>
 </dd>
 <dt><strong>Dépendance transitive (DT)</strong></dt>
-<dd><strong>Définition 1</strong>: Si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math> sont des attributs d’une relation tel que si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mo>↦</mo><mi>B</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi><mo>↦</mo><mi>C</mi></mrow></math>, alors <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math> est dépendant transitif de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> via <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> (si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> n’est pas fonctionnellement dépendant de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> ou <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math>).
+<dd><strong>Définition 1</strong>: Si <span class="math">\(A\)</span>, <span class="math">\(B\)</span> et <span class="math">\(C\)</span> sont des attributs d’une relation tel que si <span class="math">\(A \mapsto B\)</span> et <span class="math">\(B \mapsto C\)</span>, alors <span class="math">\(C\)</span> est dépendant transitif de <span class="math">\(A\)</span> via <span class="math">\(B\)</span> (si <span class="math">\(A\)</span> n’est pas fonctionnellement dépendant de <span class="math">\(B\)</span> ou <span class="math">\(C\)</span>).
 </dd>
-<dd><p><strong>Définition 2</strong>: Soit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math>, des attributs d’une relation tel que <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>B</mi><mo stretchy="false">)</mo><mo>∧</mo><mo stretchy="false">(</mo><mi>B</mi><mo>↦</mo><mi>C</mi><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>C</mi><mo stretchy="false">)</mo></mrow></math>, si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>¬</mo><mo stretchy="false">(</mo><mi>B</mi><mo>↦</mo><mi>A</mi><mo stretchy="false">)</mo><mo>∨</mo><mo>¬</mo><mo stretchy="false">(</mo><mi>C</mi><mo>↦</mo><mi>A</mi><mo stretchy="false">)</mo></mrow></math></p>
+<dd><p><strong>Définition 2</strong>: Soit <span class="math">\(A\)</span>, <span class="math">\(B\)</span> et <span class="math">\(C\)</span>, des attributs d’une relation tel que <span class="math">\((A \mapsto B) \land (B \mapsto C) \Rightarrow (A \mapsto C)\)</span>, si <span class="math">\(\neg (B \mapsto A) \lor \neg (C \mapsto A)\)</span></p>
 </dd>
 <dt><strong>Deuxième forme normale (2NF)</strong></dt>
-<dd><p>Une relation qui est dans la première forme normale et dont chaque attribut qui n’est pas une clé primaire est dépendant de la clé primaire.</p>
+<dd><strong>Définition</strong>: Une relation qui est dans la première forme normale et dont chaque attribut qui n’est pas une clé primaire est dépendant de la clé primaire.
+</dd>
+<dd><p><strong>Définition générale</strong>: Une relation qui est dans la première forme normale et dans laquelle tous les attributs qui ne font pas parties d’une clé candidate est <em>complètement dépendant</em> de n’importe quelle clé candidate.</p>
 </dd>
 <dt><strong>Domaine</strong></dt>
 <dd><p>L’ensemble des valeurs allouées pour un ou plusieurs attributs.</p>
@@ -847,12 +874,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Entité</strong></dt>
 <dd><p>Objet distinct (une personne, un endroit, une chose, un concept ou un événement) dans l’organisation qui doit être représenté dans la base de données.</p>
 </dd>
+<dt><strong>Fermeture</strong></dt>
+<dd><p>L’ensemble de toutes les dépendances fonctionnelles sous-entendues par un ensemble de dépendences fonctionnelles <span class="math">\(X\)</span>. Notée <span class="math">\(X^+\)</span></p>
+</dd>
 <dt><strong>Forme non normalisée (UNF)</strong></dt>
 <dd><p>Une table qui contient une ou plusieurs répétitions de groupe.</p>
 </dd>
-</dl>
-<p><strong>Forme normale (NF)</strong> :</p>
-<dl>
 <dt><strong>Indépendance des données</strong></dt>
 <dd><p>La séparation de la description des données des applications rendant ainsi les applications immunisées aux changement de la description des données.</p>
 </dd>
@@ -926,7 +953,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd><p>Un logiciel qui permet aux utilisateurs de définir, maintenir et contrôler l’accès à la base de données.</p>
 </dd>
 <dt><strong>Troisième forme normale (3NF)</strong></dt>
-<dd><p>Une relation qui est dans la première et deuxième forme normale et dans laquelle aucun attribut qui ne fait pas partie de la clé primaire est transitivement dépendant de la clé primaire.</p>
+<dd><strong>Définition</strong>: Une relation qui est dans la première et deuxième forme normale et dans laquelle aucun attribut qui ne fait pas partie de la clé primaire est transitivement dépendant de la clé primaire.
+</dd>
+<dd><p><strong>Définition générale</strong>: Une relation qui est dans la première et deuxième forme normale et dans laquelle aucun attribut qui ne fait pas partie d’une clé candidate est transitivement dépendant d’une clé candidate.</p>
 </dd>
 <dt><strong>Tuple (ligne ou archive)</strong></dt>
 <dd><p>Nom donné à une ligne dans une relation (ou table).</p>

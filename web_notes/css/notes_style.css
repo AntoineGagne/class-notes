@@ -157,7 +157,17 @@ a {
     margin-top: 2em;
 }
 
-    
+figure {
+    width: 100%;
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+figcaption {
+    text-align: center;
+}
+
 .sourceCode {
     overflow-x: auto;
     border-radius: 8px;

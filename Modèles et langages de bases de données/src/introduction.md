@@ -267,6 +267,7 @@ bases de données ont besoin d'un minimum de mémoire et d'espace disque pour fo
 garantit pas une performance adéquate. Un exemple d'**architecture client-serveur** se retrouve à la figure suivante.
 Dans cette figure, on remarque le serveur central qui sert de **backend** au système de gestion de bases de données
 et les différents ordinateurs qui servent de **frontend** au système de gestion de bases de données.
+
 ![Exemple d'architecture client-serveur](images/exemple_materiel_SGBD.png)
 
 ##### Logiciel

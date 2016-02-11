@@ -127,9 +127,13 @@
     $\neg (B \mapsto A) \lor \neg (C \mapsto A)$
 
 **Deuxième forme normale (2NF)**
-:   Une relation qui est dans la première forme normale et dont 
-    chaque attribut qui n'est pas une clé primaire est dépendant de 
+:   **Définition**: Une relation qui est dans la première forme normale 
+    et dont chaque attribut qui n'est pas une clé primaire est dépendant de 
     la clé primaire.
+:   **Définition générale**: Une relation qui est dans la première forme
+    normale et dans laquelle tous les attributs qui ne font pas parties
+    d'une clé candidate est *complètement dépendant* de n'importe quelle
+    clé candidate.
 
 **Domaine**
 :   L'ensemble des valeurs allouées pour un ou plusieurs attributs.
@@ -138,11 +142,12 @@
 :   Objet distinct (une personne, un endroit, une chose, un concept ou un événement) 
     dans l'organisation qui doit être représenté dans la base de données.
 
+**Fermeture**
+:   L'ensemble de toutes les dépendances fonctionnelles sous-entendues par
+    un ensemble de dépendences fonctionnelles $X$. Notée $X^+$
+
 **Forme non normalisée (UNF)**
 :   Une table qui contient une ou plusieurs répétitions de groupe.
-
-**Forme normale (NF)**
-:
 
 **Indépendance des données**
 :   La séparation de la description des données des applications rendant ainsi les applications 
@@ -232,9 +237,12 @@
     l'accès à la base de données.
 
 **Troisième forme normale (3NF)**
-:   Une relation qui est dans la première et deuxième forme normale
-    et dans laquelle aucun attribut qui ne fait pas partie de la clé 
-    primaire est transitivement dépendant de la clé primaire.
+:   **Définition**: Une relation qui est dans la première et deuxième 
+    forme normale et dans laquelle aucun attribut qui ne fait pas partie 
+    de la clé primaire est transitivement dépendant de la clé primaire.
+:   **Définition générale**: Une relation qui est dans la première et deuxième
+    forme normale et dans laquelle aucun attribut qui ne fait pas partie d'une
+    clé candidate est transitivement dépendant d'une clé candidate.
 
 **Tuple (ligne ou archive)**
 :   Nom donné à une ligne dans une relation (ou table).
