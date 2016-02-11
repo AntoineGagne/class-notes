@@ -1,8 +1,8 @@
-# class-notes
+# Class Notes
 
 A collection of my class notes taken in Markdown.
 
-## To compile the notes, you will need:
+## Dependencies
 
 - Make
 - Pandoc
