@@ -126,6 +126,11 @@
     que $(A \mapsto B) \land (B \mapsto C) \Rightarrow (A \mapsto C)$, si
     $\neg (B \mapsto A) \lor \neg (C \mapsto A)$
 
+**Deuxième forme normale (2NF)**
+:   Une relation qui est dans la première forme normale et dont 
+    chaque attribut qui n'est pas une clé primaire est dépendant de 
+    la clé primaire.
+
 **Domaine**
 :   L'ensemble des valeurs allouées pour un ou plusieurs attributs.
 
@@ -225,6 +230,11 @@
 **Système de gestion de base de données (DBMS ou SGBD (en français))**
 :   Un logiciel qui permet aux utilisateurs de définir, maintenir et contrôler
     l'accès à la base de données.
+
+**Troisième forme normale (3NF)**
+:   Une relation qui est dans la première et deuxième forme normale
+    et dans laquelle aucun attribut qui ne fait pas partie de la clé 
+    primaire est transitivement dépendant de la clé primaire.
 
 **Tuple (ligne ou archive)**
 :   Nom donné à une ligne dans une relation (ou table).

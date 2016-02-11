@@ -147,3 +147,55 @@ Remplir les colonnes de lignes vides avec les données non dupliquées.
 
 Placer les données dupliquées avec une copie de l'attribut clé dans une
 relation différente.
+
+### Première forme normale à la deuxième forme normale
+
+Dans cette section, nous verrons comment passer de la première
+forme normale à la deuxième forme normale.
+
+#### Définition de la deuxième forme normale (2NF)
+
+Une relation qui est dans la deuxième forme normale est une relation qui est
+dans la première forme normale et dont chaque attribut qui n'est pas une
+clé primaire est *complètement dépendant* de la clé primaire. En d'autres
+mots, il ne faut pas qu'un attribut qui n'est pas une clé primaire soit 
+dépendant d'un sous-ensemble de la clé primaire.
+
+#### Technique de normalisation
+
+Pour passer de la première forme normale à la deuxième, il faut enlever les
+dépendances partielles. Si une dépendance fonctionnelle existe, il faut 
+enlever les attributs qui sont partiellement dépendants de la relation en les
+plaçant dans une nouvelle relation avec une copie de leur déterminant.
+
+Voici un exemple:
+
+Nous avons une table avec les attributs *teacher_id*, *subject*
+et *teacher_age*. La clé primaire est donnée par les attributs
+*teacher_id* et *subject*.
+
+![Exemple de la normalisation d'une table en 1NF - Première photo](images/1NF_to_2NF.png)
+
+Comme *teacher_age* dépend de *teacher_id* seulement, il n'est
+pas complètement dépendant de la clé primaire. Nous devons donc
+séparer la table comme suit:
+
+![Exemple de la normalisation d'une table en 1NF - Deuxième photo](images/1NF_to_2NF_2nd_image.png)
+
+### Deuxième forme normale à la troisième forme normale
+
+Dans cette section, nous verrons comment passer de la deuxième forme normale
+à la troisième forme normale.
+
+#### Définition de la troisième forme normale (3NF)
+
+Une relation qui est dans la première et deuxième forme normale
+et dans laquelle aucun attribut qui ne fait pas partie de la clé 
+primaire est transitivement dépendant de la clé primaire.
+
+#### Technique de normalisation
+
+Pour passer de la deuxième forme normale à la troisième, il faut enlever
+les dépendances transitives. Si une dépendance transitive existe, il faut
+l'enlever de la relation en mettant l'attribut dans une nouvelle relation
+avec une copie du déterminant.

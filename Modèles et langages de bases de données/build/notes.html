@@ -160,6 +160,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#séparer-les-données-dupliquées"><span class="toc-section-number">3.3.2.3.2</span> Séparer les données dupliquées</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#première-forme-normale-à-la-deuxième-forme-normale"><span class="toc-section-number">3.3.3</span> Première forme normale à la deuxième forme normale</a><ul>
+<li><a href="#définition-de-la-deuxième-forme-normale-2nf"><span class="toc-section-number">3.3.3.1</span> Définition de la deuxième forme normale (2NF)</a></li>
+<li><a href="#technique-de-normalisation-1"><span class="toc-section-number">3.3.3.2</span> Technique de normalisation</a></li>
+</ul></li>
+<li><a href="#deuxième-forme-normale-à-la-troisième-forme-normale"><span class="toc-section-number">3.3.4</span> Deuxième forme normale à la troisième forme normale</a><ul>
+<li><a href="#définition-de-la-troisième-forme-normale-3nf"><span class="toc-section-number">3.3.4.1</span> Définition de la troisième forme normale (3NF)</a></li>
+<li><a href="#technique-de-normalisation-2"><span class="toc-section-number">3.3.4.2</span> Technique de normalisation</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 <li><a href="#sql"><span class="toc-section-number">4</span> SQL</a><ul>
@@ -667,6 +675,39 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 </section>
 </section>
+<section id="première-forme-normale-à-la-deuxième-forme-normale" class="level3">
+<h3><a href="#première-forme-normale-à-la-deuxième-forme-normale"><span class="header-section-number">3.3.3</span> Première forme normale à la deuxième forme normale</a></h3>
+<p>Dans cette section, nous verrons comment passer de la première forme normale à la deuxième forme normale.</p>
+<section id="définition-de-la-deuxième-forme-normale-2nf" class="level4">
+<h4><a href="#définition-de-la-deuxième-forme-normale-2nf"><span class="header-section-number">3.3.3.1</span> Définition de la deuxième forme normale (2NF)</a></h4>
+<p>Une relation qui est dans la deuxième forme normale est une relation qui est dans la première forme normale et dont chaque attribut qui n’est pas une clé primaire est <em>complètement dépendant</em> de la clé primaire. En d’autres mots, il ne faut pas qu’un attribut qui n’est pas une clé primaire soit dépendant d’un sous-ensemble de la clé primaire.</p>
+</section>
+<section id="technique-de-normalisation-1" class="level4">
+<h4><a href="#technique-de-normalisation-1"><span class="header-section-number">3.3.3.2</span> Technique de normalisation</a></h4>
+<p>Pour passer de la première forme normale à la deuxième, il faut enlever les dépendances partielles. Si une dépendance fonctionnelle existe, il faut enlever les attributs qui sont partiellement dépendants de la relation en les plaçant dans une nouvelle relation avec une copie de leur déterminant.</p>
+<p>Voici un exemple:</p>
+<p>Nous avons une table avec les attributs <em>teacher_id</em>, <em>subject</em> et <em>teacher_age</em>. La clé primaire est donnée par les attributs <em>teacher_id</em> et <em>subject</em>.</p>
+<figure>
+<img src="images/1NF_to_2NF.png" alt="Exemple de la normalisation d’une table en 1NF - Première photo" /><figcaption>Exemple de la normalisation d’une table en 1NF - Première photo</figcaption>
+</figure>
+<p>Comme <em>teacher_age</em> dépend de <em>teacher_id</em> seulement, il n’est pas complètement dépendant de la clé primaire. Nous devons donc séparer la table comme suit:</p>
+<figure>
+<img src="images/1NF_to_2NF_2nd_image.png" alt="Exemple de la normalisation d’une table en 1NF - Deuxième photo" /><figcaption>Exemple de la normalisation d’une table en 1NF - Deuxième photo</figcaption>
+</figure>
+</section>
+</section>
+<section id="deuxième-forme-normale-à-la-troisième-forme-normale" class="level3">
+<h3><a href="#deuxième-forme-normale-à-la-troisième-forme-normale"><span class="header-section-number">3.3.4</span> Deuxième forme normale à la troisième forme normale</a></h3>
+<p>Dans cette section, nous verrons comment passer de la deuxième forme normale à la troisième forme normale.</p>
+<section id="définition-de-la-troisième-forme-normale-3nf" class="level4">
+<h4><a href="#définition-de-la-troisième-forme-normale-3nf"><span class="header-section-number">3.3.4.1</span> Définition de la troisième forme normale (3NF)</a></h4>
+<p>Une relation qui est dans la première et deuxième forme normale et dans laquelle aucun attribut qui ne fait pas partie de la clé primaire est transitivement dépendant de la clé primaire.</p>
+</section>
+<section id="technique-de-normalisation-2" class="level4">
+<h4><a href="#technique-de-normalisation-2"><span class="header-section-number">3.3.4.2</span> Technique de normalisation</a></h4>
+<p>Pour passer de la deuxième forme normale à la troisième, il faut enlever les dépendances transitives. Si une dépendance transitive existe, il faut l’enlever de la relation en mettant l’attribut dans une nouvelle relation avec une copie du déterminant.</p>
+</section>
+</section>
 </section>
 </section>
 <section id="sql" class="level1">
@@ -797,6 +838,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dd>
 <dd><p><strong>Définition 2</strong>: Soit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math>, des attributs d’une relation tel que <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>B</mi><mo stretchy="false">)</mo><mo>∧</mo><mo stretchy="false">(</mo><mi>B</mi><mo>↦</mo><mi>C</mi><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>C</mi><mo stretchy="false">)</mo></mrow></math>, si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>¬</mo><mo stretchy="false">(</mo><mi>B</mi><mo>↦</mo><mi>A</mi><mo stretchy="false">)</mo><mo>∨</mo><mo>¬</mo><mo stretchy="false">(</mo><mi>C</mi><mo>↦</mo><mi>A</mi><mo stretchy="false">)</mo></mrow></math></p>
 </dd>
+<dt><strong>Deuxième forme normale (2NF)</strong></dt>
+<dd><p>Une relation qui est dans la première forme normale et dont chaque attribut qui n’est pas une clé primaire est dépendant de la clé primaire.</p>
+</dd>
 <dt><strong>Domaine</strong></dt>
 <dd><p>L’ensemble des valeurs allouées pour un ou plusieurs attributs.</p>
 </dd>
@@ -880,6 +924,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dd>
 <dt><strong>Système de gestion de base de données (DBMS ou SGBD (en français))</strong></dt>
 <dd><p>Un logiciel qui permet aux utilisateurs de définir, maintenir et contrôler l’accès à la base de données.</p>
+</dd>
+<dt><strong>Troisième forme normale (3NF)</strong></dt>
+<dd><p>Une relation qui est dans la première et deuxième forme normale et dans laquelle aucun attribut qui ne fait pas partie de la clé primaire est transitivement dépendant de la clé primaire.</p>
 </dd>
 <dt><strong>Tuple (ligne ou archive)</strong></dt>
 <dd><p>Nom donné à une ligne dans une relation (ou table).</p>
