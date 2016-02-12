@@ -186,12 +186,29 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li><a href="#quatrième-forme-normale"><span class="toc-section-number">4.4</span> Quatrième forme normale</a><ul>
 <li><a href="#définition-6"><span class="toc-section-number">4.4.1</span> Définition</a></li>
+<li><a href="#technique-de-normalisation-4"><span class="toc-section-number">4.4.2</span> Technique de normalisation</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#sql"><span class="toc-section-number">5</span> SQL</a><ul>
-<li><a href="#exemple"><span class="toc-section-number">5.1</span> Exemple</a></li>
+<li><a href="#algèbre-relationnelle"><span class="toc-section-number">5</span> Algèbre relationnelle</a><ul>
+<li><a href="#définition-7"><span class="toc-section-number">5.1</span> Définition</a></li>
+<li><a href="#opérations"><span class="toc-section-number">5.2</span> Opérations</a></li>
+<li><a href="#opérations-unaires"><span class="toc-section-number">5.3</span> Opérations unaires</a><ul>
+<li><a href="#sélection-ou-restriction"><span class="toc-section-number">5.3.1</span> Sélection (ou restriction)</a></li>
+<li><a href="#projection"><span class="toc-section-number">5.3.2</span> Projection</a></li>
 </ul></li>
-<li><a href="#annexe"><span class="toc-section-number">6</span> Annexe</a></li>
+<li><a href="#opérations-binaires"><span class="toc-section-number">5.4</span> Opérations binaires</a><ul>
+<li><a href="#union"><span class="toc-section-number">5.4.1</span> Union</a></li>
+<li><a href="#différence"><span class="toc-section-number">5.4.2</span> Différence</a></li>
+<li><a href="#intersection"><span class="toc-section-number">5.4.3</span> Intersection</a></li>
+<li><a href="#produit-cartésien"><span class="toc-section-number">5.4.4</span> Produit cartésien</a></li>
+<li><a href="#décomposition-dopérations-complexes"><span class="toc-section-number">5.4.5</span> Décomposition d’opérations complexes</a></li>
+</ul></li>
+<li><a href="#opération-de"><span class="toc-section-number">5.5</span> Opération de</a></li>
+</ul></li>
+<li><a href="#sql"><span class="toc-section-number">6</span> SQL</a><ul>
+<li><a href="#exemple"><span class="toc-section-number">6.1</span> Exemple</a></li>
+</ul></li>
+<li><a href="#annexe"><span class="toc-section-number">7</span> Annexe</a></li>
 </ul>
 </nav>
 <p>Ce document regroupe l’ensemble de mes notes pour le cours <strong>Modèles et langages de bases de données</strong>.</p>
@@ -778,7 +795,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Comme la troisième forme normale souffre encore de redondances, il existe une forme normale plus forte appelée la <strong>forme normale de Boyce-Codd</strong>.</p>
 <section id="définition-4" class="level3">
 <h3><a href="#définition-4"><span class="header-section-number">4.2.1</span> Définition</a></h3>
-<p>Une relation est en <strong>forme normale de Boyce-Codd</strong> si et seulement si <em>tous les déterminants</em> est une <em>clé candidate</em>. Il y a un potentiel de briser la forme normale de Boyce-Codd si une des deux conditions suivantes est respectée:</p>
+<p>Une relation est en <strong>forme normale de Boyce-Codd</strong> si et seulement si <em>tous les déterminants</em> sont des <em>clés candidates</em>. Il y a un potentiel de briser la forme normale de Boyce-Codd si une des deux conditions suivantes est respectée:</p>
 <ul>
 <li>La relation contient deux (ou plus) clés candidates;</li>
 <li>Les clés candidates se recoupent, soit qu’elles ont au moins un attribut en commun.</li>
@@ -813,12 +830,104 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3><a href="#définition-6"><span class="header-section-number">4.4.1</span> Définition</a></h3>
 <p>Une relation est dans la <strong>quatrième forme normale</strong> si et seulement si pour toutes les dépendences multi-valuées non-triviales <span class="math">\(A \twoheadrightarrow B\)</span>, <span class="math">\(A\)</span> est une clé candidate de la relation.</p>
 </section>
+<section id="technique-de-normalisation-4" class="level3">
+<h3><a href="#technique-de-normalisation-4"><span class="header-section-number">4.4.2</span> Technique de normalisation</a></h3>
+<p>Il faut enlever la dépendance multi-valuée de la relation en plaçant les attributs multi-valués dans une nouvelle relation avec une copie du déterminant.</p>
+</section>
+</section>
+</section>
+<section id="algèbre-relationnelle" class="level1">
+<h1><a href="#algèbre-relationnelle"><span class="header-section-number">5</span> Algèbre relationnelle</a></h1>
+<p>Dans ce chapitre, nous verrons l’algèbre relationnelle et son utilité.</p>
+<section id="définition-7" class="level2">
+<h2><a href="#définition-7"><span class="header-section-number">5.1</span> Définition</a></h2>
+<p>L’<strong>algèbre relationnelle</strong> est un langage théorique avec des opérations qui marchent sur une ou plusieurs relations pour définir une autre relation sans changer la relation originale.</p>
+<p>Comme à la fois les opérandes et les résultats sont des relations, le résultat d’une opération peut être passer en paramètre à une autre opération. Cela permet aux expressions d’être imbriquées. Cette propriété s’appelle <strong>fermeture</strong>.</p>
+</section>
+<section id="opérations" class="level2">
+<h2><a href="#opérations"><span class="header-section-number">5.2</span> Opérations</a></h2>
+<p>L’algèbre relationnelle supporte plusieurs opérations. Dans cette section, nous allons définir différents types d’opérations. Dans ces définitions, nous avons <span class="math">\(R\)</span> et <span class="math">\(S\)</span>, deux relations définies par les attributs <span class="math">\(A = (a_1, a_2, \dots, a_N)\)</span> et <span class="math">\(B = (b_1, b_2, \dots, b_M)\)</span> respectivement.</p>
+</section>
+<section id="opérations-unaires" class="level2">
+<h2><a href="#opérations-unaires"><span class="header-section-number">5.3</span> Opérations unaires</a></h2>
+<p>L’algèbre relationnelle possède deux opérations unaires: la <strong>sélection</strong> et la <strong>projection</strong>.</p>
+<section id="sélection-ou-restriction" class="level3">
+<h3><a href="#sélection-ou-restriction"><span class="header-section-number">5.3.1</span> Sélection (ou restriction)</a></h3>
+<p>La <strong>sélection</strong> s’applique sur une seule relation <span class="math">\(R\)</span> et définit une relation qui contient seulement les tuples de <span class="math">\(R\)</span> qui satisfont la condition spécifée (le <em>prédicat</em>).</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+  \sigma_{prédicat}(R)
+\]</span></p>
+<p>où <span class="math">\(\sigma\)</span> est le nom de l’opération, <span class="math">\(prédicat\)</span> est le prédicat à respecter et <span class="math">\(R\)</span> est la relation sur laquelle l’opération est appliquée.</p>
+<p>La sélection s’applique à l’horizontal dans une table.</p>
+</section>
+<section id="projection" class="level3">
+<h3><a href="#projection"><span class="header-section-number">5.3.2</span> Projection</a></h3>
+<p>La <strong>projection</strong> s’applique sur une seule relation <span class="math">\(R\)</span> et définie une relation qui contient un sous-ensemble vertical de <span class="math">\(R\)</span>. Elle extrait les valeurs des attributs spécifiés et élimine les duplicats.</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+  \Pi_{a_1, \dots, a_n}(R)
+\]</span></p>
+<p>où <span class="math">\(\Pi\)</span> dénote le nom de l’opération, <span class="math">\(a_1, \dots, a_n\)</span> est le nom de chacun des attributs spécifiés et <span class="math">\(R\)</span> est la relation sur laquelle l’opération est appliquée.</p>
+<p>La sélection s’applique à la vertical dans une table.</p>
+</section>
+</section>
+<section id="opérations-binaires" class="level2">
+<h2><a href="#opérations-binaires"><span class="header-section-number">5.4</span> Opérations binaires</a></h2>
+<p>Il y a des cas où nous voulons extraire les informations de plusieurs relations à la fois. Les opérations binaires permettent de combiner les informations de deux relations à la fois.</p>
+<section id="union" class="level3">
+<h3><a href="#union"><span class="header-section-number">5.4.1</span> Union</a></h3>
+<p>L’<strong>union</strong> de deux relations <span class="math">\(R\)</span> et <span class="math">\(S\)</span> définit une relation qui contient tous les tuples de <span class="math">\(R\)</span> ou de <span class="math">\(S\)</span> ou bien des deux relations. Les tuples duplicats sont éliminés. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+  R \cup S
+\]</span></p>
+<p>où <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sont deux relations.</p>
+</section>
+<section id="différence" class="level3">
+<h3><a href="#différence"><span class="header-section-number">5.4.2</span> Différence</a></h3>
+<p>La <strong>différence</strong> définit une relation qui consiste des tuples qui sont dans la relation <span class="math">\(R\)</span>, mais pas dans la relation <span class="math">\(S\)</span>. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+  R - S
+\]</span></p>
+<p>où <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sont deux ensembles.</p>
+</section>
+<section id="intersection" class="level3">
+<h3><a href="#intersection"><span class="header-section-number">5.4.3</span> Intersection</a></h3>
+<p><strong>L’intersection</strong> définit une relation consistant de l’ensemble de tous les tuples qui sont à la fois dans <span class="math">\(R\)</span> et <span class="math">\(S\)</span>. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+  R \cap S \iff R - (R - S)
+\]</span></p>
+<p>où <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sont des relations.</p>
+</section>
+<section id="produit-cartésien" class="level3">
+<h3><a href="#produit-cartésien"><span class="header-section-number">5.4.4</span> Produit cartésien</a></h3>
+<p>Le <strong>produit cartésien</strong> définit une relation qui est la concaténation de tous les tuples de la relation <span class="math">\(R\)</span> avec tous les tuples de la relation <span class="math">\(S\)</span>.</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+  R \times S
+\]</span></p>
+<p>où <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sont des relations.</p>
+</section>
+<section id="décomposition-dopérations-complexes" class="level3">
+<h3><a href="#décomposition-dopérations-complexes"><span class="header-section-number">5.4.5</span> Décomposition d’opérations complexes</a></h3>
+<p>La <strong>décomposition d’opérations complexes</strong> donne un nouveau nom à <span class="math">\(S\)</span> pour l’expression <span class="math">\(E\)</span>, et nomme optionnellement les attributs en <span class="math">\(a_1, a_2, \dots, a_n\)</span>.</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+  \rho_{s}(E) \text{ ou } \rho_{s_{(a_1, a_2, \dots, a_n)}}(E)
+\]</span></p>
+</section>
+</section>
+<section id="opération-de" class="level2">
+<h2><a href="#opération-de"><span class="header-section-number">5.5</span> Opération de</a></h2>
 </section>
 </section>
 <section id="sql" class="level1">
-<h1><a href="#sql"><span class="header-section-number">5</span> SQL</a></h1>
+<h1><a href="#sql"><span class="header-section-number">6</span> SQL</a></h1>
 <section id="exemple" class="level2">
-<h2><a href="#exemple"><span class="header-section-number">5.1</span> Exemple</a></h2>
+<h2><a href="#exemple"><span class="header-section-number">6.1</span> Exemple</a></h2>
 <pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">create</span> <span class="kw">table</span> PROPRIETE_A_LOUER
     (NUM PROPRIETE <span class="dt">varchar</span>(<span class="dv">5</span>) <span class="kw">not</span> <span class="kw">null</span>,
         PIECES <span class="dt">number</span>(<span class="dv">2</span>) <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="dv">4</span>,
@@ -842,8 +951,26 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 </section>
 <section id="annexe" class="level1">
-<h1><a href="#annexe"><span class="header-section-number">6</span> Annexe</a></h1>
+<h1><a href="#annexe"><span class="header-section-number">7</span> Annexe</a></h1>
 <dl>
+<dt><strong>Union</strong></dt>
+<dd><p>L’union de deux relations <span class="math">\(R\)</span> et <span class="math">\(S\)</span> définit une relation qui contient tous les tuples de <span class="math">\(R\)</span> ou de <span class="math">\(S\)</span> ou bien des deux relations. Les tuples duplicats sont éliminés. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
+</dd>
+<dt><strong>Différence</strong></dt>
+<dd><p>Opération binaire de l’algèbre relationnelle qui définit une relation qui consiste des tuples qui sont dans la relation <span class="math">\(R\)</span>, mais pas dans la relation <span class="math">\(S\)</span>. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
+</dd>
+<dt><strong>Intersection</strong></dt>
+<dd><p>Opération binaire de l’algèbre relationnelle qui définit une relation consistant de l’ensemble de tous les tuples qui sont à la fois dans <span class="math">\(R\)</span> et <span class="math">\(S\)</span>. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
+</dd>
+<dt><strong>Produit cartésien</strong></dt>
+<dd><p>Opération binaire de l’algèbre relationnelle qui définit une relation qui est la concaténation de tous les tuples de la relation <span class="math">\(R\)</span> avec tous les tuples de la relation <span class="math">\(S\)</span>.</p>
+</dd>
+<dt><strong>Décomposition d’opérations complexes</strong></dt>
+<dd><p>Opération de l’algèbre relationnelle qui donne un nouveau nom à <span class="math">\(S\)</span> pour l’expression <span class="math">\(E\)</span>, et nomme optionnellement les attributs en <span class="math">\(a_1, a_2, \dots, a_n\)</span>. C’est une opération qui permet de donner un nom au résultat d’une opération relationnelle.</p>
+</dd>
+<dt><strong>Compatible à l’union</strong></dt>
+<dd><p>Quand les schémas de deux relations concordent, c’est-à-dire qu’ils ont le même nombre d’attributs avec chaque pair d’attributs correspondant ayant le même domaine.</p>
+</dd>
 <dt><strong>Abstraction des données</strong></dt>
 <dd><p>Nom donné à l’approche qui cache la définition interne des données aux utilisateurs de la base de données et expose seulement la définition externe.</p>
 </dd>
@@ -852,6 +979,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dd>
 <dt><strong>Administrateur des données (DA)</strong></dt>
 <dd><p>Est responsable de gérer les ressources de données, incluant la planification de la base de données, le développement et la maintenance des standards, politiques et procédures. Il doit aussi s’occuper du design conceptuel/logique de la base de données.</p>
+</dd>
+<dt><strong>Algèbre relationnelle</strong></dt>
+<dd><p>Langage théorique avec des opérations qui marchent sur une ou plusieurs relations pour définir une autre relation sans changer la relation originale.</p>
 </dd>
 <dt><strong>Anomalies d’insertion</strong></dt>
 <dd><p>Anomalies de mise à jour qui peuvent survenir lors de l’insertion d’un nouveau tuple.</p>
@@ -920,9 +1050,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Degré</strong></dt>
 <dd><p>Le nombre d’attributs que la relation contient.</p>
 </dd>
-<dt><strong>Dépendance multi-valuée</strong></dt>
-<dd><p>Représente une dépendence entre des attributs (par exemple, <span class="math">\(A\)</span>, <span class="math">\(B\)</span> et <span class="math">\(C\)</span>) dans une relation, tel que pour chaque valeur de <span class="math">\(A\)</span>, il y un ensemble de valeurs <span class="math">\(B\)</span> et un ensemble de valeurs pour <span class="math">\(C\)</span>. Par contre, l’ensemble de valeurs de <span class="math">\(B\)</span> et <span class="math">\(C\)</span> sont indépendants chacun des autres.</p>
-</dd>
 <dt><strong>Deuxième forme normale (2NF)</strong></dt>
 <dd><strong>Définition</strong>: Une relation qui est dans la première forme normale et dont chaque attribut qui n’est pas une clé primaire est dépendant de la clé primaire.
 </dd>
@@ -940,6 +1067,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd><strong>Définition 2</strong>: Indique que si <span class="math">\(A\)</span> et <span class="math">\(B\)</span> sont des attributs d’une relation, <span class="math">\(B\)</span> est complètement fonctionnellement dépendant de <span class="math">\(A\)</span> si <span class="math">\(B\)</span> est fonctionnellement dépendant de <span class="math">\(A\)</span>, mais pas aucun sous-ensemble de <span class="math">\(A\)</span>.
 </dd>
 <dd><p><strong>Définition 3</strong>: Soit <span class="math">\(A\)</span> et <span class="math">\(B\)</span>, deux attributs d’une relation et <span class="math">\(C \subset A\)</span>, alors <span class="math">\((A \mapsto B) \land \neg (C \mapsto B)\)</span>.</p>
+</dd>
+<dt><strong>Dépendance multi-valuée</strong></dt>
+<dd><p>Représente une dépendence entre des attributs (par exemple, <span class="math">\(A\)</span>, <span class="math">\(B\)</span> et <span class="math">\(C\)</span>) dans une relation, tel que pour chaque valeur de <span class="math">\(A\)</span>, il y un ensemble de valeurs <span class="math">\(B\)</span> et un ensemble de valeurs pour <span class="math">\(C\)</span>. Par contre, l’ensemble de valeurs de <span class="math">\(B\)</span> et <span class="math">\(C\)</span> sont indépendants chacun des autres.</p>
 </dd>
 <dt><strong>Dépendance partielle (DP)</strong></dt>
 <dd><strong>Définition 1</strong>: Une dépendance fonctionnelle dans laquelle un des attributs peut être enlevé du déterminant et la dépendance fonctionnelle est encore valide.
@@ -998,6 +1128,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Programme d’application</strong></dt>
 <dd><p>Un programme informatique qui interagit avec la base de données en envoyant des requêtes (la plupart du temps des instructions <em>SQL</em>) au système de gestion des bases de données.</p>
 </dd>
+<dt><strong>Projection</strong></dt>
+<dd><p>Opération unaire de l’algèbre relationnelle qui s’applique sur une seule relation <span class="math">\(R\)</span> et définie une relation qui contient un sous-ensemble vertical de <span class="math">\(R\)</span>. Elle extrait les valeurs des attributs spécifiés et élimine les duplicats.</p>
+</dd>
 <dt><strong>Quatrième forme normale</strong></dt>
 <dd><p>Une relation dont toutes les dépendences multi-valuées non-triviales <span class="math">\(A \twoheadrightarrow B\)</span> ont comme propriété que <span class="math">\(A\)</span> est une clé candidate de la relation.</p>
 </dd>
@@ -1031,6 +1164,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dd>
 <dt><strong>Schéma</strong></dt>
 <dd><p>Structure de la base de données.</p>
+</dd>
+<dt><strong>Sélection</strong></dt>
+<dd><p>Opération unaire de l’algèbre relationnelle qui s’applique sur une seule relation <span class="math">\(R\)</span> et définit une relation qui contient seulement les tuples de <span class="math">\(R\)</span> qui satisfont la condition spécifée (le <em>prédicat</em>).</p>
 </dd>
 <dt><strong>Superclé</strong></dt>
 <dd><p>Attribut, ou un ensemble d’attributs, qui identifient de manière unique un tuple dans une relation.</p>

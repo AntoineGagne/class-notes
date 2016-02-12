@@ -50,7 +50,7 @@ une forme normale plus forte appelée la **forme normale de Boyce-Codd**.
 ### Définition
 
 Une relation est en **forme normale de Boyce-Codd** si et seulement si *tous
-les déterminants* est une *clé candidate*. Il y a un potentiel de briser la forme normale
+les déterminants* sont des *clés candidates*. Il y a un potentiel de briser la forme normale
 de Boyce-Codd si une des deux conditions suivantes est respectée:
 
 - La relation contient deux (ou plus) clés candidates;
@@ -92,3 +92,8 @@ La **quatrième forme normale** vient corriger les problèmes que les dépendanc
 
 Une relation est dans la **quatrième forme normale** si et seulement si pour toutes les dépendences
 multi-valuées non-triviales $A \twoheadrightarrow B$, $A$ est une clé candidate de la relation.
+
+### Technique de normalisation
+
+Il faut enlever la dépendance multi-valuée de la relation en plaçant les attributs multi-valués dans une
+nouvelle relation avec une copie du déterminant.

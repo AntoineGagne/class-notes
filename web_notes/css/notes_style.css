@@ -168,6 +168,13 @@ figure {
     margin-left: auto;
 }
 
+img {
+    width: 100%;
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 figcaption {
     text-align: center;
 }
@@ -176,6 +183,20 @@ figcaption {
     overflow-x: auto;
     border-radius: 8px;
     background-color: #F7F7F7;
+}
+
+@media screen and (max-width: 1300px) {
+    ol {
+        overflow-x: scroll;
+    }
+
+    div.MathJax_Display {
+        overflow-x: scroll;
+    }
+
+    p {
+        overflow-x: scroll;
+    }
 }
 
 @media screen and (min-width: 1300px) {

@@ -1,5 +1,33 @@
 # Annexe
 
+**Union**
+:   L'union de deux relations $R$ et $S$ définit une relation qui contient tous les
+    tuples de $R$ ou de $S$ ou bien des deux relations. Les tuples duplicats sont éliminés. $R$ et
+    $S$ doivent être compatibles à l'union.
+
+**Différence**
+:   Opération binaire de l'algèbre relationnelle qui définit une relation qui consiste des tuples
+    qui sont dans la relation $R$, mais pas dans la relation $S$. $R$ et $S$ doivent être compatibles
+    à l'union.
+
+**Intersection** 
+:   Opération binaire de l'algèbre relationnelle qui définit une relation consistant de 
+    l'ensemble de tous les tuples qui sont à la fois dans $R$ et $S$. $R$ et $S$ doivent 
+    être compatibles à l'union.
+
+**Produit cartésien** 
+:   Opération binaire de l'algèbre relationnelle qui définit une relation qui est la concaténation 
+    de tous les tuples de la relation $R$ avec tous les tuples de la relation $S$.
+
+**Décomposition d'opérations complexes** 
+:   Opération de l'algèbre relationnelle qui donne un nouveau nom à $S$ pour l'expression $E$, 
+    et nomme optionnellement les attributs en $a_1, a_2, \dots, a_n$. C'est une opération qui permet
+    de donner un nom au résultat d'une opération relationnelle.
+
+**Compatible à l'union**
+:   Quand les schémas de deux relations concordent, c'est-à-dire qu'ils ont le même nombre
+    d'attributs avec chaque pair d'attributs correspondant ayant le même domaine.
+
 **Abstraction des données**
 :   Nom donné à l'approche qui cache la définition interne des données aux utilisateurs de la base de données 
     et expose seulement la définition externe.
@@ -14,6 +42,10 @@
 :   Est responsable de gérer les ressources de données, incluant la
     planification de la base de données, le développement et la maintenance des standards, politiques et 
     procédures. Il doit aussi s'occuper du design conceptuel/logique de la base de données.
+
+**Algèbre relationnelle**
+:   Langage théorique avec des opérations qui marchent sur une ou plusieurs relations pour
+    définir une autre relation sans changer la relation originale.
 
 **Anomalies d'insertion**
 :   Anomalies de mise à jour qui peuvent survenir lors de l'insertion d'un
@@ -201,6 +233,11 @@
 :   Un programme informatique qui interagit avec la base de données en envoyant des requêtes 
     (la plupart du temps des instructions *SQL*) au système de gestion des bases de données.
 
+**Projection**
+:   Opération unaire de l'algèbre relationnelle qui s'applique sur une seule relation $R$ 
+    et définie une relation qui contient un sous-ensemble vertical de $R$. Elle extrait 
+    les valeurs des attributs spécifiés et élimine les duplicats.
+
 **Quatrième forme normale**
 :   Une relation dont toutes les dépendences multi-valuées non-triviales $A \twoheadrightarrow B$ ont 
     comme propriété que $A$ est une clé candidate de la relation.
@@ -235,6 +272,11 @@
 
 **Schéma**
 :   Structure de la base de données.
+
+**Sélection**
+:   Opération unaire de l'algèbre relationnelle qui s'applique sur une seule relation $R$ 
+    et définit une relation qui contient seulement les tuples de $R$ qui satisfont la condition 
+    spécifée (le *prédicat*).
 
 **Superclé**
 :   Attribut, ou un ensemble d'attributs, qui identifient de manière unique un tuple dans une
