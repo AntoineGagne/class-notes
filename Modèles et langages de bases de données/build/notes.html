@@ -178,6 +178,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li><a href="#forme-normale-de-boyce-codd-bcnf"><span class="toc-section-number">4.2</span> Forme normale de Boyce-Codd (BCNF)</a><ul>
 <li><a href="#définition-4"><span class="toc-section-number">4.2.1</span> Définition</a></li>
+<li><a href="#technique-de-normalisation-3"><span class="toc-section-number">4.2.2</span> Technique de normalisation</a></li>
+</ul></li>
+<li><a href="#dépendance-multi-valuée"><span class="toc-section-number">4.3</span> Dépendance multi-valuée</a><ul>
+<li><a href="#définition-5"><span class="toc-section-number">4.3.1</span> Définition</a></li>
+<li><a href="#types-de-dépendances-multi-valuées"><span class="toc-section-number">4.3.2</span> Types de dépendances multi-valuées</a></li>
+</ul></li>
+<li><a href="#quatrième-forme-normale"><span class="toc-section-number">4.4</span> Quatrième forme normale</a><ul>
+<li><a href="#définition-6"><span class="toc-section-number">4.4.1</span> Définition</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#sql"><span class="toc-section-number">5</span> SQL</a><ul>
@@ -770,7 +778,40 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Comme la troisième forme normale souffre encore de redondances, il existe une forme normale plus forte appelée la <strong>forme normale de Boyce-Codd</strong>.</p>
 <section id="définition-4" class="level3">
 <h3><a href="#définition-4"><span class="header-section-number">4.2.1</span> Définition</a></h3>
-<p>Une relation est en <strong>forme normale de Boyce-Codd</strong> si et seulement si <em>tous les déterminants</em> est une <em>clé candidate</em>.</p>
+<p>Une relation est en <strong>forme normale de Boyce-Codd</strong> si et seulement si <em>tous les déterminants</em> est une <em>clé candidate</em>. Il y a un potentiel de briser la forme normale de Boyce-Codd si une des deux conditions suivantes est respectée:</p>
+<ul>
+<li>La relation contient deux (ou plus) clés candidates;</li>
+<li>Les clés candidates se recoupent, soit qu’elles ont au moins un attribut en commun.</li>
+</ul>
+</section>
+<section id="technique-de-normalisation-3" class="level3">
+<h3><a href="#technique-de-normalisation-3"><span class="header-section-number">4.2.2</span> Technique de normalisation</a></h3>
+<p>Lorsqu’une dépendance fonctionnelle enfreint les contraintes pour que la relation soit en <em>BCNF</em>, il faut mettre cette dépendance dans une autre table.</p>
+</section>
+</section>
+<section id="dépendance-multi-valuée" class="level2">
+<h2><a href="#dépendance-multi-valuée"><span class="header-section-number">4.3</span> Dépendance multi-valuée</a></h2>
+<p>L’existence d’une dépendance multi-valuée est dû à la première forme normale qui empêche un attribut dans un tuple d’avoir un ensemble de valeurs.</p>
+<section id="définition-5" class="level3">
+<h3><a href="#définition-5"><span class="header-section-number">4.3.1</span> Définition</a></h3>
+<p>Représente une dépendence entre des attributs (par exemple, <span class="math">\(A\)</span>, <span class="math">\(B\)</span> et <span class="math">\(C\)</span>) dans une relation, tel que pour chaque valeur de <span class="math">\(A\)</span>, il y un ensemble de valeurs <span class="math">\(B\)</span> et un ensemble de valeurs pour <span class="math">\(C\)</span>. Par contre, l’ensemble de valeurs de <span class="math">\(B\)</span> et <span class="math">\(C\)</span> sont indépendants chacun des autres. On dénote une dépendance multi-valuée entre les attributs <span class="math">\(A\)</span>, <span class="math">\(B\)</span> et <span class="math">\(C\)</span> en utilisant la notation suivante:</p>
+<p><span class="math">\[A \twoheadrightarrow B\]</span> <span class="math">\[A \twoheadrightarrow C\]</span></p>
+</section>
+<section id="types-de-dépendances-multi-valuées" class="level3">
+<h3><a href="#types-de-dépendances-multi-valuées"><span class="header-section-number">4.3.2</span> Types de dépendances multi-valuées</a></h3>
+<p>Une dépendance multi-valuée peut être définie comme <strong>triviale</strong> ou <strong>non-triviale</strong>.</p>
+<ul>
+<li><strong>Triviale</strong>: Une dépendance multi-valuée est définie comme <strong>triviale</strong> si <span class="math">\((B \subset A) \lor (A \cup B = R)\)</span>.</li>
+<li><strong>Non-triviale</strong>: Une dépendance multi-valuée est définie comme <strong>non-triviale</strong> si <span class="math">\(\neg ((B \subset A) \lor (A \cup B = R))\)</span></li>
+</ul>
+</section>
+</section>
+<section id="quatrième-forme-normale" class="level2">
+<h2><a href="#quatrième-forme-normale"><span class="header-section-number">4.4</span> Quatrième forme normale</a></h2>
+<p>La <strong>quatrième forme normale</strong> vient corriger les problèmes que les dépendances multi-valuées apportent.</p>
+<section id="définition-6" class="level3">
+<h3><a href="#définition-6"><span class="header-section-number">4.4.1</span> Définition</a></h3>
+<p>Une relation est dans la <strong>quatrième forme normale</strong> si et seulement si pour toutes les dépendences multi-valuées non-triviales <span class="math">\(A \twoheadrightarrow B\)</span>, <span class="math">\(A\)</span> est une clé candidate de la relation.</p>
 </section>
 </section>
 </section>
@@ -879,6 +920,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Degré</strong></dt>
 <dd><p>Le nombre d’attributs que la relation contient.</p>
 </dd>
+<dt><strong>Dépendance multi-valuée</strong></dt>
+<dd><p>Représente une dépendence entre des attributs (par exemple, <span class="math">\(A\)</span>, <span class="math">\(B\)</span> et <span class="math">\(C\)</span>) dans une relation, tel que pour chaque valeur de <span class="math">\(A\)</span>, il y un ensemble de valeurs <span class="math">\(B\)</span> et un ensemble de valeurs pour <span class="math">\(C\)</span>. Par contre, l’ensemble de valeurs de <span class="math">\(B\)</span> et <span class="math">\(C\)</span> sont indépendants chacun des autres.</p>
+</dd>
 <dt><strong>Deuxième forme normale (2NF)</strong></dt>
 <dd><strong>Définition</strong>: Une relation qui est dans la première forme normale et dont chaque attribut qui n’est pas une clé primaire est dépendant de la clé primaire.
 </dd>
@@ -953,6 +997,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dd>
 <dt><strong>Programme d’application</strong></dt>
 <dd><p>Un programme informatique qui interagit avec la base de données en envoyant des requêtes (la plupart du temps des instructions <em>SQL</em>) au système de gestion des bases de données.</p>
+</dd>
+<dt><strong>Quatrième forme normale</strong></dt>
+<dd><p>Une relation dont toutes les dépendences multi-valuées non-triviales <span class="math">\(A \twoheadrightarrow B\)</span> ont comme propriété que <span class="math">\(A\)</span> est une clé candidate de la relation.</p>
 </dd>
 <dt><strong>Relation (table ou fichier)</strong></dt>
 <dd><strong>Définition 1</strong>: Une association entre plusieurs entités.

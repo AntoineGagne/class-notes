@@ -50,4 +50,45 @@ une forme normale plus forte appelée la **forme normale de Boyce-Codd**.
 ### Définition
 
 Une relation est en **forme normale de Boyce-Codd** si et seulement si *tous
-les déterminants* est une *clé candidate*.
+les déterminants* est une *clé candidate*. Il y a un potentiel de briser la forme normale
+de Boyce-Codd si une des deux conditions suivantes est respectée:
+
+- La relation contient deux (ou plus) clés candidates;
+- Les clés candidates se recoupent, soit qu'elles ont au moins un attribut en commun.
+
+### Technique de normalisation
+
+Lorsqu'une dépendance fonctionnelle enfreint les contraintes pour que la relation soit en *BCNF*,
+il faut mettre cette dépendance dans une autre table.
+
+## Dépendance multi-valuée
+
+L'existence d'une dépendance multi-valuée est dû à la première forme normale qui empêche un attribut
+dans un tuple d'avoir un ensemble de valeurs.
+
+### Définition
+
+Représente une dépendence entre des attributs (par exemple, $A$, $B$ et $C$) dans une relation, tel que
+pour chaque valeur de $A$, il y un ensemble de valeurs $B$ et un ensemble de valeurs pour $C$. Par contre,
+l'ensemble de valeurs de $B$ et $C$ sont indépendants chacun des autres. On dénote une dépendance multi-valuée
+entre les attributs $A$, $B$ et $C$ en utilisant la notation suivante:
+
+$$A \twoheadrightarrow B$$
+$$A \twoheadrightarrow C$$
+
+### Types de dépendances multi-valuées
+
+Une dépendance multi-valuée peut être définie comme **triviale** ou **non-triviale**.
+
+- **Triviale**: Une dépendance multi-valuée est définie comme **triviale** si $(B \subset A) \lor (A \cup B = R)$.
+- **Non-triviale**: Une dépendance multi-valuée est définie comme **non-triviale** si $\neg ((B \subset A) \lor
+(A \cup B = R))$
+
+## Quatrième forme normale
+
+La **quatrième forme normale** vient corriger les problèmes que les dépendances multi-valuées apportent.
+
+### Définition
+
+Une relation est dans la **quatrième forme normale** si et seulement si pour toutes les dépendences
+multi-valuées non-triviales $A \twoheadrightarrow B$, $A$ est une clé candidate de la relation.

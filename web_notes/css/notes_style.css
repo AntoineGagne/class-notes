@@ -68,8 +68,12 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: 2px solid #DDDDDD;
 }
 
-h2 {
+h1 {
     font-size: 2em;
+}
+
+h2 {
+    font-size: 1.7em;
 }
 
 h3 {

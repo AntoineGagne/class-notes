@@ -92,6 +92,11 @@
 **Degré**
 :   Le nombre d'attributs que la relation contient.
 
+**Dépendance multi-valuée**
+:   Représente une dépendence entre des attributs (par exemple, $A$, $B$ et $C$) dans une relation, tel que
+    pour chaque valeur de $A$, il y un ensemble de valeurs $B$ et un ensemble de valeurs pour $C$. Par contre,
+    l'ensemble de valeurs de $B$ et $C$ sont indépendants chacun des autres.
+
 **Deuxième forme normale (2NF)**
 :   **Définition**: Une relation qui est dans la première forme normale 
     et dont chaque attribut qui n'est pas une clé primaire est dépendant de 
@@ -195,6 +200,10 @@
 **Programme d'application**
 :   Un programme informatique qui interagit avec la base de données en envoyant des requêtes 
     (la plupart du temps des instructions *SQL*) au système de gestion des bases de données.
+
+**Quatrième forme normale**
+:   Une relation dont toutes les dépendences multi-valuées non-triviales $A \twoheadrightarrow B$ ont 
+    comme propriété que $A$ est une clé candidate de la relation.
 
 **Relation (table ou fichier)**
 :   **Définition 1**: Une association entre plusieurs entités.
