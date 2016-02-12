@@ -202,7 +202,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#produit-cartésien"><span class="toc-section-number">5.4.4</span> Produit cartésien</a></li>
 <li><a href="#décomposition-dopérations-complexes"><span class="toc-section-number">5.4.5</span> Décomposition d’opérations complexes</a></li>
 </ul></li>
-<li><a href="#opération-de"><span class="toc-section-number">5.5</span> Opération de</a></li>
+<li><a href="#opérations-de-jointure"><span class="toc-section-number">5.5</span> Opérations de jointure</a><ul>
+<li><a href="#jointure-theta-theta-join"><span class="toc-section-number">5.5.1</span> Jointure theta (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>θ</mi></mrow></math>-join)</a></li>
+<li><a href="#equijointure"><span class="toc-section-number">5.5.2</span> Equijointure</a></li>
+<li><a href="#jointure-naturelle"><span class="toc-section-number">5.5.3</span> Jointure naturelle</a></li>
+<li><a href="#jointure-externe"><span class="toc-section-number">5.5.4</span> Jointure externe</a></li>
+<li><a href="#semi-jointure"><span class="toc-section-number">5.5.5</span> Semi-jointure</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#sql"><span class="toc-section-number">6</span> SQL</a><ul>
 <li><a href="#exemple"><span class="toc-section-number">6.1</span> Exemple</a></li>
@@ -904,8 +910,55 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>ρ</mi><mi>s</mi></msub><mo stretchy="false">(</mo><mi>E</mi><mo stretchy="false">)</mo><mrow><mtext mathvariant="normal">ou </mtext><mspace width="0.333em"></mspace></mrow><msub><mi>ρ</mi><msub><mi>s</mi><mrow><mo stretchy="false">(</mo><msub><mi>a</mi><mn>1</mn></msub><mo>,</mo><msub><mi>a</mi><mn>2</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>a</mi><mi>n</mi></msub><mo stretchy="false">)</mo></mrow></msub></msub><mo stretchy="false">(</mo><mi>E</mi><mo stretchy="false">)</mo></mrow></math></p>
 </section>
 </section>
-<section id="opération-de" class="level2">
-<h2><a href="#opération-de"><span class="header-section-number">5.5</span> Opération de</a></h2>
+<section id="opérations-de-jointure" class="level2">
+<h2><a href="#opérations-de-jointure"><span class="header-section-number">5.5</span> Opérations de jointure</a></h2>
+<p>Les <strong>opérations de jointure</strong> sont parmies les opérations les plus utiles de l’algèbre relationnelle. Les opérations de jointure sont équivalents à appliquer l’opération de sélection avec le prédicat de jointure au résultat du produit cartésien des deux relations d’entrée. De manière plus symbolique, si on a <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math> comme prédicat de jointure et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> ainsi que <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math>, deux relations, nous avons que l’opération de jointure peut être définie comme:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>σ</mi><mi>F</mi></msub><mo stretchy="false">(</mo><mi>R</mi><mo>×</mo><mi>S</mi><mo stretchy="false">)</mo></mrow></math></p>
+<p>Les types d’opérations de jointure sont les suivants:</p>
+<ul>
+<li><strong>Jointure <em>theta</em></strong> ou <strong>(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>θ</mi></mrow></math>-join)</strong></li>
+<li><strong>Equijointure</strong></li>
+<li><strong>Jointure naturelle</strong></li>
+<li><strong>Jointure externe</strong></li>
+<li><strong>Semi-jointure</strong></li>
+</ul>
+<section id="jointure-theta-theta-join" class="level3">
+<h3><a href="#jointure-theta-theta-join"><span class="header-section-number">5.5.1</span> Jointure theta (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>θ</mi></mrow></math>-join)</a></h3>
+<p>L’opération de <strong>jointure theta</strong> définit une relation qui contient les tuples satisfants le prédicat <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math> à partir du résultat du produit cartésien de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math>. Le prédicat <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math> est de la forme <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi><mo>.</mo><msub><mi>a</mi><mi>i</mi></msub><mspace width="0.333em"></mspace><mi>θ</mi><mspace width="0.333em"></mspace><mi>S</mi><mo>.</mo><msub><mi>b</mi><mi>i</mi></msub></mrow></math> où <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>θ</mi></mrow></math> peut être un des opérateur de comparaison (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>&lt;</mo></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>≤</mo></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>&gt;</mo></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>≥</mo></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>=</mo></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>≠</mo></mrow></math>).</p>
+<p>On l’écrit</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi><munder><mo>⋈</mo><mi>F</mi></munder><mi>S</mi><mo>⇔</mo><msub><mi>σ</mi><mi>F</mi></msub><mo stretchy="false">(</mo><mi>R</mi><mo>×</mo><mi>S</mi><mo stretchy="false">)</mo></mrow></math></p>
+<p>où <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math> est le prédicat et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> ainsi que <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> sont des relations.</p>
+</section>
+<section id="equijointure" class="level3">
+<h3><a href="#equijointure"><span class="header-section-number">5.5.2</span> Equijointure</a></h3>
+<p>L’<strong>equijointure</strong> est un cas particulier de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>θ</mi></mrow></math>-join. C’est le cas où le prédicat <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math> contient seulement l’égalité (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>=</mo></mrow></math>).</p>
+</section>
+<section id="jointure-naturelle" class="level3">
+<h3><a href="#jointure-naturelle"><span class="header-section-number">5.5.3</span> Jointure naturelle</a></h3>
+<p>La <strong>jointure naturelle</strong> est une equijointure des deux relations <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> sur tous leurs attributs communs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi></mrow></math>. Une occurence de chacun des attributs communs est enlevée des résultats.</p>
+<p>On l’écrit</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi><mo>⋈</mo><mi>S</mi></mrow></math></p>
+<p>où <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> sont des relations.</p>
+</section>
+<section id="jointure-externe" class="level3">
+<h3><a href="#jointure-externe"><span class="header-section-number">5.5.4</span> Jointure externe</a></h3>
+<p>La <strong>jointure externe</strong> (gauche) est une jointure dans laquelle les tuples de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> qui n’ont pas de valeurs correspondantes avec les attributs en commun avec <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> ne sont pas inclus dans la relation résultante. Les valeurs manquantes dans la deuxième relation sont mises à <em>null</em>.</p>
+<p>On l’écrit</p>
+<p><span class="math">$$
+\begin{align*}
+  &amp;R \rtimes S \text{ (Jointure externe gauche) }
+  \\
+  &amp;R \ltimes S \text{ (Jointure externe droite) }
+\end{align*}
+$$</span></p>
+</section>
+<section id="semi-jointure" class="level3">
+<h3><a href="#semi-jointure"><span class="header-section-number">5.5.5</span> Semi-jointure</a></h3>
+<p>La <strong>semi-jointure</strong> définit une relation qui contient les tuples de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> qui participent dans la jointure de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> avec <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> satisfaisant le prédicat <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math>.</p>
+<p>On l’écrit</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi><munder><mo>⊳</mo><mi>F</mi></munder><mi>S</mi><mo>⇔</mo><msub><mo>Π</mo><mi>A</mi></msub><mo stretchy="false">(</mo><mi>R</mi><munder><mo>⋈</mo><mi>F</mi></munder><mi>S</mi><mo stretchy="false">)</mo></mrow></math></p>
+<p>où <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> est l’ensemble de tous les attributs de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math>.</p>
+</section>
 </section>
 </section>
 <section id="sql" class="level1">
@@ -937,6 +990,26 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section id="annexe" class="level1">
 <h1><a href="#annexe"><span class="header-section-number">7</span> Annexe</a></h1>
 <dl>
+<dt><strong>Semi-jointure</strong></dt>
+<dd><p>Définit une relation qui contient les tuples de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> qui participent dans la jointure de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> avec <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> satisfaisant le prédicat <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math>.</p>
+</dd>
+<dt><strong>Jointure externe</strong></dt>
+<dd><p>Jointure dans laquelle les tuples de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> qui n’ont pas de valeurs correspondantes avec les attributs en commun avec <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> ne sont pas inclus dans la relation résultante. Les valeurs manquantes dans la deuxième relation sont mises à <em>null</em>.</p>
+</dd>
+<dt><strong>Jointure naturelle</strong></dt>
+<dd><p>Equijointure des deux relations <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> sur tous leurs attributs communs <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>x</mi></mrow></math>. Une occurence de chacun des attributs communs est enlevée des résultats.</p>
+</dd>
+<dt><strong>Equijointure</strong></dt>
+<dd><p>Cas particulier de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>θ</mi></mrow></math>-join. C’est le cas où le prédicat <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math> contient seulement l’égalité (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>=</mo></mrow></math>).</p>
+</dd>
+<dt><strong>Jointure theta (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>θ</mi></mrow></math>-join)</strong></dt>
+<dd><p>Opération de l’algèbre relationnelle qui définit une relation qui contient les tuples satisfants le prédicat <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math> à partir du résultat du produit cartésien de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math>. Le prédicat <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math> est de la forme <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi><mo>.</mo><msub><mi>a</mi><mi>i</mi></msub><mspace width="0.333em"></mspace><mi>θ</mi><mspace width="0.333em"></mspace><mi>S</mi><mo>.</mo><msub><mi>b</mi><mi>i</mi></msub></mrow></math> où <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>θ</mi></mrow></math> peut être un des opérateur de comparaison (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>&lt;</mo></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>≤</mo></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>&gt;</mo></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>≥</mo></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>=</mo></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>≠</mo></mrow></math>).</p>
+</dd>
+<dt><strong>Opérations de jointure</strong></dt>
+<dd><strong>Définition textuelle</strong>: Opération de l’algèbre relationnelle qui est équivalente à appliquer l’opération de sélection avec le prédicat de jointure au résultat du produit cartésien des deux relations d’entrée.
+</dd>
+<dd><p><strong>Définition mathématique</strong>: Si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math> est le prédicat de jointure et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> ainsi que <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> sont deux relations, alors l’opération de jointure entre les deux relations peut être décrite comme <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>σ</mi><mi>F</mi></msub><mo stretchy="false">(</mo><mi>R</mi><mo>×</mo><mi>S</mi><mo stretchy="false">)</mo></mrow></math>.</p>
+</dd>
 <dt><strong>Union</strong></dt>
 <dd><p>L’union de deux relations <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> définit une relation qui contient tous les tuples de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> ou de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> ou bien des deux relations. Les tuples duplicats sont éliminés. <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> doivent être compatibles à l’union.</p>
 </dd>

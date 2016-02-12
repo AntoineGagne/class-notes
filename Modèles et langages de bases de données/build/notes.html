@@ -203,7 +203,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#produit-cartésien"><span class="toc-section-number">5.4.4</span> Produit cartésien</a></li>
 <li><a href="#décomposition-dopérations-complexes"><span class="toc-section-number">5.4.5</span> Décomposition d’opérations complexes</a></li>
 </ul></li>
-<li><a href="#opération-de"><span class="toc-section-number">5.5</span> Opération de</a></li>
+<li><a href="#opérations-de-jointure"><span class="toc-section-number">5.5</span> Opérations de jointure</a><ul>
+<li><a href="#jointure-theta-theta-join"><span class="toc-section-number">5.5.1</span> Jointure theta (<span class="math">\(\theta\)</span>-join)</a></li>
+<li><a href="#equijointure"><span class="toc-section-number">5.5.2</span> Equijointure</a></li>
+<li><a href="#jointure-naturelle"><span class="toc-section-number">5.5.3</span> Jointure naturelle</a></li>
+<li><a href="#jointure-externe"><span class="toc-section-number">5.5.4</span> Jointure externe</a></li>
+<li><a href="#semi-jointure"><span class="toc-section-number">5.5.5</span> Semi-jointure</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#sql"><span class="toc-section-number">6</span> SQL</a><ul>
 <li><a href="#exemple"><span class="toc-section-number">6.1</span> Exemple</a></li>
@@ -920,8 +926,63 @@ code > span.er { color: #ff0000; font-weight: bold; }
 \]</span></p>
 </section>
 </section>
-<section id="opération-de" class="level2">
-<h2><a href="#opération-de"><span class="header-section-number">5.5</span> Opération de</a></h2>
+<section id="opérations-de-jointure" class="level2">
+<h2><a href="#opérations-de-jointure"><span class="header-section-number">5.5</span> Opérations de jointure</a></h2>
+<p>Les <strong>opérations de jointure</strong> sont parmies les opérations les plus utiles de l’algèbre relationnelle. Les opérations de jointure sont équivalents à appliquer l’opération de sélection avec le prédicat de jointure au résultat du produit cartésien des deux relations d’entrée. De manière plus symbolique, si on a <span class="math">\(F\)</span> comme prédicat de jointure et <span class="math">\(R\)</span> ainsi que <span class="math">\(S\)</span>, deux relations, nous avons que l’opération de jointure peut être définie comme:</p>
+<p><span class="math">\[
+  \sigma_{F}(R \times S)
+\]</span></p>
+<p>Les types d’opérations de jointure sont les suivants:</p>
+<ul>
+<li><strong>Jointure <em>theta</em></strong> ou <strong>(<span class="math">\(\theta\)</span>-join)</strong></li>
+<li><strong>Equijointure</strong></li>
+<li><strong>Jointure naturelle</strong></li>
+<li><strong>Jointure externe</strong></li>
+<li><strong>Semi-jointure</strong></li>
+</ul>
+<section id="jointure-theta-theta-join" class="level3">
+<h3><a href="#jointure-theta-theta-join"><span class="header-section-number">5.5.1</span> Jointure theta (<span class="math">\(\theta\)</span>-join)</a></h3>
+<p>L’opération de <strong>jointure theta</strong> définit une relation qui contient les tuples satisfants le prédicat <span class="math">\(F\)</span> à partir du résultat du produit cartésien de <span class="math">\(R\)</span> et <span class="math">\(S\)</span>. Le prédicat <span class="math">\(F\)</span> est de la forme <span class="math">\(R.a_i~\theta~S.b_i\)</span> où <span class="math">\(\theta\)</span> peut être un des opérateur de comparaison (<span class="math">\(&lt; \)</span>, <span class="math">\(\leq\)</span>, <span class="math">\(&gt;\)</span>, <span class="math">\(\geq\)</span>, <span class="math">\(=\)</span>, <span class="math">\(\neq\)</span>).</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+  R \bowtie_{F} S \iff \sigma_{F}(R \times S)
+\]</span></p>
+<p>où <span class="math">\(F\)</span> est le prédicat et <span class="math">\(R\)</span> ainsi que <span class="math">\(S\)</span> sont des relations.</p>
+</section>
+<section id="equijointure" class="level3">
+<h3><a href="#equijointure"><span class="header-section-number">5.5.2</span> Equijointure</a></h3>
+<p>L’<strong>equijointure</strong> est un cas particulier de <span class="math">\(\theta\)</span>-join. C’est le cas où le prédicat <span class="math">\(F\)</span> contient seulement l’égalité (<span class="math">\(=\)</span>).</p>
+</section>
+<section id="jointure-naturelle" class="level3">
+<h3><a href="#jointure-naturelle"><span class="header-section-number">5.5.3</span> Jointure naturelle</a></h3>
+<p>La <strong>jointure naturelle</strong> est une equijointure des deux relations <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sur tous leurs attributs communs <span class="math">\(x\)</span>. Une occurence de chacun des attributs communs est enlevée des résultats.</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+  R \bowtie S
+\]</span></p>
+<p>où <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sont des relations.</p>
+</section>
+<section id="jointure-externe" class="level3">
+<h3><a href="#jointure-externe"><span class="header-section-number">5.5.4</span> Jointure externe</a></h3>
+<p>La <strong>jointure externe</strong> (gauche) est une jointure dans laquelle les tuples de <span class="math">\(R\)</span> qui n’ont pas de valeurs correspondantes avec les attributs en commun avec <span class="math">\(S\)</span> ne sont pas inclus dans la relation résultante. Les valeurs manquantes dans la deuxième relation sont mises à <em>null</em>.</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+\begin{align*}
+  &amp;R \rtimes S \text{ (Jointure externe gauche) }
+  \\
+  &amp;R \ltimes S \text{ (Jointure externe droite) }
+\end{align*}
+\]</span></p>
+</section>
+<section id="semi-jointure" class="level3">
+<h3><a href="#semi-jointure"><span class="header-section-number">5.5.5</span> Semi-jointure</a></h3>
+<p>La <strong>semi-jointure</strong> définit une relation qui contient les tuples de <span class="math">\(R\)</span> qui participent dans la jointure de <span class="math">\(R\)</span> avec <span class="math">\(S\)</span> satisfaisant le prédicat <span class="math">\(F\)</span>.</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+  R \triangleright_{F} S \iff \Pi_{A}(R \bowtie_{F} S)
+\]</span></p>
+<p>où <span class="math">\(A\)</span> est l’ensemble de tous les attributs de <span class="math">\(R\)</span>.</p>
+</section>
 </section>
 </section>
 <section id="sql" class="level1">
@@ -953,6 +1014,26 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section id="annexe" class="level1">
 <h1><a href="#annexe"><span class="header-section-number">7</span> Annexe</a></h1>
 <dl>
+<dt><strong>Semi-jointure</strong></dt>
+<dd><p>Définit une relation qui contient les tuples de <span class="math">\(R\)</span> qui participent dans la jointure de <span class="math">\(R\)</span> avec <span class="math">\(S\)</span> satisfaisant le prédicat <span class="math">\(F\)</span>.</p>
+</dd>
+<dt><strong>Jointure externe</strong></dt>
+<dd><p>Jointure dans laquelle les tuples de <span class="math">\(R\)</span> qui n’ont pas de valeurs correspondantes avec les attributs en commun avec <span class="math">\(S\)</span> ne sont pas inclus dans la relation résultante. Les valeurs manquantes dans la deuxième relation sont mises à <em>null</em>.</p>
+</dd>
+<dt><strong>Jointure naturelle</strong></dt>
+<dd><p>Equijointure des deux relations <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sur tous leurs attributs communs <span class="math">\(x\)</span>. Une occurence de chacun des attributs communs est enlevée des résultats.</p>
+</dd>
+<dt><strong>Equijointure</strong></dt>
+<dd><p>Cas particulier de <span class="math">\(\theta\)</span>-join. C’est le cas où le prédicat <span class="math">\(F\)</span> contient seulement l’égalité (<span class="math">\(=\)</span>).</p>
+</dd>
+<dt><strong>Jointure theta (<span class="math">\(\theta\)</span>-join)</strong></dt>
+<dd><p>Opération de l’algèbre relationnelle qui définit une relation qui contient les tuples satisfants le prédicat <span class="math">\(F\)</span> à partir du résultat du produit cartésien de <span class="math">\(R\)</span> et <span class="math">\(S\)</span>. Le prédicat <span class="math">\(F\)</span> est de la forme <span class="math">\(R.a_i~\theta~S.b_i\)</span> où <span class="math">\(\theta\)</span> peut être un des opérateur de comparaison (<span class="math">\(&lt; \)</span>, <span class="math">\(\leq\)</span>, <span class="math">\(&gt;\)</span>, <span class="math">\(\geq\)</span>, <span class="math">\(=\)</span>, <span class="math">\(\neq\)</span>).</p>
+</dd>
+<dt><strong>Opérations de jointure</strong></dt>
+<dd><strong>Définition textuelle</strong>: Opération de l’algèbre relationnelle qui est équivalente à appliquer l’opération de sélection avec le prédicat de jointure au résultat du produit cartésien des deux relations d’entrée.
+</dd>
+<dd><p><strong>Définition mathématique</strong>: Si <span class="math">\(F\)</span> est le prédicat de jointure et <span class="math">\(R\)</span> ainsi que <span class="math">\(S\)</span> sont deux relations, alors l’opération de jointure entre les deux relations peut être décrite comme <span class="math">\(\sigma_{F}(R \times S)\)</span>.</p>
+</dd>
 <dt><strong>Union</strong></dt>
 <dd><p>L’union de deux relations <span class="math">\(R\)</span> et <span class="math">\(S\)</span> définit une relation qui contient tous les tuples de <span class="math">\(R\)</span> ou de <span class="math">\(S\)</span> ou bien des deux relations. Les tuples duplicats sont éliminés. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
 </dd>

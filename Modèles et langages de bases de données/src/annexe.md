@@ -1,5 +1,35 @@
 # Annexe
 
+**Semi-jointure**
+:   Définit une relation qui contient les tuples de $R$ qui participent
+    dans la jointure de $R$ avec $S$ satisfaisant le prédicat $F$.
+
+**Jointure externe**
+:   Jointure dans laquelle les tuples de $R$ qui n'ont pas de valeurs correspondantes avec 
+    les attributs en commun avec $S$ ne sont pas inclus dans la relation résultante. Les 
+    valeurs manquantes dans la deuxième relation sont mises à *null*.
+
+**Jointure naturelle**
+:   Equijointure des deux relations $R$ et $S$ sur tous leurs attributs
+    communs $x$. Une occurence de chacun des attributs communs est enlevée des résultats.
+
+**Equijointure**
+:   Cas particulier de $\theta$-join. C'est le cas où le prédicat $F$ contient 
+    seulement l'égalité ($=$).
+
+**Jointure theta ($\theta$-join)**
+:   Opération de l'algèbre relationnelle qui définit une relation qui contient les tuples satisfants
+    le prédicat $F$ à partir du résultat du produit cartésien de $R$ et $S$. Le prédicat $F$ est de la
+    forme $R.a_i~\theta~S.b_i$ où $\theta$ peut être un des opérateur de comparaison ($< $, $\leq$, $>$, $\geq$,
+    $=$, $\neq$).
+
+**Opérations de jointure**
+:   **Définition textuelle**: Opération de l'algèbre relationnelle qui est équivalente à appliquer 
+    l'opération de sélection avec le prédicat de jointure au résultat du produit cartésien des deux 
+    relations d'entrée.
+:   **Définition mathématique**: Si $F$ est le prédicat de jointure et $R$ ainsi que $S$ sont deux relations, 
+    alors l'opération de jointure entre les deux relations peut être décrite comme $\sigma_{F}(R \times S)$.
+
 **Union**
 :   L'union de deux relations $R$ et $S$ définit une relation qui contient tous les
     tuples de $R$ ou de $S$ ou bien des deux relations. Les tuples duplicats sont éliminés. $R$ et
