@@ -171,7 +171,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul></li>
 <li><a href="#normalisation-avancée"><span class="toc-section-number">4</span> Normalisation avancée</a><ul>
-<li><a href="#règles-dinférence-des-dépendances-fonctionnelles"><span class="toc-section-number">4.1</span> Règles d’inférence des dépendances fonctionnelles</a></li>
+<li><a href="#règles-dinférence-des-dépendances-fonctionnelles"><span class="toc-section-number">4.1</span> Règles d’inférence des dépendances fonctionnelles</a><ul>
+<li><a href="#axiomes-darmstrong"><span class="toc-section-number">4.1.1</span> Axiomes d’Armstrong</a></li>
+<li><a href="#ensembles-minimaux-de-dépendances-fonctionnelles"><span class="toc-section-number">4.1.2</span> Ensembles minimaux de dépendances fonctionnelles</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#sql"><span class="toc-section-number">5</span> SQL</a><ul>
 <li><a href="#exemple"><span class="toc-section-number">5.1</span> Exemple</a></li>
@@ -731,6 +734,31 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section id="règles-dinférence-des-dépendances-fonctionnelles" class="level2">
 <h2><a href="#règles-dinférence-des-dépendances-fonctionnelles"><span class="header-section-number">4.1</span> Règles d’inférence des dépendances fonctionnelles</a></h2>
 <p>Comme il peut y avoir beaucoup de dépendances fonctionnelles, il faut trouver des règles pour nous permettre d’identifier les plus importantes plus facilement. L’ensemble des dépendances fonctionnelles qui sont sous-entendues pour un ensemble de dépendances fonctionnelles <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math> est appelé la <strong>fermeture</strong> de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math>, écrit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mi>X</mi><mo>+</mo></msup></mrow></math></p>
+<section id="axiomes-darmstrong" class="level3">
+<h3><a href="#axiomes-darmstrong"><span class="header-section-number">4.1.1</span> Axiomes d’Armstrong</a></h3>
+<p>Les <strong>axiomes d’Armstrong</strong> indiquent comment des dépendances fonctionnelles peuvent être déduites de dépendences données. Soit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math>, des sous-ensembles des attributs de la relation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math>. Nous avons alors:</p>
+<ol type="1">
+<li><strong>Réflexivité</strong>: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mi>B</mi><mo>⊂</mo><mi>A</mi><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>B</mi><mo stretchy="false">)</mo></mrow></math></li>
+<li><strong>Augmentation</strong>: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>B</mi><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>C</mi><mo>↦</mo><mi>B</mi><mo>,</mo><mi>C</mi><mo stretchy="false">)</mo></mrow></math></li>
+<li><strong>Transitivité</strong>: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>B</mi><mo stretchy="false">)</mo><mo>∧</mo><mo stretchy="false">(</mo><mi>B</mi><mo>↦</mo><mi>C</mi><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>C</mi><mo stretchy="false">)</mo></mrow></math></li>
+</ol>
+<p>Ces règles peuvent être utilisées pour trouver <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mi>X</mi><mo>+</mo></msup></mrow></math>. D’autres règles peuvent être dérivées des règles précédentes. Soit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>D</mi></mrow></math>, un autre sous-ensemble des attributs de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math>. Nous avons alors:</p>
+<ol start="4" type="1">
+<li><strong>Autodétermination</strong>: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mo>↦</mo><mi>A</mi></mrow></math></li>
+<li><strong>Décomposition</strong>: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>B</mi><mo>,</mo><mi>C</mi><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>B</mi><mo stretchy="false">)</mo><mo>∧</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>C</mi><mo stretchy="false">)</mo></mrow></math></li>
+<li><strong>Union</strong>: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>B</mi><mo stretchy="false">)</mo><mo>∧</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>C</mi><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>B</mi><mo>,</mo><mi>C</mi><mo stretchy="false">)</mo></mrow></math></li>
+<li><strong>Composition</strong>: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>B</mi><mo stretchy="false">)</mo><mo>∧</mo><mo stretchy="false">(</mo><mi>C</mi><mo>↦</mo><mi>D</mi><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mi>A</mi><mo>,</mo><mi>C</mi><mo>↦</mo><mi>B</mi><mo>,</mo><mi>D</mi><mo stretchy="false">)</mo></mrow></math></li>
+</ol>
+</section>
+<section id="ensembles-minimaux-de-dépendances-fonctionnelles" class="level3">
+<h3><a href="#ensembles-minimaux-de-dépendances-fonctionnelles"><span class="header-section-number">4.1.2</span> Ensembles minimaux de dépendances fonctionnelles</a></h3>
+<p>Un ensemble de dépendances fonctionnelles <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math> est minimal s’il satisfait les exigences suivantes:</p>
+<ul>
+<li>Chaque dépendance de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math> a un seul attribut du côté droit.</li>
+<li>On ne peut pas remplacer une dépendance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi><mo>↦</mo><mi>B</mi></mrow></math> dans <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math> avec une dépendance <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi><mo>↦</mo><mi>B</mi></mrow></math>, où <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math> est un sous-ensemble de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math>, et avoir un ensemble de dépendences équivalentes à <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math>.</li>
+<li>On ne peut pas pas enlever une dépendance de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math> et toujours avoir un ensemble de dépendances équivalent à <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math>.</li>
+</ul>
+</section>
 </section>
 </section>
 <section id="sql" class="level1">

@@ -172,7 +172,10 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul></li>
 <li><a href="#normalisation-avancée"><span class="toc-section-number">4</span> Normalisation avancée</a><ul>
-<li><a href="#règles-dinférence-des-dépendances-fonctionnelles"><span class="toc-section-number">4.1</span> Règles d’inférence des dépendances fonctionnelles</a></li>
+<li><a href="#règles-dinférence-des-dépendances-fonctionnelles"><span class="toc-section-number">4.1</span> Règles d’inférence des dépendances fonctionnelles</a><ul>
+<li><a href="#axiomes-darmstrong"><span class="toc-section-number">4.1.1</span> Axiomes d’Armstrong</a></li>
+<li><a href="#ensembles-minimaux-de-dépendances-fonctionnelles"><span class="toc-section-number">4.1.2</span> Ensembles minimaux de dépendances fonctionnelles</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#sql"><span class="toc-section-number">5</span> SQL</a><ul>
 <li><a href="#exemple"><span class="toc-section-number">5.1</span> Exemple</a></li>
@@ -733,6 +736,31 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section id="règles-dinférence-des-dépendances-fonctionnelles" class="level2">
 <h2><a href="#règles-dinférence-des-dépendances-fonctionnelles"><span class="header-section-number">4.1</span> Règles d’inférence des dépendances fonctionnelles</a></h2>
 <p>Comme il peut y avoir beaucoup de dépendances fonctionnelles, il faut trouver des règles pour nous permettre d’identifier les plus importantes plus facilement. L’ensemble des dépendances fonctionnelles qui sont sous-entendues pour un ensemble de dépendances fonctionnelles <span class="math">\(X\)</span> est appelé la <strong>fermeture</strong> de <span class="math">\(X\)</span>, écrit <span class="math">\(X^+\)</span></p>
+<section id="axiomes-darmstrong" class="level3">
+<h3><a href="#axiomes-darmstrong"><span class="header-section-number">4.1.1</span> Axiomes d’Armstrong</a></h3>
+<p>Les <strong>axiomes d’Armstrong</strong> indiquent comment des dépendances fonctionnelles peuvent être déduites de dépendences données. Soit <span class="math">\(A\)</span>, <span class="math">\(B\)</span>, <span class="math">\(C\)</span>, des sous-ensembles des attributs de la relation <span class="math">\(R\)</span>. Nous avons alors:</p>
+<ol type="1">
+<li><strong>Réflexivité</strong>: <span class="math">\((B \subset A) \Rightarrow (A \mapsto B)\)</span></li>
+<li><strong>Augmentation</strong>: <span class="math">\((A \mapsto B) \Rightarrow (A, C \mapsto B, C)\)</span></li>
+<li><strong>Transitivité</strong>: <span class="math">\((A \mapsto B) \land (B \mapsto C) \Rightarrow (A \mapsto C)\)</span></li>
+</ol>
+<p>Ces règles peuvent être utilisées pour trouver <span class="math">\(X^+\)</span>. D’autres règles peuvent être dérivées des règles précédentes. Soit <span class="math">\(D\)</span>, un autre sous-ensemble des attributs de <span class="math">\(R\)</span>. Nous avons alors:</p>
+<ol start="4" type="1">
+<li><strong>Autodétermination</strong>: <span class="math">\(A \mapsto A\)</span></li>
+<li><strong>Décomposition</strong>: <span class="math">\((A \mapsto B, C) \Rightarrow (A \mapsto B) \land (A \mapsto C)\)</span></li>
+<li><strong>Union</strong>: <span class="math">\((A \mapsto B) \land (A \mapsto C) \Rightarrow (A \mapsto B, C)\)</span></li>
+<li><strong>Composition</strong>: <span class="math">\((A \mapsto B) \land (C \mapsto D) \Rightarrow (A, C \mapsto B, D)\)</span></li>
+</ol>
+</section>
+<section id="ensembles-minimaux-de-dépendances-fonctionnelles" class="level3">
+<h3><a href="#ensembles-minimaux-de-dépendances-fonctionnelles"><span class="header-section-number">4.1.2</span> Ensembles minimaux de dépendances fonctionnelles</a></h3>
+<p>Un ensemble de dépendances fonctionnelles <span class="math">\(X\)</span> est minimal s’il satisfait les exigences suivantes:</p>
+<ul>
+<li>Chaque dépendance de <span class="math">\(X\)</span> a un seul attribut du côté droit.</li>
+<li>On ne peut pas remplacer une dépendance <span class="math">\(A \mapsto B\)</span> dans <span class="math">\(X\)</span> avec une dépendance <span class="math">\(C \mapsto B\)</span>, où <span class="math">\(C\)</span> est un sous-ensemble de <span class="math">\(A\)</span>, et avoir un ensemble de dépendences équivalentes à <span class="math">\(X\)</span>.</li>
+<li>On ne peut pas pas enlever une dépendance de <span class="math">\(X\)</span> et toujours avoir un ensemble de dépendances équivalent à <span class="math">\(X\)</span>.</li>
+</ul>
+</section>
 </section>
 </section>
 <section id="sql" class="level1">
