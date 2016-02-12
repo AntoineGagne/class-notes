@@ -175,6 +175,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#axiomes-darmstrong"><span class="toc-section-number">4.1.1</span> Axiomes d’Armstrong</a></li>
 <li><a href="#ensembles-minimaux-de-dépendances-fonctionnelles"><span class="toc-section-number">4.1.2</span> Ensembles minimaux de dépendances fonctionnelles</a></li>
 </ul></li>
+<li><a href="#forme-normale-de-boyce-codd-bcnf"><span class="toc-section-number">4.2</span> Forme normale de Boyce-Codd (BCNF)</a><ul>
+<li><a href="#définition-4"><span class="toc-section-number">4.2.1</span> Définition</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#sql"><span class="toc-section-number">5</span> SQL</a><ul>
 <li><a href="#exemple"><span class="toc-section-number">5.1</span> Exemple</a></li>
@@ -760,6 +763,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul>
 </section>
 </section>
+<section id="forme-normale-de-boyce-codd-bcnf" class="level2">
+<h2><a href="#forme-normale-de-boyce-codd-bcnf"><span class="header-section-number">4.2</span> Forme normale de Boyce-Codd (BCNF)</a></h2>
+<p>Comme la troisième forme normale souffre encore de redondances, il existe une forme normale plus forte appelée la <strong>forme normale de Boyce-Codd</strong>.</p>
+<section id="définition-4" class="level3">
+<h3><a href="#définition-4"><span class="header-section-number">4.2.1</span> Définition</a></h3>
+<p>Une relation est en <strong>forme normale de Boyce-Codd</strong> si et seulement si <em>tous les déterminants</em> est une <em>clé candidate</em>.</p>
+</section>
+</section>
 </section>
 <section id="sql" class="level1">
 <h1><a href="#sql"><span class="header-section-number">5</span> SQL</a></h1>
@@ -790,17 +801,17 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section id="annexe" class="level1">
 <h1><a href="#annexe"><span class="header-section-number">6</span> Annexe</a></h1>
 <dl>
-<dt><strong>Application de base de données</strong></dt>
-<dd><p>Une application qui interagit avec la base de données à un certain point dans son exécution.</p>
-</dd>
 <dt><strong>Abstraction des données</strong></dt>
 <dd><p>Nom donné à l’approche qui cache la définition interne des données aux utilisateurs de la base de données et expose seulement la définition externe.</p>
+</dd>
+<dt><strong>Administrateur de la base de données (DBA)</strong></dt>
+<dd><p>Est responsable de la réalisation physique de la base de données, incluant le design physique de la base de données et l’implantation, la sécurité, le contrôle d’intégrité, la maintenance du système opérationnel et d’assurer une performance satisfaisante des applications des utilisateurs.</p>
 </dd>
 <dt><strong>Administrateur des données (DA)</strong></dt>
 <dd><p>Est responsable de gérer les ressources de données, incluant la planification de la base de données, le développement et la maintenance des standards, politiques et procédures. Il doit aussi s’occuper du design conceptuel/logique de la base de données.</p>
 </dd>
-<dt><strong>Administrateur de la base de données (DBA)</strong></dt>
-<dd><p>Est responsable de la réalisation physique de la base de données, incluant le design physique de la base de données et l’implantation, la sécurité, le contrôle d’intégrité, la maintenance du système opérationnel et d’assurer une performance satisfaisante des applications des utilisateurs.</p>
+<dt><strong>Anomalies d’insertion</strong></dt>
+<dd><p>Anomalies de mise à jour qui peuvent survenir lors de l’insertion d’un nouveau tuple.</p>
 </dd>
 <dt><strong>Anomalies de mise à jour</strong></dt>
 <dd><p>Problèmes qui peuvent survenir lorsqu’on met à jour une base de données qui comporte de la redondance.</p>
@@ -811,8 +822,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Anomalies de suppression</strong></dt>
 <dd><p>Anomalies de mise à jour qui peuvent survenir lors de la suppression d’un tuple.</p>
 </dd>
-<dt><strong>Anomalies d’insertion</strong></dt>
-<dd><p>Anomalies de mise à jour qui peuvent survenir lors de l’insertion d’un nouveau tuple.</p>
+<dt><strong>Application de base de données</strong></dt>
+<dd><p>Une application qui interagit avec la base de données à un certain point dans son exécution.</p>
 </dd>
 <dt><strong>Attribut (colonne ou champ)</strong></dt>
 <dd><strong>Définition 1</strong>: Propriété qui décrit un aspect de l’objet que nous souhaitons enregistrer.
@@ -842,11 +853,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Clé composée</strong></dt>
 <dd><p>Une clé candidate qui possède plus qu’un attribut.</p>
 </dd>
-<dt><strong>Clé étrangère</strong></dt>
-<dd><p>Un attribut, ou un ensemble d’attributs, à l’intérieur d’une relation qui correspond à la clé candidate d’une relation (possiblement la même).</p>
-</dd>
 <dt><strong>Clé primaire (PK)</strong></dt>
 <dd><p>Clé candidate choisie pour identifier chaque tuple de manière unique dans la relation.</p>
+</dd>
+<dt><strong>Clé étrangère</strong></dt>
+<dd><p>Un attribut, ou un ensemble d’attributs, à l’intérieur d’une relation qui correspond à la clé candidate d’une relation (possiblement la même).</p>
 </dd>
 <dt><strong>Concepteurs de bases de données logiques</strong></dt>
 <dd><p>Responsables d’identifier les données (ou plutôt les entités et les attributs), les relations entre les données et les contraintes sur les données qui vont être enregistrées dans la base de données. Il doit avoir une bonne compréhension des données de l’organisation et des contraintes qui s’appliquent sur celles-ci.</p>
@@ -854,20 +865,25 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Concepteurs de bases de données physiques</strong></dt>
 <dd><p>Décident comment la conception logique de la base de données va être physiquement implantée.</p>
 </dd>
-<dt><strong>Contraintes</strong></dt>
-<dd><p>Règles de cohérence que la base de données ne peut enfreindre.</p>
-</dd>
 <dt><strong>Contraintes d’intégrité</strong></dt>
 <dd><p>Restrictions sur l’ensemble des valeurs permises pour les attributs des relations.</p>
 </dd>
 <dt><strong>Contraintes générales</strong></dt>
 <dd><p>Règles additionnelles spécifiées par les utilisateurs ou les administrateurs de bases de données de la base de données qui définissent ou contraignent des aspects de l’entreprise.</p>
 </dd>
-<dt><strong>Déterminant</strong></dt>
-<dd><p>L’attribut, ou le groupe d’attributs, du côté gauche de la flèche d’une dépendance fonctionnelle.</p>
+<dt><strong>Contraintes</strong></dt>
+<dd><p>Règles de cohérence que la base de données ne peut enfreindre.</p>
 </dd>
 <dt><strong>Degré</strong></dt>
 <dd><p>Le nombre d’attributs que la relation contient.</p>
+</dd>
+<dt><strong>Deuxième forme normale (2NF)</strong></dt>
+<dd><strong>Définition</strong>: Une relation qui est dans la première forme normale et dont chaque attribut qui n’est pas une clé primaire est dépendant de la clé primaire.
+</dd>
+<dd><p><strong>Définition générale</strong>: Une relation qui est dans la première forme normale et dans laquelle tous les attributs qui ne font pas parties d’une clé candidate est <em>complètement dépendant</em> de n’importe quelle clé candidate.</p>
+</dd>
+<dt><strong>Domaine</strong></dt>
+<dd><p>L’ensemble des valeurs allouées pour un ou plusieurs attributs.</p>
 </dd>
 <dt><strong>Dépendance fonctionnelle (DF)</strong></dt>
 <dd><p>Décrit le lien entre les attributs d’une relation.</p>
@@ -889,22 +905,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dd>
 <dd><p><strong>Définition 2</strong>: Soit <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>C</mi></mrow></math>, des attributs d’une relation tel que <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>B</mi><mo stretchy="false">)</mo><mo>∧</mo><mo stretchy="false">(</mo><mi>B</mi><mo>↦</mo><mi>C</mi><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mi>A</mi><mo>↦</mo><mi>C</mi><mo stretchy="false">)</mo></mrow></math>, si <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>¬</mo><mo stretchy="false">(</mo><mi>B</mi><mo>↦</mo><mi>A</mi><mo stretchy="false">)</mo><mo>∨</mo><mo>¬</mo><mo stretchy="false">(</mo><mi>C</mi><mo>↦</mo><mi>A</mi><mo stretchy="false">)</mo></mrow></math></p>
 </dd>
-<dt><strong>Deuxième forme normale (2NF)</strong></dt>
-<dd><strong>Définition</strong>: Une relation qui est dans la première forme normale et dont chaque attribut qui n’est pas une clé primaire est dépendant de la clé primaire.
-</dd>
-<dd><p><strong>Définition générale</strong>: Une relation qui est dans la première forme normale et dans laquelle tous les attributs qui ne font pas parties d’une clé candidate est <em>complètement dépendant</em> de n’importe quelle clé candidate.</p>
-</dd>
-<dt><strong>Domaine</strong></dt>
-<dd><p>L’ensemble des valeurs allouées pour un ou plusieurs attributs.</p>
+<dt><strong>Déterminant</strong></dt>
+<dd><p>L’attribut, ou le groupe d’attributs, du côté gauche de la flèche d’une dépendance fonctionnelle.</p>
 </dd>
 <dt><strong>Entité</strong></dt>
 <dd><p>Objet distinct (une personne, un endroit, une chose, un concept ou un événement) dans l’organisation qui doit être représenté dans la base de données.</p>
 </dd>
 <dt><strong>Fermeture</strong></dt>
-<dd><p>L’ensemble de toutes les dépendances fonctionnelles sous-entendues par un ensemble de dépendences fonctionnelles <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math>. Notée <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mi>X</mi><mo>+</mo></msup></mrow></math></p>
+<dd><p>L’ensemble de toutes les dépendances fonctionnelles sous-entendues par un ensemble de dépendences fonctionnelles <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math>. Notée <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mi>X</mi><mo>+</mo></msup></mrow></math>.</p>
 </dd>
 <dt><strong>Forme non normalisée (UNF)</strong></dt>
 <dd><p>Une table qui contient une ou plusieurs répétitions de groupe.</p>
+</dd>
+<dt><strong>Forme normale de Boyce-Codd</strong></dt>
+<dd><p>Une relation dont <em>tous</em> les <em>déterminants</em> sont des <em>clés candidates</em>.</p>
 </dd>
 <dt><strong>Indépendance des données</strong></dt>
 <dd><p>La séparation de la description des données des applications rendant ainsi les applications immunisées aux changement de la description des données.</p>
@@ -938,12 +952,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Programme d’application</strong></dt>
 <dd><p>Un programme informatique qui interagit avec la base de données en envoyant des requêtes (la plupart du temps des instructions <em>SQL</em>) au système de gestion des bases de données.</p>
 </dd>
-<dt><strong>Règles d’affaires</strong></dt>
-<dd><p>Les contraintes d’une organisation sur les données.</p>
-</dd>
-<dt><strong>Règles d’intégrité</strong></dt>
-<dd><p>Contraintes ou restrictions qui s’appliquent sur toutes les instances de la base de données.</p>
-</dd>
 <dt><strong>Relation (table ou fichier)</strong></dt>
 <dd><strong>Définition 1</strong>: Une association entre plusieurs entités.
 </dd>
@@ -957,17 +965,23 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Relation virtuelle (relation dérivée)</strong></dt>
 <dd><p>Relation qui n’existe pas par elle-même, mais qui peut être dérivée dynamiquement d’une ou plusieurs relations de base.</p>
 </dd>
-<dt><strong>Schéma</strong></dt>
-<dd><p>Structure de la base de données.</p>
+<dt><strong>Règles d’affaires</strong></dt>
+<dd><p>Les contraintes d’une organisation sur les données.</p>
+</dd>
+<dt><strong>Règles d’intégrité</strong></dt>
+<dd><p>Contraintes ou restrictions qui s’appliquent sur toutes les instances de la base de données.</p>
 </dd>
 <dt><strong>Schéma conceptuel (modèle conceptuel)</strong></dt>
 <dd><p>L’ensemble de tous les schémas de la base de données.</p>
 </dd>
+<dt><strong>Schéma de base de données relationnel</strong></dt>
+<dd><p>Un ensemble de schémas de relation avec chacun un nom distinct.</p>
+</dd>
 <dt><strong>Schéma de relation</strong></dt>
 <dd><p>Une relation nommée définie par un ensemble d’attributs et de paires de noms de domaines.</p>
 </dd>
-<dt><strong>Schéma de base de données relationnel</strong></dt>
-<dd><p>Un ensemble de schémas de relation avec chacun un nom distinct.</p>
+<dt><strong>Schéma</strong></dt>
+<dd><p>Structure de la base de données.</p>
 </dd>
 <dt><strong>Superclé</strong></dt>
 <dd><p>Attribut, ou un ensemble d’attributs, qui identifient de manière unique un tuple dans une relation.</p>

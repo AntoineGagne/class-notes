@@ -1,22 +1,23 @@
 # Annexe
 
-**Application de base de données**
-:   Une application qui interagit avec la base de données à un certain point dans son exécution.
-
 **Abstraction des données**
 :   Nom donné à l'approche qui cache la définition interne des données aux utilisateurs de la base de données 
     et expose seulement la définition externe.
-
-**Administrateur des données (DA)**
-:   Est responsable de gérer les ressources de données, incluant la
-    planification de la base de données, le développement et la maintenance des standards, politiques et 
-    procédures. Il doit aussi s'occuper du design conceptuel/logique de la base de données.
 
 **Administrateur de la base de données (DBA)**
 :   Est responsable de la réalisation physique de la base de données, 
     incluant le design physique de la base de données et l'implantation, la sécurité,
     le contrôle d'intégrité, la maintenance du système opérationnel et d'assurer une performance
     satisfaisante des applications des utilisateurs.
+
+**Administrateur des données (DA)**
+:   Est responsable de gérer les ressources de données, incluant la
+    planification de la base de données, le développement et la maintenance des standards, politiques et 
+    procédures. Il doit aussi s'occuper du design conceptuel/logique de la base de données.
+
+**Anomalies d'insertion**
+:   Anomalies de mise à jour qui peuvent survenir lors de l'insertion d'un
+    nouveau tuple.
 
 **Anomalies de mise à jour**
 :   Problèmes qui peuvent survenir lorsqu'on met à jour une base de données
@@ -30,9 +31,8 @@
 :   Anomalies de mise à jour qui peuvent survenir lors de la suppression 
     d'un tuple.
 
-**Anomalies d'insertion**
-:   Anomalies de mise à jour qui peuvent survenir lors de l'insertion d'un
-    nouveau tuple.
+**Application de base de données**
+:   Une application qui interagit avec la base de données à un certain point dans son exécution.
 
 **Attribut (colonne ou champ)**
 :   **Définition 1**: Propriété qui décrit un aspect de l'objet que nous souhaitons enregistrer.
@@ -62,13 +62,13 @@
 **Clé composée**
 :   Une clé candidate qui possède plus qu'un attribut.
 
-**Clé étrangère**
-:   Un attribut, ou un ensemble d'attributs, à l'intérieur d'une relation
-    qui correspond à la clé candidate d'une relation (possiblement la même).
-
 **Clé primaire (PK)**
 :   Clé candidate choisie pour identifier chaque tuple de manière unique
     dans la relation.
+
+**Clé étrangère**
+:   Un attribut, ou un ensemble d'attributs, à l'intérieur d'une relation
+    qui correspond à la clé candidate d'une relation (possiblement la même).
 
 **Concepteurs de bases de données logiques**
 :   Responsables d'identifier les données (ou plutôt les entités et les attributs), 
@@ -79,9 +79,6 @@
 **Concepteurs de bases de données physiques**
 :   Décident comment la conception logique de la base de données va être physiquement implantée.
 
-**Contraintes**
-:   Règles de cohérence que la base de données ne peut enfreindre.
-
 **Contraintes d'intégrité**
 :   Restrictions sur l'ensemble des valeurs permises pour les attributs des relations.
 
@@ -89,12 +86,23 @@
 :   Règles additionnelles spécifiées par les utilisateurs ou les administrateurs de bases de 
     données de la base de données qui définissent ou contraignent des aspects de l'entreprise.
 
-**Déterminant**
-:   L'attribut, ou le groupe d'attributs, du côté gauche de la flèche d'une
-    dépendance fonctionnelle.
+**Contraintes**
+:   Règles de cohérence que la base de données ne peut enfreindre.
 
 **Degré**
 :   Le nombre d'attributs que la relation contient.
+
+**Deuxième forme normale (2NF)**
+:   **Définition**: Une relation qui est dans la première forme normale 
+    et dont chaque attribut qui n'est pas une clé primaire est dépendant de 
+    la clé primaire.
+:   **Définition générale**: Une relation qui est dans la première forme
+    normale et dans laquelle tous les attributs qui ne font pas parties
+    d'une clé candidate est *complètement dépendant* de n'importe quelle
+    clé candidate.
+
+**Domaine**
+:   L'ensemble des valeurs allouées pour un ou plusieurs attributs.
 
 **Dépendance fonctionnelle (DF)**
 :   Décrit le lien entre les attributs d'une relation.
@@ -126,17 +134,9 @@
     que $(A \mapsto B) \land (B \mapsto C) \Rightarrow (A \mapsto C)$, si
     $\neg (B \mapsto A) \lor \neg (C \mapsto A)$
 
-**Deuxième forme normale (2NF)**
-:   **Définition**: Une relation qui est dans la première forme normale 
-    et dont chaque attribut qui n'est pas une clé primaire est dépendant de 
-    la clé primaire.
-:   **Définition générale**: Une relation qui est dans la première forme
-    normale et dans laquelle tous les attributs qui ne font pas parties
-    d'une clé candidate est *complètement dépendant* de n'importe quelle
-    clé candidate.
-
-**Domaine**
-:   L'ensemble des valeurs allouées pour un ou plusieurs attributs.
+**Déterminant**
+:   L'attribut, ou le groupe d'attributs, du côté gauche de la flèche d'une
+    dépendance fonctionnelle.
 
 **Entité**
 :   Objet distinct (une personne, un endroit, une chose, un concept ou un événement) 
@@ -144,10 +144,13 @@
 
 **Fermeture**
 :   L'ensemble de toutes les dépendances fonctionnelles sous-entendues par
-    un ensemble de dépendences fonctionnelles $X$. Notée $X^+$
+    un ensemble de dépendences fonctionnelles $X$. Notée $X^+$.
 
 **Forme non normalisée (UNF)**
 :   Une table qui contient une ou plusieurs répétitions de groupe.
+
+**Forme normale de Boyce-Codd**
+:   Une relation dont *tous* les *déterminants* sont des *clés candidates*.
 
 **Indépendance des données**
 :   La séparation de la description des données des applications rendant ainsi les applications 
@@ -193,12 +196,6 @@
 :   Un programme informatique qui interagit avec la base de données en envoyant des requêtes 
     (la plupart du temps des instructions *SQL*) au système de gestion des bases de données.
 
-**Règles d'affaires**
-:   Les contraintes d'une organisation sur les données.
-
-**Règles d'intégrité**
-:   Contraintes ou restrictions qui s'appliquent sur toutes les instances de la base de données.
-
 **Relation (table ou fichier)**
 :   **Définition 1**: Une association entre plusieurs entités.
 :   **Définition 2**: Table avec des lignes et des colonnes.
@@ -212,17 +209,23 @@
 :   Relation qui n'existe pas par elle-même, mais qui peut être dérivée dynamiquement d'une ou
     plusieurs relations de base.
 
-**Schéma**
-:   Structure de la base de données.
+**Règles d'affaires**
+:   Les contraintes d'une organisation sur les données.
+
+**Règles d'intégrité**
+:   Contraintes ou restrictions qui s'appliquent sur toutes les instances de la base de données.
 
 **Schéma conceptuel (modèle conceptuel)**
 :   L'ensemble de tous les schémas de la base de données.
 
+**Schéma de base de données relationnel**
+:   Un ensemble de schémas de relation avec chacun un nom distinct.
+
 **Schéma de relation**
 :   Une relation nommée définie par un ensemble d'attributs et de paires de noms de domaines.
 
-**Schéma de base de données relationnel**
-:   Un ensemble de schémas de relation avec chacun un nom distinct.
+**Schéma**
+:   Structure de la base de données.
 
 **Superclé**
 :   Attribut, ou un ensemble d'attributs, qui identifient de manière unique un tuple dans une
@@ -263,3 +266,4 @@
     afin de produire une autre relation. Une vue est une *relation virtuelle* qui n'existe pas 
     nécessairement dans la base de données mais qui peut être produite sur demande par un utilisateur
     donné au moment de la requête.
+

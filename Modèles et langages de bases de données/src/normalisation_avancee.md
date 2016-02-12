@@ -41,3 +41,13 @@ dépendance $C \mapsto B$, où $C$ est un sous-ensemble de $A$, et avoir un
 ensemble de dépendences équivalentes à $X$.
 - On ne peut pas pas enlever une dépendance de $X$ et toujours avoir un
 ensemble de dépendances équivalent à $X$.
+
+## Forme normale de Boyce-Codd (BCNF)
+
+Comme la troisième forme normale souffre encore de redondances, il existe
+une forme normale plus forte appelée la **forme normale de Boyce-Codd**.
+
+### Définition
+
+Une relation est en **forme normale de Boyce-Codd** si et seulement si *tous
+les déterminants* est une *clé candidate*.
