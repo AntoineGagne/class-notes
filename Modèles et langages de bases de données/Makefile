@@ -1,4 +1,4 @@
-all: self_contained_html html pdf
+all: self_contained_html html
 
 html: create_dir
 	pandoc -S -N -s -B ../web_notes/html/navbar.html -A \
@@ -14,10 +14,14 @@ self_contained_html: create_dir
 	./src/normalisation.md ./src/normalisation_avancee.md \
 	./src/SQL.md ./src/annexe.md -o ./build/self_contained_notes.html
 
-pdf: create_dir
+pdf: sort_appendix create_dir
 	pandoc -S -N -s --normalize --listings --chapters \
 	--toc --toc-depth=6 ./src/introduction.md ./src/SGBD_et_modele_relationnel_de_donnees.md \
 	./src/normalisation.md ./src/normalisation_avancee.md ./src/SQL.md ./src/annexe.md -o ./build/notes.pdf
+
+sort_appendix: 
+	cat ./src/annexe.md | ./sort_appendix.py > temp.md \
+		&& mv temp.md ./src/annexe.md
 
 create_dir:
 	mkdir -p build

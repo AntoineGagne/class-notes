@@ -92,11 +92,6 @@
 **Degré**
 :   Le nombre d'attributs que la relation contient.
 
-**Dépendance multi-valuée**
-:   Représente une dépendence entre des attributs (par exemple, $A$, $B$ et $C$) dans une relation, tel que
-    pour chaque valeur de $A$, il y un ensemble de valeurs $B$ et un ensemble de valeurs pour $C$. Par contre,
-    l'ensemble de valeurs de $B$ et $C$ sont indépendants chacun des autres.
-
 **Deuxième forme normale (2NF)**
 :   **Définition**: Une relation qui est dans la première forme normale 
     et dont chaque attribut qui n'est pas une clé primaire est dépendant de 
@@ -122,6 +117,11 @@
     sous-ensemble de $A$.
 :   **Définition 3**: Soit $A$ et $B$, deux attributs d'une relation et
     $C \subset A$, alors $(A \mapsto B) \land \neg (C \mapsto B)$.
+
+**Dépendance multi-valuée**
+:   Représente une dépendence entre des attributs (par exemple, $A$, $B$ et $C$) dans une relation, tel que
+    pour chaque valeur de $A$, il y un ensemble de valeurs $B$ et un ensemble de valeurs pour $C$. Par contre,
+    l'ensemble de valeurs de $B$ et $C$ sont indépendants chacun des autres.
 
 **Dépendance partielle (DP)**
 :   **Définition 1**: Une dépendance fonctionnelle dans laquelle un des 
@@ -275,4 +275,3 @@
     afin de produire une autre relation. Une vue est une *relation virtuelle* qui n'existe pas 
     nécessairement dans la base de données mais qui peut être produite sur demande par un utilisateur
     donné au moment de la requête.
-
