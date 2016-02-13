@@ -218,7 +218,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#sql"><span class="toc-section-number">6</span> SQL</a><ul>
 <li><a href="#exemple"><span class="toc-section-number">6.1</span> Exemple</a></li>
 </ul></li>
-<li><a href="#annexe"><span class="toc-section-number">7</span> Annexe</a></li>
 </ul>
 </nav>
 <p>Ce document regroupe l’ensemble de mes notes pour le cours <strong>Modèles et langages de bases de données</strong>.</p>
@@ -1064,58 +1063,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <span class="co">                même valeur de colonne */</span>
     <span class="kw">having</span>      <span class="co">/* Filtre les groupes */</span>
     <span class="kw">order</span> <span class="kw">by</span>    <span class="co">/* Ordre d&#39;affiche */</span></code></pre>
-</section>
-</section>
-<section id="annexe" class="level1">
-<h1><a href="#annexe"><span class="header-section-number">7</span> Annexe</a></h1>
+<p>Annexe</p>
 <dl>
-<dt><strong>Regroupement</strong></dt>
-<dd><p>Groupe les tuples de la relation <span class="math">\(R\)</span> par les attributs de groupement, <span class="math">\(GA\)</span>, et applique ensuite la liste de fonctions agrégates <span class="math">\(AL\)</span> pour définir une nouvelle relation. <span class="math">\(AL\)</span> contient une paire (<span class="math">\(\langle \text{ fonction_agrégate } \rangle , \langle \text{ attribut } \rangle\)</span> ou plus. La relation résultante contient les attributs de groupement <span class="math">\(GA\)</span> avec le résultat de chacune des fonctions agrégates.</p>
-</dd>
-<dt><strong>Agrégation</strong></dt>
-<dd><p>Applique la liste des fonctions agrégates, <span class="math">\(AL\)</span>, à la relation <span class="math">\(R\)</span> pour définir une relation à partir de la liste agrégate. <span class="math">\(AL\)</span> contient une paire (<span class="math">\(\langle \text{ fonction_agrégate } \rangle , \langle \text{ attribut } \rangle\)</span> ou plus.</p>
-</dd>
-<dt><strong>Division</strong></dt>
-<dd><p>Opération de l’algèbre relationnelle qui définit une relation à partir des attributs <span class="math">\(C\)</span>, où <span class="math">\(C\)</span> est l’ensemble des attributs de <span class="math">\(R\)</span> qui ne sont pas des attributs de <span class="math">\(S\)</span>, qui consiste à l’ensemble des tuples de <span class="math">\(R\)</span> qui concordent avec <em>tous</em> les tuples de <span class="math">\(S\)</span>.</p>
-</dd>
-<dt><strong>Semi-jointure</strong></dt>
-<dd><p>Définit une relation qui contient les tuples de <span class="math">\(R\)</span> qui participent dans la jointure de <span class="math">\(R\)</span> avec <span class="math">\(S\)</span> satisfaisant le prédicat <span class="math">\(F\)</span>.</p>
-</dd>
-<dt><strong>Jointure externe</strong></dt>
-<dd><p>Jointure dans laquelle les tuples de <span class="math">\(R\)</span> qui n’ont pas de valeurs correspondantes avec les attributs en commun avec <span class="math">\(S\)</span> ne sont pas inclus dans la relation résultante. Les valeurs manquantes dans la deuxième relation sont mises à <em>null</em>.</p>
-</dd>
-<dt><strong>Jointure naturelle</strong></dt>
-<dd><p>Equijointure des deux relations <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sur tous leurs attributs communs <span class="math">\(x\)</span>. Une occurence de chacun des attributs communs est enlevée des résultats.</p>
-</dd>
-<dt><strong>Equijointure</strong></dt>
-<dd><p>Cas particulier de <span class="math">\(\theta\)</span>-join. C’est le cas où le prédicat <span class="math">\(F\)</span> contient seulement l’égalité (<span class="math">\(=\)</span>).</p>
-</dd>
-<dt><strong>Jointure theta (<span class="math">\(\theta\)</span>-join)</strong></dt>
-<dd><p>Opération de l’algèbre relationnelle qui définit une relation qui contient les tuples satisfants le prédicat <span class="math">\(F\)</span> à partir du résultat du produit cartésien de <span class="math">\(R\)</span> et <span class="math">\(S\)</span>. Le prédicat <span class="math">\(F\)</span> est de la forme <span class="math">\(R.a_i~\theta~S.b_i\)</span> où <span class="math">\(\theta\)</span> peut être un des opérateur de comparaison (<span class="math">\(&lt; \)</span>, <span class="math">\(\leq\)</span>, <span class="math">\(&gt;\)</span>, <span class="math">\(\geq\)</span>, <span class="math">\(=\)</span>, <span class="math">\(\neq\)</span>).</p>
-</dd>
-<dt><strong>Opérations de jointure</strong></dt>
-<dd><strong>Définition textuelle</strong>: Opération de l’algèbre relationnelle qui est équivalente à appliquer l’opération de sélection avec le prédicat de jointure au résultat du produit cartésien des deux relations d’entrée.
-</dd>
-<dd><p><strong>Définition mathématique</strong>: Si <span class="math">\(F\)</span> est le prédicat de jointure et <span class="math">\(R\)</span> ainsi que <span class="math">\(S\)</span> sont deux relations, alors l’opération de jointure entre les deux relations peut être décrite comme <span class="math">\(\sigma_{F}(R \times S)\)</span>.</p>
-</dd>
-<dt><strong>Union</strong></dt>
-<dd><p>L’union de deux relations <span class="math">\(R\)</span> et <span class="math">\(S\)</span> définit une relation qui contient tous les tuples de <span class="math">\(R\)</span> ou de <span class="math">\(S\)</span> ou bien des deux relations. Les tuples duplicats sont éliminés. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
-</dd>
-<dt><strong>Différence</strong></dt>
-<dd><p>Opération binaire de l’algèbre relationnelle qui définit une relation qui consiste des tuples qui sont dans la relation <span class="math">\(R\)</span>, mais pas dans la relation <span class="math">\(S\)</span>. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
-</dd>
-<dt><strong>Intersection</strong></dt>
-<dd><p>Opération binaire de l’algèbre relationnelle qui définit une relation consistant de l’ensemble de tous les tuples qui sont à la fois dans <span class="math">\(R\)</span> et <span class="math">\(S\)</span>. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
-</dd>
-<dt><strong>Produit cartésien</strong></dt>
-<dd><p>Opération binaire de l’algèbre relationnelle qui définit une relation qui est la concaténation de tous les tuples de la relation <span class="math">\(R\)</span> avec tous les tuples de la relation <span class="math">\(S\)</span>.</p>
-</dd>
-<dt><strong>Décomposition d’opérations complexes</strong></dt>
-<dd><p>Opération de l’algèbre relationnelle qui donne un nouveau nom à <span class="math">\(S\)</span> pour l’expression <span class="math">\(E\)</span>, et nomme optionnellement les attributs en <span class="math">\(a_1, a_2, \dots, a_n\)</span>. C’est une opération qui permet de donner un nom au résultat d’une opération relationnelle.</p>
-</dd>
-<dt><strong>Compatible à l’union</strong></dt>
-<dd><p>Quand les schémas de deux relations concordent, c’est-à-dire qu’ils ont le même nombre d’attributs avec chaque pair d’attributs correspondant ayant le même domaine.</p>
-</dd>
 <dt><strong>Abstraction des données</strong></dt>
 <dd><p>Nom donné à l’approche qui cache la définition interne des données aux utilisateurs de la base de données et expose seulement la définition externe.</p>
 </dd>
@@ -1124,6 +1073,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dd>
 <dt><strong>Administrateur des données (DA)</strong></dt>
 <dd><p>Est responsable de gérer les ressources de données, incluant la planification de la base de données, le développement et la maintenance des standards, politiques et procédures. Il doit aussi s’occuper du design conceptuel/logique de la base de données.</p>
+</dd>
+<dt><strong>Agrégation</strong></dt>
+<dd><p>Applique la liste des fonctions agrégates, <span class="math">\(AL\)</span>, à la relation <span class="math">\(R\)</span> pour définir une relation à partir de la liste agrégate. <span class="math">\(AL\)</span> contient une paire (<span class="math">\(\langle \text{ fonction_agrégate } \rangle , \langle \text{ attribut } \rangle\)</span> ou plus.</p>
 </dd>
 <dt><strong>Algèbre relationnelle</strong></dt>
 <dd><p>Langage théorique avec des opérations qui marchent sur une ou plusieurs relations pour définir une autre relation sans changer la relation originale.</p>
@@ -1177,6 +1129,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Clé étrangère</strong></dt>
 <dd><p>Un attribut, ou un ensemble d’attributs, à l’intérieur d’une relation qui correspond à la clé candidate d’une relation (possiblement la même).</p>
 </dd>
+<dt><strong>Compatible à l’union</strong></dt>
+<dd><p>Quand les schémas de deux relations concordent, c’est-à-dire qu’ils ont le même nombre d’attributs avec chaque pair d’attributs correspondant ayant le même domaine.</p>
+</dd>
 <dt><strong>Concepteurs de bases de données logiques</strong></dt>
 <dd><p>Responsables d’identifier les données (ou plutôt les entités et les attributs), les relations entre les données et les contraintes sur les données qui vont être enregistrées dans la base de données. Il doit avoir une bonne compréhension des données de l’organisation et des contraintes qui s’appliquent sur celles-ci.</p>
 </dd>
@@ -1200,8 +1155,17 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dd>
 <dd><p><strong>Définition générale</strong>: Une relation qui est dans la première forme normale et dans laquelle tous les attributs qui ne font pas parties d’une clé candidate est <em>complètement dépendant</em> de n’importe quelle clé candidate.</p>
 </dd>
+<dt><strong>Différence</strong></dt>
+<dd><p>Opération binaire de l’algèbre relationnelle qui définit une relation qui consiste des tuples qui sont dans la relation <span class="math">\(R\)</span>, mais pas dans la relation <span class="math">\(S\)</span>. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
+</dd>
+<dt><strong>Division</strong></dt>
+<dd><p>Opération de l’algèbre relationnelle qui définit une relation à partir des attributs <span class="math">\(C\)</span>, où <span class="math">\(C\)</span> est l’ensemble des attributs de <span class="math">\(R\)</span> qui ne sont pas des attributs de <span class="math">\(S\)</span>, qui consiste à l’ensemble des tuples de <span class="math">\(R\)</span> qui concordent avec <em>tous</em> les tuples de <span class="math">\(S\)</span>.</p>
+</dd>
 <dt><strong>Domaine</strong></dt>
 <dd><p>L’ensemble des valeurs allouées pour un ou plusieurs attributs.</p>
+</dd>
+<dt><strong>Décomposition d’opérations complexes</strong></dt>
+<dd><p>Opération de l’algèbre relationnelle qui donne un nouveau nom à <span class="math">\(S\)</span> pour l’expression <span class="math">\(E\)</span>, et nomme optionnellement les attributs en <span class="math">\(a_1, a_2, \dots, a_n\)</span>. C’est une opération qui permet de donner un nom au résultat d’une opération relationnelle.</p>
 </dd>
 <dt><strong>Dépendance fonctionnelle (DF)</strong></dt>
 <dd><p>Décrit le lien entre les attributs d’une relation.</p>
@@ -1232,6 +1196,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Entité</strong></dt>
 <dd><p>Objet distinct (une personne, un endroit, une chose, un concept ou un événement) dans l’organisation qui doit être représenté dans la base de données.</p>
 </dd>
+<dt><strong>Equijointure</strong></dt>
+<dd><p>Cas particulier de <span class="math">\(\theta\)</span>-join. C’est le cas où le prédicat <span class="math">\(F\)</span> contient seulement l’égalité (<span class="math">\(=\)</span>).</p>
+</dd>
 <dt><strong>Fermeture</strong></dt>
 <dd><p>L’ensemble de toutes les dépendances fonctionnelles sous-entendues par un ensemble de dépendences fonctionnelles <span class="math">\(X\)</span>. Notée <span class="math">\(X^+\)</span>.</p>
 </dd>
@@ -1244,11 +1211,23 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Indépendance des données</strong></dt>
 <dd><p>La séparation de la description des données des applications rendant ainsi les applications immunisées aux changement de la description des données.</p>
 </dd>
+<dt><strong>Intersection</strong></dt>
+<dd><p>Opération binaire de l’algèbre relationnelle qui définit une relation consistant de l’ensemble de tous les tuples qui sont à la fois dans <span class="math">\(R\)</span> et <span class="math">\(S\)</span>. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
+</dd>
 <dt><strong>Intégrité d’entité</strong></dt>
 <dd><p>Règle d’intégrité qui stipule que, dans une relation de base, aucun attribut de la clé primaire ne peut être nul.</p>
 </dd>
 <dt><strong>Intégrité référentielle</strong></dt>
 <dd><p>Règle d’intégrité qui stipule que, si une clé étrangère existe dans une relation, soit la valeur de la clé étrangère correspond à la valeur d’une clé candidate d’un tuple dans sa relation maison ou la valeur de la clé étrangère doit être complètement nulle.</p>
+</dd>
+<dt><strong>Jointure externe</strong></dt>
+<dd><p>Jointure dans laquelle les tuples de <span class="math">\(R\)</span> qui n’ont pas de valeurs correspondantes avec les attributs en commun avec <span class="math">\(S\)</span> ne sont pas inclus dans la relation résultante. Les valeurs manquantes dans la deuxième relation sont mises à <em>null</em>.</p>
+</dd>
+<dt><strong>Jointure naturelle</strong></dt>
+<dd><p>Equijointure des deux relations <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sur tous leurs attributs communs <span class="math">\(x\)</span>. Une occurence de chacun des attributs communs est enlevée des résultats.</p>
+</dd>
+<dt><strong>Jointure theta (<span class="math">\(\theta\)</span>-join)</strong></dt>
+<dd><p>Opération de l’algèbre relationnelle qui définit une relation qui contient les tuples satisfants le prédicat <span class="math">\(F\)</span> à partir du résultat du produit cartésien de <span class="math">\(R\)</span> et <span class="math">\(S\)</span>. Le prédicat <span class="math">\(F\)</span> est de la forme <span class="math">\(R.a_i~\theta~S.b_i\)</span> où <span class="math">\(\theta\)</span> peut être un des opérateur de comparaison (<span class="math">\(&lt; \)</span>, <span class="math">\(\leq\)</span>, <span class="math">\(&gt;\)</span>, <span class="math">\(\geq\)</span>, <span class="math">\(=\)</span>, <span class="math">\(\neq\)</span>).</p>
 </dd>
 <dt><strong>Langage de définition des données (DDL)</strong></dt>
 <dd><p>Permet aux utilisateurs de spécifier les types, les structures et les contraintes à appliquer sur les données qui seront entreposées dans la base de données.</p>
@@ -1267,8 +1246,16 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Null</strong></dt>
 <dd><p>Représente une valeur pour un attribut qui est présentement inconnu ou pas applicable pour ce tuple.</p>
 </dd>
+<dt><strong>Opérations de jointure</strong></dt>
+<dd><strong>Définition textuelle</strong>: Opération de l’algèbre relationnelle qui est équivalente à appliquer l’opération de sélection avec le prédicat de jointure au résultat du produit cartésien des deux relations d’entrée.
+</dd>
+<dd><p><strong>Définition mathématique</strong>: Si <span class="math">\(F\)</span> est le prédicat de jointure et <span class="math">\(R\)</span> ainsi que <span class="math">\(S\)</span> sont deux relations, alors l’opération de jointure entre les deux relations peut être décrite comme <span class="math">\(\sigma_{F}(R \times S)\)</span>.</p>
+</dd>
 <dt><strong>Première forme normale (1NF)</strong></dt>
 <dd><p>Une relation dans laquelle l’intersection de chaque ligne et colonne contient seulement une valeur.</p>
+</dd>
+<dt><strong>Produit cartésien</strong></dt>
+<dd><p>Opération binaire de l’algèbre relationnelle qui définit une relation qui est la concaténation de tous les tuples de la relation <span class="math">\(R\)</span> avec tous les tuples de la relation <span class="math">\(S\)</span>.</p>
 </dd>
 <dt><strong>Programme d’application</strong></dt>
 <dd><p>Un programme informatique qui interagit avec la base de données en envoyant des requêtes (la plupart du temps des instructions <em>SQL</em>) au système de gestion des bases de données.</p>
@@ -1278,6 +1265,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dd>
 <dt><strong>Quatrième forme normale</strong></dt>
 <dd><p>Une relation dont toutes les dépendences multi-valuées non-triviales <span class="math">\(A \twoheadrightarrow B\)</span> ont comme propriété que <span class="math">\(A\)</span> est une clé candidate de la relation.</p>
+</dd>
+<dt><strong>Regroupement</strong></dt>
+<dd><p>Groupe les tuples de la relation <span class="math">\(R\)</span> par les attributs de groupement, <span class="math">\(GA\)</span>, et applique ensuite la liste de fonctions agrégates <span class="math">\(AL\)</span> pour définir une nouvelle relation. <span class="math">\(AL\)</span> contient une paire (<span class="math">\(\langle \text{ fonction_agrégate } \rangle , \langle \text{ attribut } \rangle\)</span> ou plus. La relation résultante contient les attributs de groupement <span class="math">\(GA\)</span> avec le résultat de chacune des fonctions agrégates.</p>
 </dd>
 <dt><strong>Relation (table ou fichier)</strong></dt>
 <dd><strong>Définition 1</strong>: Une association entre plusieurs entités.
@@ -1310,8 +1300,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Schéma</strong></dt>
 <dd><p>Structure de la base de données.</p>
 </dd>
-<dt><strong>Sélection</strong></dt>
-<dd><p>Opération unaire de l’algèbre relationnelle qui s’applique sur une seule relation <span class="math">\(R\)</span> et définit une relation qui contient seulement les tuples de <span class="math">\(R\)</span> qui satisfont la condition spécifée (le <em>prédicat</em>).</p>
+<dt><strong>Semi-jointure</strong></dt>
+<dd><p>Définit une relation qui contient les tuples de <span class="math">\(R\)</span> qui participent dans la jointure de <span class="math">\(R\)</span> avec <span class="math">\(S\)</span> satisfaisant le prédicat <span class="math">\(F\)</span>.</p>
 </dd>
 <dt><strong>Superclé</strong></dt>
 <dd><p>Attribut, ou un ensemble d’attributs, qui identifient de manière unique un tuple dans une relation.</p>
@@ -1322,6 +1312,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dt><strong>Système de gestion de base de données (DBMS ou SGBD (en français))</strong></dt>
 <dd><p>Un logiciel qui permet aux utilisateurs de définir, maintenir et contrôler l’accès à la base de données.</p>
 </dd>
+<dt><strong>Sélection</strong></dt>
+<dd><p>Opération unaire de l’algèbre relationnelle qui s’applique sur une seule relation <span class="math">\(R\)</span> et définit une relation qui contient seulement les tuples de <span class="math">\(R\)</span> qui satisfont la condition spécifée (le <em>prédicat</em>).</p>
+</dd>
 <dt><strong>Troisième forme normale (3NF)</strong></dt>
 <dd><strong>Définition</strong>: Une relation qui est dans la première et deuxième forme normale et dans laquelle aucun attribut qui ne fait pas partie de la clé primaire est transitivement dépendant de la clé primaire.
 </dd>
@@ -1329,6 +1322,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </dd>
 <dt><strong>Tuple (ligne ou archive)</strong></dt>
 <dd><p>Nom donné à une ligne dans une relation (ou table).</p>
+</dd>
+<dt><strong>Union</strong></dt>
+<dd><p>L’union de deux relations <span class="math">\(R\)</span> et <span class="math">\(S\)</span> définit une relation qui contient tous les tuples de <span class="math">\(R\)</span> ou de <span class="math">\(S\)</span> ou bien des deux relations. Les tuples duplicats sont éliminés. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
 </dd>
 <dt><strong>Utilisateurs naïfs</strong></dt>
 <dd><p>Ignorent tout du système de gestion de bases de données. Ils accèdent à la base de données par des programmes spécifiques. Ils utilisent les opérations de bases de données en appuyant sur des boutons ou en entrant des commandes simples.</p>
@@ -1340,6 +1336,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd><p>Résultat dynamique d’une ou plusieurs opérations opérant sur les relations de base afin de produire une autre relation. Une vue est une <em>relation virtuelle</em> qui n’existe pas nécessairement dans la base de données mais qui peut être produite sur demande par un utilisateur donné au moment de la requête.</p>
 </dd>
 </dl>
+</section>
 </section>
 <script>
     document.getElementById("TOC").className = "mobile-hidden";
