@@ -41,7 +41,7 @@ La sélection s'applique à l'horizontal dans une table.
 
 La **projection** s'applique sur une seule relation $R$ et définie une relation qui contient
 un sous-ensemble vertical de $R$. Elle extrait les valeurs des attributs spécifiés et élimine les
-copies.
+duplicats.
 
 On l'écrit
 
