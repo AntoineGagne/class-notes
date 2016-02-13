@@ -1,62 +1,4 @@
-# Annexe
-
-**Semi-jointure**
-:   Définit une relation qui contient les tuples de $R$ qui participent
-    dans la jointure de $R$ avec $S$ satisfaisant le prédicat $F$.
-
-**Jointure externe**
-:   Jointure dans laquelle les tuples de $R$ qui n'ont pas de valeurs correspondantes avec 
-    les attributs en commun avec $S$ ne sont pas inclus dans la relation résultante. Les 
-    valeurs manquantes dans la deuxième relation sont mises à *null*.
-
-**Jointure naturelle**
-:   Equijointure des deux relations $R$ et $S$ sur tous leurs attributs
-    communs $x$. Une occurence de chacun des attributs communs est enlevée des résultats.
-
-**Equijointure**
-:   Cas particulier de $\theta$-join. C'est le cas où le prédicat $F$ contient 
-    seulement l'égalité ($=$).
-
-**Jointure theta ($\theta$-join)**
-:   Opération de l'algèbre relationnelle qui définit une relation qui contient les tuples satisfants
-    le prédicat $F$ à partir du résultat du produit cartésien de $R$ et $S$. Le prédicat $F$ est de la
-    forme $R.a_i~\theta~S.b_i$ où $\theta$ peut être un des opérateur de comparaison ($< $, $\leq$, $>$, $\geq$,
-    $=$, $\neq$).
-
-**Opérations de jointure**
-:   **Définition textuelle**: Opération de l'algèbre relationnelle qui est équivalente à appliquer 
-    l'opération de sélection avec le prédicat de jointure au résultat du produit cartésien des deux 
-    relations d'entrée.
-:   **Définition mathématique**: Si $F$ est le prédicat de jointure et $R$ ainsi que $S$ sont deux relations, 
-    alors l'opération de jointure entre les deux relations peut être décrite comme $\sigma_{F}(R \times S)$.
-
-**Union**
-:   L'union de deux relations $R$ et $S$ définit une relation qui contient tous les
-    tuples de $R$ ou de $S$ ou bien des deux relations. Les tuples duplicats sont éliminés. $R$ et
-    $S$ doivent être compatibles à l'union.
-
-**Différence**
-:   Opération binaire de l'algèbre relationnelle qui définit une relation qui consiste des tuples
-    qui sont dans la relation $R$, mais pas dans la relation $S$. $R$ et $S$ doivent être compatibles
-    à l'union.
-
-**Intersection** 
-:   Opération binaire de l'algèbre relationnelle qui définit une relation consistant de 
-    l'ensemble de tous les tuples qui sont à la fois dans $R$ et $S$. $R$ et $S$ doivent 
-    être compatibles à l'union.
-
-**Produit cartésien** 
-:   Opération binaire de l'algèbre relationnelle qui définit une relation qui est la concaténation 
-    de tous les tuples de la relation $R$ avec tous les tuples de la relation $S$.
-
-**Décomposition d'opérations complexes** 
-:   Opération de l'algèbre relationnelle qui donne un nouveau nom à $S$ pour l'expression $E$, 
-    et nomme optionnellement les attributs en $a_1, a_2, \dots, a_n$. C'est une opération qui permet
-    de donner un nom au résultat d'une opération relationnelle.
-
-**Compatible à l'union**
-:   Quand les schémas de deux relations concordent, c'est-à-dire qu'ils ont le même nombre
-    d'attributs avec chaque pair d'attributs correspondant ayant le même domaine.
+Annexe
 
 **Abstraction des données**
 :   Nom donné à l'approche qui cache la définition interne des données aux utilisateurs de la base de données 
@@ -72,6 +14,11 @@
 :   Est responsable de gérer les ressources de données, incluant la
     planification de la base de données, le développement et la maintenance des standards, politiques et 
     procédures. Il doit aussi s'occuper du design conceptuel/logique de la base de données.
+
+**Agrégation**
+:   Applique la liste des fonctions agrégates, $AL$, à la relation $R$ pour définir une relation
+    à partir de la liste agrégate. $AL$ contient une paire ($\langle \text{ fonction_agrégate } \rangle ,
+    \langle \text{ attribut } \rangle$ ou plus. 
 
 **Algèbre relationnelle**
 :   Langage théorique avec des opérations qui marchent sur une ou plusieurs relations pour
@@ -132,6 +79,10 @@
 :   Un attribut, ou un ensemble d'attributs, à l'intérieur d'une relation
     qui correspond à la clé candidate d'une relation (possiblement la même).
 
+**Compatible à l'union**
+:   Quand les schémas de deux relations concordent, c'est-à-dire qu'ils ont le même nombre
+    d'attributs avec chaque pair d'attributs correspondant ayant le même domaine.
+
 **Concepteurs de bases de données logiques**
 :   Responsables d'identifier les données (ou plutôt les entités et les attributs), 
     les relations entre les données et les contraintes sur les données
@@ -163,8 +114,23 @@
     d'une clé candidate est *complètement dépendant* de n'importe quelle
     clé candidate.
 
+**Différence**
+:   Opération binaire de l'algèbre relationnelle qui définit une relation qui consiste des tuples
+    qui sont dans la relation $R$, mais pas dans la relation $S$. $R$ et $S$ doivent être compatibles
+    à l'union.
+
+**Division**
+:   Opération de l'algèbre relationnelle qui définit une relation à partir des attributs $C$,
+    où $C$ est l'ensemble des attributs de $R$ qui ne sont pas des attributs de $S$,
+    qui consiste à l'ensemble des tuples de $R$ qui concordent avec *tous* les tuples de $S$.
+
 **Domaine**
 :   L'ensemble des valeurs allouées pour un ou plusieurs attributs.
+
+**Décomposition d'opérations complexes** 
+:   Opération de l'algèbre relationnelle qui donne un nouveau nom à $S$ pour l'expression $E$, 
+    et nomme optionnellement les attributs en $a_1, a_2, \dots, a_n$. C'est une opération qui permet
+    de donner un nom au résultat d'une opération relationnelle.
 
 **Dépendance fonctionnelle (DF)**
 :   Décrit le lien entre les attributs d'une relation.
@@ -209,6 +175,10 @@
 :   Objet distinct (une personne, un endroit, une chose, un concept ou un événement) 
     dans l'organisation qui doit être représenté dans la base de données.
 
+**Equijointure**
+:   Cas particulier de $\theta$-join. C'est le cas où le prédicat $F$ contient 
+    seulement l'égalité ($=$).
+
 **Fermeture**
 :   L'ensemble de toutes les dépendances fonctionnelles sous-entendues par
     un ensemble de dépendences fonctionnelles $X$. Notée $X^+$.
@@ -223,6 +193,11 @@
 :   La séparation de la description des données des applications rendant ainsi les applications 
     immunisées aux changement de la description des données.
 
+**Intersection** 
+:   Opération binaire de l'algèbre relationnelle qui définit une relation consistant de 
+    l'ensemble de tous les tuples qui sont à la fois dans $R$ et $S$. $R$ et $S$ doivent 
+    être compatibles à l'union.
+
 **Intégrité d'entité**
 :   Règle d'intégrité qui stipule que, dans une relation de base, aucun attribut de la clé primaire
     ne peut être nul.
@@ -231,6 +206,21 @@
 :   Règle d'intégrité qui stipule que, si une clé étrangère existe dans une relation,
     soit la valeur de la clé étrangère correspond à la valeur d'une clé candidate d'un tuple
     dans sa relation maison ou la valeur de la clé étrangère doit être complètement nulle.
+
+**Jointure externe**
+:   Jointure dans laquelle les tuples de $R$ qui n'ont pas de valeurs correspondantes avec 
+    les attributs en commun avec $S$ ne sont pas inclus dans la relation résultante. Les 
+    valeurs manquantes dans la deuxième relation sont mises à *null*.
+
+**Jointure naturelle**
+:   Equijointure des deux relations $R$ et $S$ sur tous leurs attributs
+    communs $x$. Une occurence de chacun des attributs communs est enlevée des résultats.
+
+**Jointure theta ($\theta$-join)**
+:   Opération de l'algèbre relationnelle qui définit une relation qui contient les tuples satisfants
+    le prédicat $F$ à partir du résultat du produit cartésien de $R$ et $S$. Le prédicat $F$ est de la
+    forme $R.a_i~\theta~S.b_i$ où $\theta$ peut être un des opérateur de comparaison ($< $, $\leq$, $>$, $\geq$,
+    $=$, $\neq$).
 
 **Langage de définition des données (DDL)**
 :   Permet aux utilisateurs de spécifier les types, les structures et les contraintes à appliquer sur les
@@ -255,9 +245,20 @@
 **Null**
 :   Représente une valeur pour un attribut qui est présentement inconnu ou pas applicable pour ce tuple.
 
+**Opérations de jointure**
+:   **Définition textuelle**: Opération de l'algèbre relationnelle qui est équivalente à appliquer 
+    l'opération de sélection avec le prédicat de jointure au résultat du produit cartésien des deux 
+    relations d'entrée.
+:   **Définition mathématique**: Si $F$ est le prédicat de jointure et $R$ ainsi que $S$ sont deux relations, 
+    alors l'opération de jointure entre les deux relations peut être décrite comme $\sigma_{F}(R \times S)$.
+
 **Première forme normale (1NF)**
 :   Une relation dans laquelle l'intersection de chaque ligne et
     colonne contient seulement une valeur.
+
+**Produit cartésien** 
+:   Opération binaire de l'algèbre relationnelle qui définit une relation qui est la concaténation 
+    de tous les tuples de la relation $R$ avec tous les tuples de la relation $S$.
 
 **Programme d'application**
 :   Un programme informatique qui interagit avec la base de données en envoyant des requêtes 
@@ -271,6 +272,13 @@
 **Quatrième forme normale**
 :   Une relation dont toutes les dépendences multi-valuées non-triviales $A \twoheadrightarrow B$ ont 
     comme propriété que $A$ est une clé candidate de la relation.
+
+**Regroupement**
+:   Groupe les tuples de la relation $R$ par les attributs de groupement, $GA$, et applique ensuite
+    la liste de fonctions agrégates $AL$ pour définir une nouvelle relation. $AL$ contient une paire 
+    ($\langle \text{ fonction_agrégate } \rangle , \langle \text{ attribut } \rangle$ ou plus. La 
+    relation résultante contient les attributs de groupement $GA$ avec le résultat de chacune des
+    fonctions agrégates.
 
 **Relation (table ou fichier)**
 :   **Définition 1**: Une association entre plusieurs entités.
@@ -303,10 +311,9 @@
 **Schéma**
 :   Structure de la base de données.
 
-**Sélection**
-:   Opération unaire de l'algèbre relationnelle qui s'applique sur une seule relation $R$ 
-    et définit une relation qui contient seulement les tuples de $R$ qui satisfont la condition 
-    spécifée (le *prédicat*).
+**Semi-jointure**
+:   Définit une relation qui contient les tuples de $R$ qui participent
+    dans la jointure de $R$ avec $S$ satisfaisant le prédicat $F$.
 
 **Superclé**
 :   Attribut, ou un ensemble d'attributs, qui identifient de manière unique un tuple dans une
@@ -320,6 +327,11 @@
 :   Un logiciel qui permet aux utilisateurs de définir, maintenir et contrôler
     l'accès à la base de données.
 
+**Sélection**
+:   Opération unaire de l'algèbre relationnelle qui s'applique sur une seule relation $R$ 
+    et définit une relation qui contient seulement les tuples de $R$ qui satisfont la condition 
+    spécifée (le *prédicat*).
+
 **Troisième forme normale (3NF)**
 :   **Définition**: Une relation qui est dans la première et deuxième 
     forme normale et dans laquelle aucun attribut qui ne fait pas partie 
@@ -330,6 +342,11 @@
 
 **Tuple (ligne ou archive)**
 :   Nom donné à une ligne dans une relation (ou table).
+
+**Union**
+:   L'union de deux relations $R$ et $S$ définit une relation qui contient tous les
+    tuples de $R$ ou de $S$ ou bien des deux relations. Les tuples duplicats sont éliminés. $R$ et
+    $S$ doivent être compatibles à l'union.
 
 **Utilisateurs naïfs**
 :   Ignorent tout du système de gestion de bases de données. Ils accèdent à la
@@ -347,3 +364,4 @@
     afin de produire une autre relation. Une vue est une *relation virtuelle* qui n'existe pas 
     nécessairement dans la base de données mais qui peut être produite sur demande par un utilisateur
     donné au moment de la requête.
+

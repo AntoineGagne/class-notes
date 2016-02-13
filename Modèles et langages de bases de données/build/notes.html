@@ -191,24 +191,28 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li><a href="#algèbre-relationnelle"><span class="toc-section-number">5</span> Algèbre relationnelle</a><ul>
 <li><a href="#définition-7"><span class="toc-section-number">5.1</span> Définition</a></li>
-<li><a href="#opérations"><span class="toc-section-number">5.2</span> Opérations</a></li>
-<li><a href="#opérations-unaires"><span class="toc-section-number">5.3</span> Opérations unaires</a><ul>
-<li><a href="#sélection-ou-restriction"><span class="toc-section-number">5.3.1</span> Sélection (ou restriction)</a></li>
-<li><a href="#projection"><span class="toc-section-number">5.3.2</span> Projection</a></li>
+<li><a href="#opérations"><span class="toc-section-number">5.2</span> Opérations</a><ul>
+<li><a href="#opérations-unaires"><span class="toc-section-number">5.2.1</span> Opérations unaires</a><ul>
+<li><a href="#sélection-ou-restriction"><span class="toc-section-number">5.2.1.1</span> Sélection (ou restriction)</a></li>
+<li><a href="#projection"><span class="toc-section-number">5.2.1.2</span> Projection</a></li>
 </ul></li>
-<li><a href="#opérations-binaires"><span class="toc-section-number">5.4</span> Opérations binaires</a><ul>
-<li><a href="#union"><span class="toc-section-number">5.4.1</span> Union</a></li>
-<li><a href="#différence"><span class="toc-section-number">5.4.2</span> Différence</a></li>
-<li><a href="#intersection"><span class="toc-section-number">5.4.3</span> Intersection</a></li>
-<li><a href="#produit-cartésien"><span class="toc-section-number">5.4.4</span> Produit cartésien</a></li>
-<li><a href="#décomposition-dopérations-complexes"><span class="toc-section-number">5.4.5</span> Décomposition d’opérations complexes</a></li>
+<li><a href="#opérations-binaires"><span class="toc-section-number">5.2.2</span> Opérations binaires</a><ul>
+<li><a href="#union"><span class="toc-section-number">5.2.2.1</span> Union</a></li>
+<li><a href="#différence"><span class="toc-section-number">5.2.2.2</span> Différence</a></li>
+<li><a href="#intersection"><span class="toc-section-number">5.2.2.3</span> Intersection</a></li>
+<li><a href="#produit-cartésien"><span class="toc-section-number">5.2.2.4</span> Produit cartésien</a></li>
+<li><a href="#décomposition-dopérations-complexes"><span class="toc-section-number">5.2.2.5</span> Décomposition d’opérations complexes</a></li>
 </ul></li>
-<li><a href="#opérations-de-jointure"><span class="toc-section-number">5.5</span> Opérations de jointure</a><ul>
-<li><a href="#jointure-theta-theta-join"><span class="toc-section-number">5.5.1</span> Jointure theta (<span class="math">\(\theta\)</span>-join)</a></li>
-<li><a href="#equijointure"><span class="toc-section-number">5.5.2</span> Equijointure</a></li>
-<li><a href="#jointure-naturelle"><span class="toc-section-number">5.5.3</span> Jointure naturelle</a></li>
-<li><a href="#jointure-externe"><span class="toc-section-number">5.5.4</span> Jointure externe</a></li>
-<li><a href="#semi-jointure"><span class="toc-section-number">5.5.5</span> Semi-jointure</a></li>
+<li><a href="#opérations-de-jointure"><span class="toc-section-number">5.2.3</span> Opérations de jointure</a><ul>
+<li><a href="#jointure-theta-theta-join"><span class="toc-section-number">5.2.3.1</span> Jointure theta (<span class="math">\(\theta\)</span>-join)</a></li>
+<li><a href="#equijointure"><span class="toc-section-number">5.2.3.2</span> Equijointure</a></li>
+<li><a href="#jointure-naturelle"><span class="toc-section-number">5.2.3.3</span> Jointure naturelle</a></li>
+<li><a href="#jointure-externe"><span class="toc-section-number">5.2.3.4</span> Jointure externe</a></li>
+<li><a href="#semi-jointure"><span class="toc-section-number">5.2.3.5</span> Semi-jointure</a></li>
+</ul></li>
+<li><a href="#division"><span class="toc-section-number">5.2.4</span> Division</a></li>
+<li><a href="#agrégation"><span class="toc-section-number">5.2.5</span> Agrégation</a></li>
+<li><a href="#regroupement"><span class="toc-section-number">5.2.6</span> Regroupement</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#sql"><span class="toc-section-number">6</span> SQL</a><ul>
@@ -853,12 +857,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section id="opérations" class="level2">
 <h2><a href="#opérations"><span class="header-section-number">5.2</span> Opérations</a></h2>
 <p>L’algèbre relationnelle supporte plusieurs opérations. Dans cette section, nous allons définir différents types d’opérations. Dans ces définitions, nous avons <span class="math">\(R\)</span> et <span class="math">\(S\)</span>, deux relations définies par les attributs <span class="math">\(A = (a_1, a_2, \dots, a_N)\)</span> et <span class="math">\(B = (b_1, b_2, \dots, b_M)\)</span> respectivement.</p>
-</section>
-<section id="opérations-unaires" class="level2">
-<h2><a href="#opérations-unaires"><span class="header-section-number">5.3</span> Opérations unaires</a></h2>
+<section id="opérations-unaires" class="level3">
+<h3><a href="#opérations-unaires"><span class="header-section-number">5.2.1</span> Opérations unaires</a></h3>
 <p>L’algèbre relationnelle possède deux opérations unaires: la <strong>sélection</strong> et la <strong>projection</strong>.</p>
-<section id="sélection-ou-restriction" class="level3">
-<h3><a href="#sélection-ou-restriction"><span class="header-section-number">5.3.1</span> Sélection (ou restriction)</a></h3>
+<section id="sélection-ou-restriction" class="level4">
+<h4><a href="#sélection-ou-restriction"><span class="header-section-number">5.2.1.1</span> Sélection (ou restriction)</a></h4>
 <p>La <strong>sélection</strong> s’applique sur une seule relation <span class="math">\(R\)</span> et définit une relation qui contient seulement les tuples de <span class="math">\(R\)</span> qui satisfont la condition spécifée (le <em>prédicat</em>).</p>
 <p>On l’écrit</p>
 <p><span class="math">\[
@@ -867,8 +870,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>où <span class="math">\(\sigma\)</span> est le nom de l’opération, <span class="math">\(prédicat\)</span> est le prédicat à respecter et <span class="math">\(R\)</span> est la relation sur laquelle l’opération est appliquée.</p>
 <p>La sélection s’applique à l’horizontal dans une table.</p>
 </section>
-<section id="projection" class="level3">
-<h3><a href="#projection"><span class="header-section-number">5.3.2</span> Projection</a></h3>
+<section id="projection" class="level4">
+<h4><a href="#projection"><span class="header-section-number">5.2.1.2</span> Projection</a></h4>
 <p>La <strong>projection</strong> s’applique sur une seule relation <span class="math">\(R\)</span> et définie une relation qui contient un sous-ensemble vertical de <span class="math">\(R\)</span>. Elle extrait les valeurs des attributs spécifiés et élimine les duplicats.</p>
 <p>On l’écrit</p>
 <p><span class="math">\[
@@ -878,11 +881,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>La sélection s’applique à la vertical dans une table.</p>
 </section>
 </section>
-<section id="opérations-binaires" class="level2">
-<h2><a href="#opérations-binaires"><span class="header-section-number">5.4</span> Opérations binaires</a></h2>
+<section id="opérations-binaires" class="level3">
+<h3><a href="#opérations-binaires"><span class="header-section-number">5.2.2</span> Opérations binaires</a></h3>
 <p>Il y a des cas où nous voulons extraire les informations de plusieurs relations à la fois. Les opérations binaires permettent de combiner les informations de deux relations à la fois.</p>
-<section id="union" class="level3">
-<h3><a href="#union"><span class="header-section-number">5.4.1</span> Union</a></h3>
+<section id="union" class="level4">
+<h4><a href="#union"><span class="header-section-number">5.2.2.1</span> Union</a></h4>
 <p>L’<strong>union</strong> de deux relations <span class="math">\(R\)</span> et <span class="math">\(S\)</span> définit une relation qui contient tous les tuples de <span class="math">\(R\)</span> ou de <span class="math">\(S\)</span> ou bien des deux relations. Les tuples duplicats sont éliminés. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
 <p>On l’écrit</p>
 <p><span class="math">\[
@@ -890,8 +893,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 \]</span></p>
 <p>où <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sont deux relations.</p>
 </section>
-<section id="différence" class="level3">
-<h3><a href="#différence"><span class="header-section-number">5.4.2</span> Différence</a></h3>
+<section id="différence" class="level4">
+<h4><a href="#différence"><span class="header-section-number">5.2.2.2</span> Différence</a></h4>
 <p>La <strong>différence</strong> définit une relation qui consiste des tuples qui sont dans la relation <span class="math">\(R\)</span>, mais pas dans la relation <span class="math">\(S\)</span>. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
 <p>On l’écrit</p>
 <p><span class="math">\[
@@ -899,8 +902,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 \]</span></p>
 <p>où <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sont deux ensembles.</p>
 </section>
-<section id="intersection" class="level3">
-<h3><a href="#intersection"><span class="header-section-number">5.4.3</span> Intersection</a></h3>
+<section id="intersection" class="level4">
+<h4><a href="#intersection"><span class="header-section-number">5.2.2.3</span> Intersection</a></h4>
 <p><strong>L’intersection</strong> définit une relation consistant de l’ensemble de tous les tuples qui sont à la fois dans <span class="math">\(R\)</span> et <span class="math">\(S\)</span>. <span class="math">\(R\)</span> et <span class="math">\(S\)</span> doivent être compatibles à l’union.</p>
 <p>On l’écrit</p>
 <p><span class="math">\[
@@ -908,8 +911,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 \]</span></p>
 <p>où <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sont des relations.</p>
 </section>
-<section id="produit-cartésien" class="level3">
-<h3><a href="#produit-cartésien"><span class="header-section-number">5.4.4</span> Produit cartésien</a></h3>
+<section id="produit-cartésien" class="level4">
+<h4><a href="#produit-cartésien"><span class="header-section-number">5.2.2.4</span> Produit cartésien</a></h4>
 <p>Le <strong>produit cartésien</strong> définit une relation qui est la concaténation de tous les tuples de la relation <span class="math">\(R\)</span> avec tous les tuples de la relation <span class="math">\(S\)</span>.</p>
 <p>On l’écrit</p>
 <p><span class="math">\[
@@ -917,8 +920,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 \]</span></p>
 <p>où <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sont des relations.</p>
 </section>
-<section id="décomposition-dopérations-complexes" class="level3">
-<h3><a href="#décomposition-dopérations-complexes"><span class="header-section-number">5.4.5</span> Décomposition d’opérations complexes</a></h3>
+<section id="décomposition-dopérations-complexes" class="level4">
+<h4><a href="#décomposition-dopérations-complexes"><span class="header-section-number">5.2.2.5</span> Décomposition d’opérations complexes</a></h4>
 <p>La <strong>décomposition d’opérations complexes</strong> donne un nouveau nom à <span class="math">\(S\)</span> pour l’expression <span class="math">\(E\)</span>, et nomme optionnellement les attributs en <span class="math">\(a_1, a_2, \dots, a_n\)</span>.</p>
 <p>On l’écrit</p>
 <p><span class="math">\[
@@ -926,8 +929,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 \]</span></p>
 </section>
 </section>
-<section id="opérations-de-jointure" class="level2">
-<h2><a href="#opérations-de-jointure"><span class="header-section-number">5.5</span> Opérations de jointure</a></h2>
+<section id="opérations-de-jointure" class="level3">
+<h3><a href="#opérations-de-jointure"><span class="header-section-number">5.2.3</span> Opérations de jointure</a></h3>
 <p>Les <strong>opérations de jointure</strong> sont parmies les opérations les plus utiles de l’algèbre relationnelle. Les opérations de jointure sont équivalents à appliquer l’opération de sélection avec le prédicat de jointure au résultat du produit cartésien des deux relations d’entrée. De manière plus symbolique, si on a <span class="math">\(F\)</span> comme prédicat de jointure et <span class="math">\(R\)</span> ainsi que <span class="math">\(S\)</span>, deux relations, nous avons que l’opération de jointure peut être définie comme:</p>
 <p><span class="math">\[
   \sigma_{F}(R \times S)
@@ -940,8 +943,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><strong>Jointure externe</strong></li>
 <li><strong>Semi-jointure</strong></li>
 </ul>
-<section id="jointure-theta-theta-join" class="level3">
-<h3><a href="#jointure-theta-theta-join"><span class="header-section-number">5.5.1</span> Jointure theta (<span class="math">\(\theta\)</span>-join)</a></h3>
+<section id="jointure-theta-theta-join" class="level4">
+<h4><a href="#jointure-theta-theta-join"><span class="header-section-number">5.2.3.1</span> Jointure theta (<span class="math">\(\theta\)</span>-join)</a></h4>
 <p>L’opération de <strong>jointure theta</strong> définit une relation qui contient les tuples satisfants le prédicat <span class="math">\(F\)</span> à partir du résultat du produit cartésien de <span class="math">\(R\)</span> et <span class="math">\(S\)</span>. Le prédicat <span class="math">\(F\)</span> est de la forme <span class="math">\(R.a_i~\theta~S.b_i\)</span> où <span class="math">\(\theta\)</span> peut être un des opérateur de comparaison (<span class="math">\(&lt; \)</span>, <span class="math">\(\leq\)</span>, <span class="math">\(&gt;\)</span>, <span class="math">\(\geq\)</span>, <span class="math">\(=\)</span>, <span class="math">\(\neq\)</span>).</p>
 <p>On l’écrit</p>
 <p><span class="math">\[
@@ -949,12 +952,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 \]</span></p>
 <p>où <span class="math">\(F\)</span> est le prédicat et <span class="math">\(R\)</span> ainsi que <span class="math">\(S\)</span> sont des relations.</p>
 </section>
-<section id="equijointure" class="level3">
-<h3><a href="#equijointure"><span class="header-section-number">5.5.2</span> Equijointure</a></h3>
+<section id="equijointure" class="level4">
+<h4><a href="#equijointure"><span class="header-section-number">5.2.3.2</span> Equijointure</a></h4>
 <p>L’<strong>equijointure</strong> est un cas particulier de <span class="math">\(\theta\)</span>-join. C’est le cas où le prédicat <span class="math">\(F\)</span> contient seulement l’égalité (<span class="math">\(=\)</span>).</p>
 </section>
-<section id="jointure-naturelle" class="level3">
-<h3><a href="#jointure-naturelle"><span class="header-section-number">5.5.3</span> Jointure naturelle</a></h3>
+<section id="jointure-naturelle" class="level4">
+<h4><a href="#jointure-naturelle"><span class="header-section-number">5.2.3.3</span> Jointure naturelle</a></h4>
 <p>La <strong>jointure naturelle</strong> est une equijointure des deux relations <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sur tous leurs attributs communs <span class="math">\(x\)</span>. Une occurence de chacun des attributs communs est enlevée des résultats.</p>
 <p>On l’écrit</p>
 <p><span class="math">\[
@@ -962,8 +965,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 \]</span></p>
 <p>où <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sont des relations.</p>
 </section>
-<section id="jointure-externe" class="level3">
-<h3><a href="#jointure-externe"><span class="header-section-number">5.5.4</span> Jointure externe</a></h3>
+<section id="jointure-externe" class="level4">
+<h4><a href="#jointure-externe"><span class="header-section-number">5.2.3.4</span> Jointure externe</a></h4>
 <p>La <strong>jointure externe</strong> (gauche) est une jointure dans laquelle les tuples de <span class="math">\(R\)</span> qui n’ont pas de valeurs correspondantes avec les attributs en commun avec <span class="math">\(S\)</span> ne sont pas inclus dans la relation résultante. Les valeurs manquantes dans la deuxième relation sont mises à <em>null</em>.</p>
 <p>On l’écrit</p>
 <p><span class="math">\[
@@ -974,14 +977,66 @@ code > span.er { color: #ff0000; font-weight: bold; }
 \end{align*}
 \]</span></p>
 </section>
-<section id="semi-jointure" class="level3">
-<h3><a href="#semi-jointure"><span class="header-section-number">5.5.5</span> Semi-jointure</a></h3>
+<section id="semi-jointure" class="level4">
+<h4><a href="#semi-jointure"><span class="header-section-number">5.2.3.5</span> Semi-jointure</a></h4>
 <p>La <strong>semi-jointure</strong> définit une relation qui contient les tuples de <span class="math">\(R\)</span> qui participent dans la jointure de <span class="math">\(R\)</span> avec <span class="math">\(S\)</span> satisfaisant le prédicat <span class="math">\(F\)</span>.</p>
 <p>On l’écrit</p>
 <p><span class="math">\[
   R \triangleright_{F} S \iff \Pi_{A}(R \bowtie_{F} S)
 \]</span></p>
 <p>où <span class="math">\(A\)</span> est l’ensemble de tous les attributs de <span class="math">\(R\)</span>.</p>
+</section>
+</section>
+<section id="division" class="level3">
+<h3><a href="#division"><span class="header-section-number">5.2.4</span> Division</a></h3>
+<p>Assumons que la relation <span class="math">\(R\)</span> est définie à partir de l’ensemble d’attributs <span class="math">\(A\)</span> et que la relation <span class="math">\(S\)</span> est définie à partir de l’ensemble d’attributs <span class="math">\(B\)</span> tel que <span class="math">\(B \subseteq A\)</span>. Soit <span class="math">\(C = A - B\)</span>, c’est-à-dire <span class="math">\(C\)</span> est l’ensemble des attributs de <span class="math">\(R\)</span> qui ne sont pas des attributs de <span class="math">\(S\)</span>. Alors, l’opération de division définit une relation à partir des attributs <span class="math">\(C\)</span> qui consiste à l’ensemble des tuples de <span class="math">\(R\)</span> qui concordent avec <em>tous</em> les tuples de <span class="math">\(S\)</span>.</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+  R \div S
+\]</span></p>
+<p>que l’on peut aussi réécrire comme</p>
+<p><span class="math">\[
+\begin{align*}
+  T_1~ &amp;\neg ~\Pi_{C}(R)
+  \\
+  T_2~ &amp;\neg ~\Pi_{C}((T_1 \times S) - R)
+  \\
+  T~ &amp;\neg ~T_{1} - T_{2}
+\end{align*}
+\]</span></p>
+</section>
+<section id="agrégation" class="level3">
+<h3><a href="#agrégation"><span class="header-section-number">5.2.5</span> Agrégation</a></h3>
+<p>Applique la liste des fonctions agrégates, <span class="math">\(AL\)</span>, à la relation <span class="math">\(R\)</span> pour définir une relation à partir de la liste agrégate. <span class="math">\(AL\)</span> contient une paire (<span class="math">\(\langle \text{ fonction_agrégate } \rangle , \langle \text{ attribut } \rangle\)</span> ou plus.</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+  _ {AL} (R)
+\]</span></p>
+<p>Les principales fonctions agrégates sont les suivantes:</p>
+<ul>
+<li><em>COUNT</em>: Retourne le nombre de valeurs de l’attribut associé.</li>
+<li><em>SUM</em>: Retourne la somme des valeurs de l’attribut associé.</li>
+<li><em>AVG</em>: Retourne la moyenne des valeurs de l’attribut associé.</li>
+<li><em>MIN</em>: Retourne la plus petite valeur de l’attribut associé.</li>
+<li><em>MAX</em>: Retourne la plus grande valeur de l’attribut associé.</li>
+</ul>
+</section>
+<section id="regroupement" class="level3">
+<h3><a href="#regroupement"><span class="header-section-number">5.2.6</span> Regroupement</a></h3>
+<p>Groupe les tuples de la relation <span class="math">\(R\)</span> par les attributs de groupement, <span class="math">\(GA\)</span>, et applique ensuite la liste de fonctions agrégates <span class="math">\(AL\)</span> pour définir une nouvelle relation. <span class="math">\(AL\)</span> contient une paire (<span class="math">\(\langle \text{ fonction_agrégate } \rangle , \langle \text{ attribut } \rangle\)</span> ou plus. La relation résultante contient les attributs de groupement <span class="math">\(GA\)</span> avec le résultat de chacune des fonctions agrégates.</p>
+<p>On l’écrit</p>
+<p><span class="math">\[
+ _ {GA~AL}(R)
+\]</span></p>
+<p>La forme générale de l’opération de regroupement est la suivante:</p>
+<p><span class="math">\[
+  a_1, a_2, \dots, a_n~ {}_{\langle A_p a_p \rangle, \langle A_q a_q \rangle, \dots, \langle A_z a_z \rangle}(R)
+\]</span></p>
+<p>où <span class="math">\(R\)</span> est une relation quelconque, <span class="math">\(a_1, a_2, \dots, a_n\)</span> sont des attributs de <span class="math">\(R\)</span>, <span class="math">\(a_p, a_q, \dots, a_z\)</span> sont d’autres attributs de <span class="math">\(R\)</span> et <span class="math">\(A_p, A_q, \dots, A_z\)</span> sont des fonctions agrégates. Les tuples de <span class="math">\(R\)</span> sont partitionnés de sorte que:</p>
+<ul>
+<li>tous les tuples dans un groupe on la même valeur pour <span class="math">\(a_1, a_2, \dots, a_n\)</span>;</li>
+<li>les tuples dans différents groupes ont des valeurs différentes pour <span class="math">\(a_1, a_2, \dots, a_n\)</span>.</li>
+</ul>
 </section>
 </section>
 </section>
@@ -1014,6 +1069,15 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section id="annexe" class="level1">
 <h1><a href="#annexe"><span class="header-section-number">7</span> Annexe</a></h1>
 <dl>
+<dt><strong>Regroupement</strong></dt>
+<dd><p>Groupe les tuples de la relation <span class="math">\(R\)</span> par les attributs de groupement, <span class="math">\(GA\)</span>, et applique ensuite la liste de fonctions agrégates <span class="math">\(AL\)</span> pour définir une nouvelle relation. <span class="math">\(AL\)</span> contient une paire (<span class="math">\(\langle \text{ fonction_agrégate } \rangle , \langle \text{ attribut } \rangle\)</span> ou plus. La relation résultante contient les attributs de groupement <span class="math">\(GA\)</span> avec le résultat de chacune des fonctions agrégates.</p>
+</dd>
+<dt><strong>Agrégation</strong></dt>
+<dd><p>Applique la liste des fonctions agrégates, <span class="math">\(AL\)</span>, à la relation <span class="math">\(R\)</span> pour définir une relation à partir de la liste agrégate. <span class="math">\(AL\)</span> contient une paire (<span class="math">\(\langle \text{ fonction_agrégate } \rangle , \langle \text{ attribut } \rangle\)</span> ou plus.</p>
+</dd>
+<dt><strong>Division</strong></dt>
+<dd><p>Opération de l’algèbre relationnelle qui définit une relation à partir des attributs <span class="math">\(C\)</span>, où <span class="math">\(C\)</span> est l’ensemble des attributs de <span class="math">\(R\)</span> qui ne sont pas des attributs de <span class="math">\(S\)</span>, qui consiste à l’ensemble des tuples de <span class="math">\(R\)</span> qui concordent avec <em>tous</em> les tuples de <span class="math">\(S\)</span>.</p>
+</dd>
 <dt><strong>Semi-jointure</strong></dt>
 <dd><p>Définit une relation qui contient les tuples de <span class="math">\(R\)</span> qui participent dans la jointure de <span class="math">\(R\)</span> avec <span class="math">\(S\)</span> satisfaisant le prédicat <span class="math">\(F\)</span>.</p>
 </dd>
