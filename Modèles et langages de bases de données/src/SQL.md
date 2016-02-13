@@ -77,7 +77,7 @@ PrivateOwner        (**ownerNo**, fName, lName, address, telNo, eMail, password)
 Viewing             (**clientNo**, propertyNo, viewDate, comment)
 -----------         ----------------------------------------------------------------------------------------
 
-: Cas d'étude *DreamHome*
+Table: Cas d'étude *DreamHome*
 
 ### Litéraux
 
@@ -121,7 +121,73 @@ où chacune des expressions a la signification suivante:
     order by    -- Spécifie l'ordre d'affichage
 ```
 
-## Exemple
+Il est important de retenir que l'ordre des clauses de l'expression `select` ne peut être changé
+et que les deux seules clauses obligatoires sont les deux premières: `select` et `from`. Les autres
+clauses sont optionnelles. Le résultat d'une expression `select` est une autre table.
+
+#### Exemples
+
+Dans tous les exemples suivants, nous allons nous servir de la table *DreamHome*.
+
+##### Aller chercher toutes les colonnes et rangées
+
+Nous voulons aller chercher toutes les informations sur le personnel. 
+
+Comme il n'y a pas de conditions, nous n'avons pas besoin d'un `where`. 
+Nous pouvons donc écrire cette requête comme
+
+```SQL
+    select staffNo, fName, lName, position, sex, DOB, salary, branchNo
+    from Staff;
+```
+
+Comme nous sélectionnons toutes les colonnes, nous pourrions réécrire cette requête comme
+
+```SQL
+    select *
+    from Staff;
+```
+
+Nous obtiendrons la table suivante:
+
+staffNo  fName  lName  position      sex  DOB        salary      branchNo
+-------  -----  -----  --------      ---  --------   --------    ---------
+SL21     John   White  Manager       M    1-Oct-45   30000.00    B005
+SG37     Ann    Beech  Assistant     F    10-Nov-60  12000.00    B003
+SG14     David  Ford   Supervisor    M    24-Mar-58  18000.00    B003
+SA9      Mary   Howe   Assistant     F    19-Feb-70   9000.00    B007
+SG5      Susan  Brand  Manager       F    3-Jun-40   24000.00    B003
+SL41     Julie  Lee    Assistant     F    13-Jun-65   9000.00    B005
+-------  -----  -----  --------      ---  --------   --------    ---------
+
+Table: Résultat de la requête
+
+##### Aller chercher des colonnes spécifiques et toutes les rangées
+
+On veut la liste des salaires de tous les employés en montrant seulement les numéros d'employés,
+les prénoms, les noms de famille et les détails du salaire. 
+
+Cette requête serait écrite comme
+
+```SQL
+    select staffNo, fName, lName, salary
+    from Staff;
+```
+
+Ce qui nous donnerait la table suivante:
+
+staffNo       fName        lName        salary
+-------       ------       ------       --------
+SL21          John         White        30000.00
+SG37          Ann          Beech        12000.00
+SG14          David        Ford         18000.00
+SA9           Mary         Howe          9000.00
+SG5           Susan        Brand        24000.00
+SL41          Julie        Lee           9000.00
+-------       ------       ------       --------
+
+Table: Résultat de la requête
+
 
 ```SQL
     create table PROPRIETE_A_LOUER

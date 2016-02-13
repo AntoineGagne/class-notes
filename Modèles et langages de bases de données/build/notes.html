@@ -224,9 +224,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#convention-de-code"><span class="toc-section-number">6.3.1</span> Convention de code</a></li>
 <li><a href="#manipulation-des-données"><span class="toc-section-number">6.3.2</span> Manipulation des données</a></li>
 <li><a href="#litéraux"><span class="toc-section-number">6.3.3</span> Litéraux</a></li>
-<li><a href="#select"><span class="toc-section-number">6.3.4</span> SELECT</a></li>
+<li><a href="#select"><span class="toc-section-number">6.3.4</span> SELECT</a><ul>
+<li><a href="#exemples"><span class="toc-section-number">6.3.4.1</span> Exemples</a><ul>
+<li><a href="#aller-chercher-toutes-les-colonnes-et-rangées"><span class="toc-section-number">6.3.4.1.1</span> Aller chercher toutes les colonnes et rangées</a></li>
+<li><a href="#aller-chercher-des-colonnes-spécifiques-et-toutes-les-rangées"><span class="toc-section-number">6.3.4.1.2</span> Aller chercher des colonnes spécifiques et toutes les rangées</a></li>
 </ul></li>
-<li><a href="#exemple"><span class="toc-section-number">6.4</span> Exemple</a></li>
+</ul></li>
+</ul></li>
 </ul></li>
 <li><a href="#annexe"><span class="toc-section-number">7</span> Annexe</a></li>
 </ul>
@@ -1158,10 +1162,154 @@ code > span.er { color: #ff0000; font-weight: bold; }
     <span class="kw">having</span>      <span class="co">-- Filtre les groupes selon une condition</span>
     <span class="kw">select</span>      <span class="co">-- Spécifie les colonnes qui vont apparaître dans la sortie</span>
     <span class="kw">order</span> <span class="kw">by</span>    <span class="co">-- Spécifie l&#39;ordre d&#39;affichage</span></code></pre>
+<p>Il est important de retenir que l’ordre des clauses de l’expression <code>select</code> ne peut être changé et que les deux seules clauses obligatoires sont les deux premières: <code>select</code> et <code>from</code>. Les autres clauses sont optionnelles. Le résultat d’une expression <code>select</code> est une autre table.</p>
+<section id="exemples" class="level4">
+<h4><a href="#exemples"><span class="header-section-number">6.3.4.1</span> Exemples</a></h4>
+<p>Dans tous les exemples suivants, nous allons nous servir de la table <em>DreamHome</em>.</p>
+<section id="aller-chercher-toutes-les-colonnes-et-rangées" class="level5">
+<h5><a href="#aller-chercher-toutes-les-colonnes-et-rangées"><span class="header-section-number">6.3.4.1.1</span> Aller chercher toutes les colonnes et rangées</a></h5>
+<p>Nous voulons aller chercher toutes les informations sur le personnel.</p>
+<p>Comme il n’y a pas de conditions, nous n’avons pas besoin d’un <code>where</code>. Nous pouvons donc écrire cette requête comme</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, position, sex, DOB, salary, branchNo
+    <span class="kw">from</span> Staff;</code></pre>
+<p>Comme nous sélectionnons toutes les colonnes, nous pourrions réécrire cette requête comme</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> *
+    <span class="kw">from</span> Staff;</code></pre>
+<p>Nous obtiendrons la table suivante:</p>
+<table>
+<caption>Résultat de la requête</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">staffNo</th>
+<th style="text-align: left;">fName</th>
+<th style="text-align: left;">lName</th>
+<th style="text-align: left;">position</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: left;">DOB</th>
+<th style="text-align: left;">salary</th>
+<th style="text-align: left;">branchNo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SL21</td>
+<td style="text-align: left;">John</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: left;">Manager</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">1-Oct-45</td>
+<td style="text-align: left;">30000.00</td>
+<td style="text-align: left;">B005</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SG37</td>
+<td style="text-align: left;">Ann</td>
+<td style="text-align: left;">Beech</td>
+<td style="text-align: left;">Assistant</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">10-Nov-60</td>
+<td style="text-align: left;">12000.00</td>
+<td style="text-align: left;">B003</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SG14</td>
+<td style="text-align: left;">David</td>
+<td style="text-align: left;">Ford</td>
+<td style="text-align: left;">Supervisor</td>
+<td style="text-align: left;">M</td>
+<td style="text-align: left;">24-Mar-58</td>
+<td style="text-align: left;">18000.00</td>
+<td style="text-align: left;">B003</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SA9</td>
+<td style="text-align: left;">Mary</td>
+<td style="text-align: left;">Howe</td>
+<td style="text-align: left;">Assistant</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">19-Feb-70</td>
+<td style="text-align: left;">9000.00</td>
+<td style="text-align: left;">B007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SG5</td>
+<td style="text-align: left;">Susan</td>
+<td style="text-align: left;">Brand</td>
+<td style="text-align: left;">Manager</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">3-Jun-40</td>
+<td style="text-align: left;">24000.00</td>
+<td style="text-align: left;">B003</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SL41</td>
+<td style="text-align: left;">Julie</td>
+<td style="text-align: left;">Lee</td>
+<td style="text-align: left;">Assistant</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">13-Jun-65</td>
+<td style="text-align: left;">9000.00</td>
+<td style="text-align: left;">B005</td>
+</tr>
+</tbody>
+</table>
 </section>
-</section>
-<section id="exemple" class="level2">
-<h2><a href="#exemple"><span class="header-section-number">6.4</span> Exemple</a></h2>
+<section id="aller-chercher-des-colonnes-spécifiques-et-toutes-les-rangées" class="level5">
+<h5><a href="#aller-chercher-des-colonnes-spécifiques-et-toutes-les-rangées"><span class="header-section-number">6.3.4.1.2</span> Aller chercher des colonnes spécifiques et toutes les rangées</a></h5>
+<p>On veut la liste des salaires de tous les employés en montrant seulement les numéros d’employés, les prénoms, les noms de famille et les détails du salaire.</p>
+<p>Cette requête serait écrite comme</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, salary
+    <span class="kw">from</span> Staff;</code></pre>
+<p>Ce qui nous donnerait la table suivante:</p>
+<table>
+<caption>Résultat de la requête</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">staffNo</th>
+<th style="text-align: left;">fName</th>
+<th style="text-align: left;">lName</th>
+<th style="text-align: left;">salary</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SL21</td>
+<td style="text-align: left;">John</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: left;">30000.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SG37</td>
+<td style="text-align: left;">Ann</td>
+<td style="text-align: left;">Beech</td>
+<td style="text-align: left;">12000.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SG14</td>
+<td style="text-align: left;">David</td>
+<td style="text-align: left;">Ford</td>
+<td style="text-align: left;">18000.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SA9</td>
+<td style="text-align: left;">Mary</td>
+<td style="text-align: left;">Howe</td>
+<td style="text-align: left;">9000.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SG5</td>
+<td style="text-align: left;">Susan</td>
+<td style="text-align: left;">Brand</td>
+<td style="text-align: left;">24000.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SL41</td>
+<td style="text-align: left;">Julie</td>
+<td style="text-align: left;">Lee</td>
+<td style="text-align: left;">9000.00</td>
+</tr>
+</tbody>
+</table>
 <pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">create</span> <span class="kw">table</span> PROPRIETE_A_LOUER
     (NUM PROPRIETE <span class="dt">varchar</span>(<span class="dv">5</span>) <span class="kw">not</span> <span class="kw">null</span>,
         PIECES <span class="dt">number</span>(<span class="dv">2</span>) <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="dv">4</span>,
@@ -1176,6 +1324,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
         <span class="kw">constraint</span> CK_PIECES_RANGE <span class="kw">check</span> (PIECES <span class="kw">between</span> <span class="dv">1</span> <span class="kw">and</span> <span class="dv">15</span>),
         <span class="kw">constraint</span> CK_LOCATION_RANGE <span class="kw">check</span>(LOCATION <span class="kw">between</span> <span class="dv">0</span>  <span class="kw">and</span> 
         <span class="fl">9999.99</span>);</code></pre>
+</section>
+</section>
+</section>
 </section>
 </section>
 <section id="annexe" class="level1">
