@@ -215,8 +215,18 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#regroupement"><span class="toc-section-number">5.2.6</span> Regroupement</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#sql"><span class="toc-section-number">6</span> SQL</a><ul>
-<li><a href="#exemple"><span class="toc-section-number">6.1</span> Exemple</a></li>
+<li><a href="#structured-query-language-sql-manipulation-des-données"><span class="toc-section-number">6</span> Structured Query Language (SQL) : Manipulation des données</a><ul>
+<li><a href="#objectifs-du-sql"><span class="toc-section-number">6.1</span> Objectifs du SQL</a></li>
+<li><a href="#informations-sur-le-sql"><span class="toc-section-number">6.2</span> Informations sur le SQL</a><ul>
+<li><a href="#terminalogie"><span class="toc-section-number">6.2.1</span> Terminalogie</a></li>
+</ul></li>
+<li><a href="#écrire-des-commandes-sql"><span class="toc-section-number">6.3</span> Écrire des commandes SQL</a><ul>
+<li><a href="#convention-de-code"><span class="toc-section-number">6.3.1</span> Convention de code</a></li>
+<li><a href="#manipulation-des-données"><span class="toc-section-number">6.3.2</span> Manipulation des données</a></li>
+<li><a href="#litéraux"><span class="toc-section-number">6.3.3</span> Litéraux</a></li>
+<li><a href="#select"><span class="toc-section-number">6.3.4</span> SELECT</a></li>
+</ul></li>
+<li><a href="#exemple"><span class="toc-section-number">6.4</span> Exemple</a></li>
 </ul></li>
 <li><a href="#annexe"><span class="toc-section-number">7</span> Annexe</a></li>
 </ul>
@@ -1040,10 +1050,118 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 </section>
 </section>
-<section id="sql" class="level1">
-<h1><a href="#sql"><span class="header-section-number">6</span> SQL</a></h1>
+<section id="structured-query-language-sql-manipulation-des-données" class="level1">
+<h1><a href="#structured-query-language-sql-manipulation-des-données"><span class="header-section-number">6</span> Structured Query Language (SQL) : Manipulation des données</a></h1>
+<p>Dans ce chapitre, nous aborderons des notions sur le <strong>Structured Query Language</strong> ou <strong>SQL</strong>.</p>
+<section id="objectifs-du-sql" class="level2">
+<h2><a href="#objectifs-du-sql"><span class="header-section-number">6.1</span> Objectifs du SQL</a></h2>
+<p>Idéalement, un langage de bases de données devrait permettre de</p>
+<ul>
+<li>créer la base de données et les structures des relations</li>
+<li>faire des opérations de gestion de données telles que l’insertion, la modification and la supression de données des relations</li>
+<li>faire des requêtes à la fois simples et complexes</li>
+</ul>
+<p>Le langage doit être simple; sa syntaxe et sa structure de commandes doivent être simples à apprendre. Le langage doit aussi être portable, c’est-à-dire qu’il doit être conforme à des standards pour que nous puissions utiliser les mêmes commandes d’un système de gestion de bases de données à un autre.</p>
+</section>
+<section id="informations-sur-le-sql" class="level2">
+<h2><a href="#informations-sur-le-sql"><span class="header-section-number">6.2</span> Informations sur le SQL</a></h2>
+<p>Le SQL est un <strong>langage orienté transformation</strong> ce qui veut dire que c’est un langage qui a été développé pour utiliser des relations pour transformer des entrées en des sorties demandées. Le SQL possède deux parties majeurs:</p>
+<ul>
+<li>Un <strong>langage de définition des données (DDL)</strong> pour définir la structure de la base de données et contrôler l’accès aux données.</li>
+<li>Un <strong>langage de manipulation des données (DML)</strong> pour aller chercher et mettre à jour les données.</li>
+</ul>
+<p>Le SQL est un langage qui n’est pas procédural. Nous spécifions les données dont nous avons besoin plutôt que comment aller les chercher. Autrement dit, nous n’avons pas à nous occuper des méthodes d’accès aux données: SQL le fait pour nous.</p>
+<section id="terminalogie" class="level3">
+<h3><a href="#terminalogie"><span class="header-section-number">6.2.1</span> Terminalogie</a></h3>
+<p>Les standards ISO du SQL n’utilisent pas les termes formels <em>relations</em>, <em>attributs</em> et <em>tuples</em>. Ils utilisent plutôt les mots <em>tables</em>, <em>colonnes</em> et <em>rangées</em>.</p>
+</section>
+</section>
+<section id="écrire-des-commandes-sql" class="level2">
+<h2><a href="#écrire-des-commandes-sql"><span class="header-section-number">6.3</span> Écrire des commandes SQL</a></h2>
+<p>Une déclaration SQL consiste de <strong>mots réservés</strong> et <strong>de mots définis par l’utilisateur</strong>. Les mots réservés font partis du langage et ont un sens fixes alors que les mots définis par l’utilisateur font références à des objets de la base de données comme les tables, colonnes, vues, indexes, etc. Les déclarations SQL ne sont pas sensibles à la casse. La seule exception est que les caractères litéraux doivent être écrits comme ils apparaissent dans la base de données.</p>
+<section id="convention-de-code" class="level3">
+<h3><a href="#convention-de-code"><span class="header-section-number">6.3.1</span> Convention de code</a></h3>
+<p>La convention du cours utilise en partie la <strong>forme de Backus Naur (BNF)</strong>. La convention que nous allons utiliser est donc la suivante:</p>
+<ul>
+<li>les mots réservés sont écrits en minuscules;</li>
+<li>les mots définis par l’utilisateur sont en majuscules;</li>
+<li>la bar vertical (<span class="math">\(|\)</span>) indique un choix parmi des alternatives;</li>
+<li>les accolades indiquent un élément requis;</li>
+<li>les crochets indiquent un élément optionnel;</li>
+<li>les points de suspension indique une répétition optionnelle d’un objet zéro ou plusieurs fois.</li>
+</ul>
+</section>
+<section id="manipulation-des-données" class="level3">
+<h3><a href="#manipulation-des-données"><span class="header-section-number">6.3.2</span> Manipulation des données</a></h3>
+<p>Cette section traite des différentes expressions du DML du SQL:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> <span class="co">-- pour aller chercher des données dans la base de données</span>
+    <span class="kw">insert</span> <span class="co">-- pour insérer des données dans une table</span>
+    <span class="kw">update</span> <span class="co">-- pour mettre à jour des données dans une table</span>
+    <span class="kw">delete</span> <span class="co">-- pour effacer des données d&#39;une table</span></code></pre>
+<p>Pour les explications des expressions, nous allons utiliser les tables suivantes:</p>
+<table>
+<caption>Cas d’étude <em>DreamHome</em></caption>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Branch</td>
+<td style="text-align: left;">(<strong>Branch</strong>, street, city, postcode)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Staff</td>
+<td style="text-align: left;">(<strong>staffNo</strong>, fName, lName, position, sex, DOB, salary, branchNo)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PropertyForRent</td>
+<td style="text-align: left;">(<strong>propertyNo</strong>, street, city, postcode, type, rooms, rent,</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">ownerNo, staffNo, branchNo)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Client</td>
+<td style="text-align: left;">(<strong>clientNo</strong>, fName, lName, telNo, prefType, maxRent, eMail)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PrivateOwner</td>
+<td style="text-align: left;">(<strong>ownerNo</strong>, fName, lName, address, telNo, eMail, password)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Viewing</td>
+<td style="text-align: left;">(<strong>clientNo</strong>, propertyNo, viewDate, comment)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="litéraux" class="level3">
+<h3><a href="#litéraux"><span class="header-section-number">6.3.3</span> Litéraux</a></h3>
+<p>Les litéraux sont des constantes qui sont utilisées dans des expressions SQL. Les chaines de caractères litérales doivent être entourées de guillemets simples et les litéraux numériques ne doivent pas avoir de guillemets.</p>
+<p>Un exemple d’insertion de litéraux dans une table pourrait ressembler à</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">insert</span> <span class="kw">into</span> PropertyForRent(propertyNo, street, city, postcode, <span class="kw">type</span>, 
+                                rooms, rent, ownerNo, staffNo, branchNo)
+    <span class="kw">values</span> (<span class="st">&#39;PA14&#39;</span>, <span class="st">&#39;16 Holhead&#39;</span>, <span class="st">&#39;Aberdeen&#39;</span>, <span class="st">&#39;AB7 5SU&#39;</span>, <span class="st">&#39;House&#39;</span>, <span class="dv">6</span>, <span class="fl">650.00</span>,
+            <span class="st">&#39;CO46&#39;</span>, <span class="st">&#39;SA9&#39;</span>, <span class="st">&#39;B007&#39;</span>);</code></pre>
+</section>
+<section id="select" class="level3">
+<h3><a href="#select"><span class="header-section-number">6.3.4</span> SELECT</a></h3>
+<p>L’expression <code>select</code> est utilisé pour aller chercher et afficher des données d’une ou plusieurs tables de bases de données. Elle permet de faire l’équivalent des opérations de <em>sélection</em>, <em>projecture</em> et de <em>jointure</em> de l’algèbre relationnelle.</p>
+<p>L’expression <code>select</code> a la forme suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span>      [<span class="kw">distinct</span> | <span class="kw">all</span>] {* | [columnExpression [<span class="kw">as</span> newName]] [,...]}
+    <span class="kw">from</span>        TableName [alias] [,...]
+    [<span class="kw">where</span>      condition]
+    [<span class="kw">group</span> <span class="kw">by</span>   columnList] [<span class="kw">having</span> condition]
+    [<span class="kw">order</span> <span class="kw">by</span>   columnList]</code></pre>
+<p>où chacune des expressions a la signification suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">from</span>        <span class="co">-- Table(s) à utiliser</span>
+    <span class="kw">where</span>       <span class="co">-- Filtre rangées selon une condition</span>
+    <span class="kw">group</span> <span class="kw">by</span>    <span class="co">-- Forme des groupes de rangées avec des mêmes valeurs de colonnes</span>
+    <span class="kw">having</span>      <span class="co">-- Filtre les groupes selon une condition</span>
+    <span class="kw">select</span>      <span class="co">-- Spécifie les colonnes qui vont apparaître dans la sortie</span>
+    <span class="kw">order</span> <span class="kw">by</span>    <span class="co">-- Spécifie l&#39;ordre d&#39;affichage</span></code></pre>
+</section>
+</section>
 <section id="exemple" class="level2">
-<h2><a href="#exemple"><span class="header-section-number">6.1</span> Exemple</a></h2>
+<h2><a href="#exemple"><span class="header-section-number">6.4</span> Exemple</a></h2>
 <pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">create</span> <span class="kw">table</span> PROPRIETE_A_LOUER
     (NUM PROPRIETE <span class="dt">varchar</span>(<span class="dv">5</span>) <span class="kw">not</span> <span class="kw">null</span>,
         PIECES <span class="dt">number</span>(<span class="dv">2</span>) <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="dv">4</span>,
@@ -1058,12 +1176,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
         <span class="kw">constraint</span> CK_PIECES_RANGE <span class="kw">check</span> (PIECES <span class="kw">between</span> <span class="dv">1</span> <span class="kw">and</span> <span class="dv">15</span>),
         <span class="kw">constraint</span> CK_LOCATION_RANGE <span class="kw">check</span>(LOCATION <span class="kw">between</span> <span class="dv">0</span>  <span class="kw">and</span> 
         <span class="fl">9999.99</span>);</code></pre>
-<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">from</span>         <span class="co">/* Table(s) à utiliser */</span>
-    <span class="kw">where</span>       <span class="co">/* Filtre rangées */</span>
-    <span class="kw">group</span> <span class="kw">by</span>    <span class="co">/* Forme des groupes de rangées avec </span>
-<span class="co">                même valeur de colonne */</span>
-    <span class="kw">having</span>      <span class="co">/* Filtre les groupes */</span>
-    <span class="kw">order</span> <span class="kw">by</span>    <span class="co">/* Ordre d&#39;affiche */</span></code></pre>
 </section>
 </section>
 <section id="annexe" class="level1">

@@ -188,6 +188,10 @@ figcaption {
     background-color: #F7F7F7;
 }
 
+table caption {
+    margin-bottom: 1em;
+}
+
 @media screen and (max-width: 1300px) {
     #TOC {
         z-index: 1000;
