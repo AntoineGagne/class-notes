@@ -1275,15 +1275,9 @@ $$</span></p>
 <section id="utiliser-distinct" class="level5">
 <h5><a href="#utiliser-distinct"><span class="header-section-number">6.3.4.1.3</span> Utiliser DISTINCT</a></h5>
 <p>Lorsqu’on fait un <code>select</code> sur une table, les duplicats sont conservés. Le mot clé <code>distinct</code> permet d’éliminer les duplicats. Par exemple,</p>
-<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> propertyNo
-    <span class="kw">from</span> Viewing;</code></pre>
-<p>va retourner la table suivante:</p>
-<p>| propertyNo | |:———-:| | PA14 | | PG4 | | PG4 | | PA14 | | PG36 |</p>
-<p>alors que la requête suivante:</p>
 <pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> <span class="kw">distinct</span> propertyNo
     <span class="kw">from</span> Viewing;</code></pre>
-<p>va retourner la table suivante:</p>
-<p>| propertyNo | |:———-:| | PA14 | | PG4 | | PG36 |</p>
+<p>va seulement retourner un seul numéro de propriété par duplicat.</p>
 <pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">create</span> <span class="kw">table</span> PROPRIETE_A_LOUER
     (NUM PROPRIETE <span class="dt">varchar</span>(<span class="dv">5</span>) <span class="kw">not</span> <span class="kw">null</span>,
         PIECES <span class="dt">number</span>(<span class="dv">2</span>) <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="dv">4</span>,
