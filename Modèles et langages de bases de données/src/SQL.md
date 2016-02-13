@@ -188,6 +188,17 @@ SL41          Julie        Lee           9000.00
 
 Table: Résultat de la requête
 
+##### Utiliser DISTINCT
+
+Lorsqu'on fait un `select` sur une table, les duplicats sont conservés. Le mot clé `distinct`
+permet d'éliminer les duplicats. Par exemple,
+
+```SQL
+    select distinct propertyNo
+    from Viewing;
+```
+
+va seulement retourner un seul numéro de propriété par duplicat.
 
 ```SQL
     create table PROPRIETE_A_LOUER
