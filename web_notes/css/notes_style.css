@@ -129,8 +129,11 @@ a {
 }
 
 #TOC {
-    position: absolute;
-    top: 45px;
+    position: fixed;
+    top: 38px;
+    left: 0;
+    bottom: 0;
+    overflow-y: scroll;
     text-align: left;
     background-color: #fafafa;
 }
@@ -186,6 +189,23 @@ figcaption {
 }
 
 @media screen and (max-width: 1300px) {
+    #TOC {
+        z-index: 1000;
+        /*
+        -webkit-animation: 0.5s linear 0s slideIn;
+           -moz-animation: 0.5s linear 0s slideIn;
+             -o-animation: 0.5s linear 0s slideIn;
+                animation: 0.5s linear 0s slideIn;
+        */
+    }
+    
+    /*
+    @-webkit-keyframes slideIn { from { left: -100%; } to { left: 0; }  }
+       @-moz-keyframes slideIn { from { left: -100%; } to { left: 0; }  }
+         @-o-keyframes slideIn { from { left: -100%; } to { left: 0; }  }
+            @keyframes slideIn { from { left: -100%; } to { left: 0; }  }
+    */
+    
     ol {
         overflow-x: scroll;
     }
