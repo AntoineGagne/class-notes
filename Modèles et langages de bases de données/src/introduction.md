@@ -26,7 +26,7 @@ extraites.
 
 #### Duplication des données
 
-Un autre problème de cette approche est la copieion des données. Chaque département a sa propre version des données. Cela fait en 
+Un autre problème de cette approche est la duplication des données. Chaque département a sa propre version des données. Cela fait en 
 sorte que les départements vont avoir des données identiques entre eux dans certains cas. C'est donc du gaspillage de temps et d'argent,
  car les données être entrées plusieurs fois par des personnes différentes. De plus, ça veut également dire qu'il y a plus d'espace de 
 stockage qui est pris. Finalement, il y a plus de risques d'avoir des informations incorrectes, car il peut y arriver que la
@@ -80,7 +80,7 @@ d'information d'une organisation.
 
 Les bases de données ont plusieurs avantages par rapport à l'approche par fichiers. Par exemple:
 
-- Une base de données a le minimum de copieion possible. 
+- Une base de données a le minimum de duplication possible. 
 - Au lieu d'être liée à un seul département, elle est partagée à toute l'organisation complète. 
 - Elle peut être accédée par plusieurs utilisateurs en même temps. 
 - En plus de contenir les données, elle contient aussi une description de ces données. 

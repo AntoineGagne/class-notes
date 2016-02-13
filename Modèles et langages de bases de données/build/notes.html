@@ -252,7 +252,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section id="duplication-des-données" class="level4">
 <h4><a href="#duplication-des-données"><span class="header-section-number">1.1.1.2</span> Duplication des données</a></h4>
-<p>Un autre problème de cette approche est la copieion des données. Chaque département a sa propre version des données. Cela fait en sorte que les départements vont avoir des données identiques entre eux dans certains cas. C’est donc du gaspillage de temps et d’argent, car les données être entrées plusieurs fois par des personnes différentes. De plus, ça veut également dire qu’il y a plus d’espace de stockage qui est pris. Finalement, il y a plus de risques d’avoir des informations incorrectes, car il peut y arriver que la synchronisation entre les différents fichiers des départements ne s’est pas bien faite.</p>
+<p>Un autre problème de cette approche est la duplication des données. Chaque département a sa propre version des données. Cela fait en sorte que les départements vont avoir des données identiques entre eux dans certains cas. C’est donc du gaspillage de temps et d’argent, car les données être entrées plusieurs fois par des personnes différentes. De plus, ça veut également dire qu’il y a plus d’espace de stockage qui est pris. Finalement, il y a plus de risques d’avoir des informations incorrectes, car il peut y arriver que la synchronisation entre les différents fichiers des départements ne s’est pas bien faite.</p>
 </section>
 <section id="dépendences-des-données" class="level4">
 <h4><a href="#dépendences-des-données"><span class="header-section-number">1.1.1.3</span> Dépendences des données</a></h4>
@@ -294,7 +294,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h4><a href="#avantages"><span class="header-section-number">1.2.1.2</span> Avantages</a></h4>
 <p>Les bases de données ont plusieurs avantages par rapport à l’approche par fichiers. Par exemple:</p>
 <ul>
-<li>Une base de données a le minimum de copieion possible.</li>
+<li>Une base de données a le minimum de duplication possible.</li>
 <li>Au lieu d’être liée à un seul département, elle est partagée à toute l’organisation complète.</li>
 <li>Elle peut être accédée par plusieurs utilisateurs en même temps.</li>
 <li>En plus de contenir les données, elle contient aussi une description de ces données.</li>
@@ -887,7 +887,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 <section id="projection" class="level4">
 <h4><a href="#projection"><span class="header-section-number">5.2.1.2</span> Projection</a></h4>
-<p>La <strong>projection</strong> s’applique sur une seule relation <span class="math">\(R\)</span> et définie une relation qui contient un sous-ensemble vertical de <span class="math">\(R\)</span>. Elle extrait les valeurs des attributs spécifiés et élimine les copies.</p>
+<p>La <strong>projection</strong> s’applique sur une seule relation <span class="math">\(R\)</span> et définie une relation qui contient un sous-ensemble vertical de <span class="math">\(R\)</span>. Elle extrait les valeurs des attributs spécifiés et élimine les duplicats.</p>
 <p>On l’écrit</p>
 <p><span class="math">\[
   \Pi_{a_1, \dots, a_n}(R)
