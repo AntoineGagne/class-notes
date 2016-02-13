@@ -41,7 +41,7 @@ La sélection s'applique à l'horizontal dans une table.
 
 La **projection** s'applique sur une seule relation $R$ et définie une relation qui contient
 un sous-ensemble vertical de $R$. Elle extrait les valeurs des attributs spécifiés et élimine les
-duplicats.
+copies.
 
 On l'écrit
 
@@ -62,7 +62,7 @@ binaires permettent de combiner les informations de deux relations à la fois.
 #### Union
 
 L'**union** de deux relations $R$ et $S$ définit une relation qui contient tous les
-tuples de $R$ ou de $S$ ou bien des deux relations. Les tuples duplicats sont éliminés. $R$ et
+tuples de $R$ ou de $S$ ou bien des deux relations. Les tuples copies sont éliminés. $R$ et
 $S$ doivent être compatibles à l'union.
 
 On l'écrit 

@@ -267,7 +267,7 @@
 **Projection**
 :   Opération unaire de l'algèbre relationnelle qui s'applique sur une seule relation $R$ 
     et définie une relation qui contient un sous-ensemble vertical de $R$. Elle extrait 
-    les valeurs des attributs spécifiés et élimine les duplicats.
+    les valeurs des attributs spécifiés et élimine les copies.
 
 **Quatrième forme normale**
 :   Une relation dont toutes les dépendences multi-valuées non-triviales $A \twoheadrightarrow B$ ont 
@@ -345,7 +345,7 @@
 
 **Union**
 :   L'union de deux relations $R$ et $S$ définit une relation qui contient tous les
-    tuples de $R$ ou de $S$ ou bien des deux relations. Les tuples duplicats sont éliminés. $R$ et
+    tuples de $R$ ou de $S$ ou bien des deux relations. Les tuples copies sont éliminés. $R$ et
     $S$ doivent être compatibles à l'union.
 
 **Utilisateurs naïfs**
