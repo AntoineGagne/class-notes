@@ -190,9 +190,16 @@ figcaption {
 
 table caption {
     margin-bottom: 1em;
+    text-align: center;
 }
 
 @media screen and (max-width: 1300px) {
+    table {
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+    }
+    
     #TOC {
         z-index: 1000;
         /*
