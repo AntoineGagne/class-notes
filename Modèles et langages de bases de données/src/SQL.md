@@ -125,7 +125,7 @@ Il est important de retenir que l'ordre des clauses de l'expression `select` ne 
 et que les deux seules clauses obligatoires sont les deux premières: `select` et `from`. Les autres
 clauses sont optionnelles. Le résultat d'une expression `select` est une autre table.
 
-#### Exemples
+#### Exemples d'utilisation du SELECT
 
 Dans tous les exemples suivants, nous allons nous servir de la table *DreamHome*.
 
@@ -200,6 +200,143 @@ permet d'éliminer les copies. Par exemple,
 
 va seulement retourner un seul numéro de propriété par copie.
 
+##### Champs calculés
+
+Nous voulons avoir la liste de tous les salaires mensuels de tous les employés, montrer 
+les numéros d'employé, les prénoms, les noms de famille et les détails des salaires.
+
+Il est possible d'ajouter des opérations arithmétiques à des expressions SQL. Ainsi, pour construire
+la requête demandée, nous pourrions écrire
+
+```SQL
+    select staffNo, fName, lName, salary/12
+    from Staff;
+```
+
+ou, avec un alias,
+
+```SQL
+    select staffNo, fName, lName, salary/12 as monthlySalary
+    from Staff;
+```
+
+#### Sélection de rangées (WHERE)
+
+Avec l'expression `where`, nous pouvons sélectionner des rangées spécifiques.
+Pour ce faire, nous utilisons le mot clé `where` suivi d'un prédicat. Les prédicats de base sont
+les suivants:
+
+- *Comparaison*: Compare la valeur d'une expression avec la valeur d'une autre expression.
+- *Recherche d'écart*: Teste si la valeur d'une expression se retrouve dans une certaine plage de valeurs.
+- *Appartenance à un ensemble*: Teste si la valeur d'une expression est égale à celle d'un ensemble de valeurs.
+- *Correspondance à un masque*: Teste si une chaîne de caractères correspond à un modèle spécifique.
+- *Null*: Teste si la colonne a une valeur nulle (inconnue). 
+
+Les opérateurs de comparaison suivants sont disponibles dans le langage SQL:
+
+```
+    =       égal
+    <>      pas égale
+    <       plus petit que
+    <=      plus petit ou égal
+    >       plus grand que
+    >=      plus grand ou égal
+```
+
+Il y aussi les opérateurs logiques `AND`, `OR` et `NOT` qui sont disponibles.
+Les prioriétés des opérations sont les suivantes:
+
+- Une expression est évaluée de gauche à droite.
+- Les sous-expressions entre parenthèses sont évaluées en premier.
+- Les `NOT` sont évalués avant les `AND` et les `OR`.
+- Les `AND` sont évalués avant les `OR`.
+
+##### Exemples d'utilisation du WHERE
+
+Dans cette section, nous allons voir des exemples d'utilisation de la clause `where`.
+
+###### Prédicat de comparaison
+
+On souhaite avoir la liste de tous les employés avec un salaire plus grand que 10000\$.
+
+Nous pouvons donc utiliser la clause `where` de la manière suivante:
+
+```SQL
+    select staffNo, fName, lName, position, salary
+    from Staff
+    where salary > 10000;
+```
+
+Ce bout de code va créer une table dont les rangées correspondent aux rangées de la table initiale 
+dont le salaire des employés est plus grand que 10000\$.
+
+###### Prédicat de comparaison composé
+
+On souhaite avoir la liste de toutes les adresses des filiales de Londres et Glasgow.
+
+Nous pouvons donc utiliser la clause `where` de la manière suivante:
+
+```SQL
+    select *
+    from Branch
+    where city = 'London' or city = 'Glasgow';
+```
+
+Cela va créer une table dont les rangées correspondent aux rangées de la table initiale où
+la ville était soit Londres ou Glasgow.
+
+###### Prédicat de recherche d'écart (BETWEEN/NOT BETWEEN)
+
+On souhaite avoir tous les employés dont le salaire se situe entre 20000\$ et 30000\$.
+
+Nous pouvons donc utiliser la clause `where` de la manière suivante:
+
+```SQL
+    select staffNo, fName, lName, position, salary
+    from Staff
+    where salary between 20000 and 30000;
+```
+
+Cela va créer une table dont les rangées correspondent aux rangées de la table initiale dont
+le salaire des employés était entre 20000 et 30000.
+
+Nous aurions aussi pu écrire
+
+```SQL
+    select staffNo, fName, lName, position, salary
+    from Staff
+    where salary >= 20000 and salary <= 30000;
+```
+
+###### Prédicat d'appartenance à un ensemble (IN/NOT IN)
+
+On souhaite avoir tous les employés qui sont des managers et des superviseurs.
+
+Nous pouvons donc utiliser la clause `where` de la manière suivante:
+
+```SQL
+    select staffNo, fName, lName, position
+    from Staff
+    where position in ('Manager', 'Supervisor');
+```
+
+Cela va créer une table dont les rangées correspondent aux rangées de la table initiale dans
+lesquelles le poste des employés était soit un manager ou un superviseur.
+
+Nous aurions aussi pu écrire
+
+```SQL
+    select staffNo, fName, lName, position
+    from Staff
+    where position = 'Manager' or position = 'Supervisor';
+```
+
+###### Prédicat de correspondance à un masque (LIKE/NOT LIKE)
+
+Nous voulons trouver tous les propriétaires qui ont la chaîne de caractères 'Glasgow' dans
+leur adresse.
+
+------------------------------------------------------------------------------------------
 ```SQL
     create table PROPRIETE_A_LOUER
     (NUM PROPRIETE varchar(5) not null,

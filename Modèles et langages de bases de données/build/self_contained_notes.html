@@ -224,10 +224,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#manipulation-des-données"><span class="toc-section-number">6.3.2</span> Manipulation des données</a></li>
 <li><a href="#litéraux"><span class="toc-section-number">6.3.3</span> Litéraux</a></li>
 <li><a href="#select"><span class="toc-section-number">6.3.4</span> SELECT</a><ul>
-<li><a href="#exemples"><span class="toc-section-number">6.3.4.1</span> Exemples</a><ul>
+<li><a href="#exemples-dutilisation-du-select"><span class="toc-section-number">6.3.4.1</span> Exemples d’utilisation du SELECT</a><ul>
 <li><a href="#aller-chercher-toutes-les-colonnes-et-rangées"><span class="toc-section-number">6.3.4.1.1</span> Aller chercher toutes les colonnes et rangées</a></li>
 <li><a href="#aller-chercher-des-colonnes-spécifiques-et-toutes-les-rangées"><span class="toc-section-number">6.3.4.1.2</span> Aller chercher des colonnes spécifiques et toutes les rangées</a></li>
 <li><a href="#utiliser-distinct"><span class="toc-section-number">6.3.4.1.3</span> Utiliser DISTINCT</a></li>
+<li><a href="#champs-calculés"><span class="toc-section-number">6.3.4.1.4</span> Champs calculés</a></li>
+</ul></li>
+<li><a href="#sélection-de-rangées-where"><span class="toc-section-number">6.3.4.2</span> Sélection de rangées (WHERE)</a><ul>
+<li><a href="#exemples-dutilisation-du-where"><span class="toc-section-number">6.3.4.2.1</span> Exemples d’utilisation du WHERE</a><ul>
+<li><a href="#prédicat-de-comparaison"><span class="toc-section-number">6.3.4.2.1.1</span> Prédicat de comparaison</a></li>
+<li><a href="#prédicat-de-comparaison-composé"><span class="toc-section-number">6.3.4.2.1.2</span> Prédicat de comparaison composé</a></li>
+<li><a href="#prédicat-de-recherche-décart-betweennot-between"><span class="toc-section-number">6.3.4.2.1.3</span> Prédicat de recherche d’écart (BETWEEN/NOT BETWEEN)</a></li>
+<li><a href="#prédicat-dappartenance-à-un-ensemble-innot-in"><span class="toc-section-number">6.3.4.2.1.4</span> Prédicat d’appartenance à un ensemble (IN/NOT IN)</a></li>
+<li><a href="#prédicat-de-correspondance-à-un-masque-likenot-like"><span class="toc-section-number">6.3.4.2.1.5</span> Prédicat de correspondance à un masque (LIKE/NOT LIKE)</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -1124,8 +1134,8 @@ $$</span></p>
     <span class="kw">select</span>      <span class="co">-- Spécifie les colonnes qui vont apparaître dans la sortie</span>
     <span class="kw">order</span> <span class="kw">by</span>    <span class="co">-- Spécifie l'ordre d'affichage</span></code></pre>
 <p>Il est important de retenir que l’ordre des clauses de l’expression <code>select</code> ne peut être changé et que les deux seules clauses obligatoires sont les deux premières: <code>select</code> et <code>from</code>. Les autres clauses sont optionnelles. Le résultat d’une expression <code>select</code> est une autre table.</p>
-<section id="exemples" class="level4">
-<h4><a href="#exemples"><span class="header-section-number">6.3.4.1</span> Exemples</a></h4>
+<section id="exemples-dutilisation-du-select" class="level4">
+<h4><a href="#exemples-dutilisation-du-select"><span class="header-section-number">6.3.4.1</span> Exemples d’utilisation du SELECT</a></h4>
 <p>Dans tous les exemples suivants, nous allons nous servir de la table <em>DreamHome</em>.</p>
 <section id="aller-chercher-toutes-les-colonnes-et-rangées" class="level5">
 <h5><a href="#aller-chercher-toutes-les-colonnes-et-rangées"><span class="header-section-number">6.3.4.1.1</span> Aller chercher toutes les colonnes et rangées</a></h5>
@@ -1278,6 +1288,93 @@ $$</span></p>
 <pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> <span class="kw">distinct</span> propertyNo
     <span class="kw">from</span> Viewing;</code></pre>
 <p>va seulement retourner un seul numéro de propriété par copie.</p>
+</section>
+<section id="champs-calculés" class="level5">
+<h5><a href="#champs-calculés"><span class="header-section-number">6.3.4.1.4</span> Champs calculés</a></h5>
+<p>Nous voulons avoir la liste de tous les salaires mensuels de tous les employés, montrer les numéros d’employé, les prénoms, les noms de famille et les détails des salaires.</p>
+<p>Il est possible d’ajouter des opérations arithmétiques à des expressions SQL. Ainsi, pour construire la requête demandée, nous pourrions écrire</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, salary/<span class="dv">12</span>
+    <span class="kw">from</span> Staff;</code></pre>
+<p>ou, avec un alias,</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, salary/<span class="dv">12</span> <span class="kw">as</span> monthlySalary
+    <span class="kw">from</span> Staff;</code></pre>
+</section>
+</section>
+<section id="sélection-de-rangées-where" class="level4">
+<h4><a href="#sélection-de-rangées-where"><span class="header-section-number">6.3.4.2</span> Sélection de rangées (WHERE)</a></h4>
+<p>Avec l’expression <code>where</code>, nous pouvons sélectionner des rangées spécifiques. Pour ce faire, nous utilisons le mot clé <code>where</code> suivi d’un prédicat. Les prédicats de base sont les suivants:</p>
+<ul>
+<li><em>Comparaison</em>: Compare la valeur d’une expression avec la valeur d’une autre expression.</li>
+<li><em>Recherche d’écart</em>: Teste si la valeur d’une expression se retrouve dans une certaine plage de valeurs.</li>
+<li><em>Appartenance à un ensemble</em>: Teste si la valeur d’une expression est égale à celle d’un ensemble de valeurs.</li>
+<li><em>Correspondance à un masque</em>: Teste si une chaîne de caractères correspond à un modèle spécifique.</li>
+<li><em>Null</em>: Teste si la colonne a une valeur nulle (inconnue).</li>
+</ul>
+<p>Les opérateurs de comparaison suivants sont disponibles dans le langage SQL:</p>
+<pre><code>    =       égal
+    &lt;&gt;      pas égale
+    &lt;       plus petit que
+    &lt;=      plus petit ou égal
+    &gt;       plus grand que
+    &gt;=      plus grand ou égal</code></pre>
+<p>Il y aussi les opérateurs logiques <code>AND</code>, <code>OR</code> et <code>NOT</code> qui sont disponibles. Les prioriétés des opérations sont les suivantes:</p>
+<ul>
+<li>Une expression est évaluée de gauche à droite.</li>
+<li>Les sous-expressions entre parenthèses sont évaluées en premier.</li>
+<li>Les <code>NOT</code> sont évalués avant les <code>AND</code> et les <code>OR</code>.</li>
+<li>Les <code>AND</code> sont évalués avant les <code>OR</code>.</li>
+</ul>
+<section id="exemples-dutilisation-du-where" class="level5">
+<h5><a href="#exemples-dutilisation-du-where"><span class="header-section-number">6.3.4.2.1</span> Exemples d’utilisation du WHERE</a></h5>
+<p>Dans cette section, nous allons voir des exemples d’utilisation de la clause <code>where</code>.</p>
+<section id="prédicat-de-comparaison" class="level6">
+<h6><a href="#prédicat-de-comparaison"><span class="header-section-number">6.3.4.2.1.1</span> Prédicat de comparaison</a></h6>
+<p>On souhaite avoir la liste de tous les employés avec un salaire plus grand que 10000$.</p>
+<p>Nous pouvons donc utiliser la clause <code>where</code> de la manière suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, position, salary
+    <span class="kw">from</span> Staff
+    <span class="kw">where</span> salary &gt; <span class="dv">10000</span>;</code></pre>
+<p>Ce bout de code va créer une table dont les rangées correspondent aux rangées de la table initiale dont le salaire des employés est plus grand que 10000$.</p>
+</section>
+<section id="prédicat-de-comparaison-composé" class="level6">
+<h6><a href="#prédicat-de-comparaison-composé"><span class="header-section-number">6.3.4.2.1.2</span> Prédicat de comparaison composé</a></h6>
+<p>On souhaite avoir la liste de toutes les adresses des filiales de Londres et Glasgow.</p>
+<p>Nous pouvons donc utiliser la clause <code>where</code> de la manière suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> *
+    <span class="kw">from</span> Branch
+    <span class="kw">where</span> city = <span class="st">'London'</span> <span class="kw">or</span> city = <span class="st">'Glasgow'</span>;</code></pre>
+<p>Cela va créer une table dont les rangées correspondent aux rangées de la table initiale où la ville était soit Londres ou Glasgow.</p>
+</section>
+<section id="prédicat-de-recherche-décart-betweennot-between" class="level6">
+<h6><a href="#prédicat-de-recherche-décart-betweennot-between"><span class="header-section-number">6.3.4.2.1.3</span> Prédicat de recherche d’écart (BETWEEN/NOT BETWEEN)</a></h6>
+<p>On souhaite avoir tous les employés dont le salaire se situe entre 20000$ et 30000$.</p>
+<p>Nous pouvons donc utiliser la clause <code>where</code> de la manière suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, position, salary
+    <span class="kw">from</span> Staff
+    <span class="kw">where</span> salary <span class="kw">between</span> <span class="dv">20000</span> <span class="kw">and</span> <span class="dv">30000</span>;</code></pre>
+<p>Cela va créer une table dont les rangées correspondent aux rangées de la table initiale dont le salaire des employés était entre 20000 et 30000.</p>
+<p>Nous aurions aussi pu écrire</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, position, salary
+    <span class="kw">from</span> Staff
+    <span class="kw">where</span> salary &gt;= <span class="dv">20000</span> <span class="kw">and</span> salary &lt;= <span class="dv">30000</span>;</code></pre>
+</section>
+<section id="prédicat-dappartenance-à-un-ensemble-innot-in" class="level6">
+<h6><a href="#prédicat-dappartenance-à-un-ensemble-innot-in"><span class="header-section-number">6.3.4.2.1.4</span> Prédicat d’appartenance à un ensemble (IN/NOT IN)</a></h6>
+<p>On souhaite avoir tous les employés qui sont des managers et des superviseurs.</p>
+<p>Nous pouvons donc utiliser la clause <code>where</code> de la manière suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, position
+    <span class="kw">from</span> Staff
+    <span class="kw">where</span> position <span class="kw">in</span> (<span class="st">'Manager'</span>, <span class="st">'Supervisor'</span>);</code></pre>
+<p>Cela va créer une table dont les rangées correspondent aux rangées de la table initiale dans lesquelles le poste des employés était soit un manager ou un superviseur.</p>
+<p>Nous aurions aussi pu écrire</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, position
+    <span class="kw">from</span> Staff
+    <span class="kw">where</span> position = <span class="st">'Manager'</span> <span class="kw">or</span> position = <span class="st">'Supervisor'</span>;</code></pre>
+</section>
+<section id="prédicat-de-correspondance-à-un-masque-likenot-like" class="level6">
+<h6><a href="#prédicat-de-correspondance-à-un-masque-likenot-like"><span class="header-section-number">6.3.4.2.1.5</span> Prédicat de correspondance à un masque (LIKE/NOT LIKE)</a></h6>
+<p>Nous voulons trouver tous les propriétaires qui ont la chaîne de caractères ‘Glasgow’ dans leur adresse.</p>
+<hr />
 <pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">create</span> <span class="kw">table</span> PROPRIETE_A_LOUER
     (NUM PROPRIETE <span class="dt">varchar</span>(<span class="dv">5</span>) <span class="kw">not</span> <span class="kw">null</span>,
         PIECES <span class="dt">number</span>(<span class="dv">2</span>) <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="dv">4</span>,
@@ -1292,6 +1389,7 @@ $$</span></p>
         <span class="kw">constraint</span> CK_PIECES_RANGE <span class="kw">check</span> (PIECES <span class="kw">between</span> <span class="dv">1</span> <span class="kw">and</span> <span class="dv">15</span>),
         <span class="kw">constraint</span> CK_LOCATION_RANGE <span class="kw">check</span>(LOCATION <span class="kw">between</span> <span class="dv">0</span>  <span class="kw">and</span> 
         <span class="fl">9999.99</span>);</code></pre>
+</section>
 </section>
 </section>
 </section>
