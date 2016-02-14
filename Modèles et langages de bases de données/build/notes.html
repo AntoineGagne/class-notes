@@ -238,6 +238,21 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#prédicat-de-recherche-décart-betweennot-between"><span class="toc-section-number">6.3.4.2.1.3</span> Prédicat de recherche d’écart (BETWEEN/NOT BETWEEN)</a></li>
 <li><a href="#prédicat-dappartenance-à-un-ensemble-innot-in"><span class="toc-section-number">6.3.4.2.1.4</span> Prédicat d’appartenance à un ensemble (IN/NOT IN)</a></li>
 <li><a href="#prédicat-de-correspondance-à-un-masque-likenot-like"><span class="toc-section-number">6.3.4.2.1.5</span> Prédicat de correspondance à un masque (LIKE/NOT LIKE)</a></li>
+<li><a href="#prédicat-de-recherche-de-null-is-nullis-not-null"><span class="toc-section-number">6.3.4.2.1.6</span> Prédicat de recherche de NULL (IS NULL/IS NOT NULL)</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#trier-les-résultats-order-by"><span class="toc-section-number">6.3.4.3</span> Trier les résultats (ORDER BY)</a><ul>
+<li><a href="#exemples-dutilisation-du-order-by"><span class="toc-section-number">6.3.4.3.1</span> Exemples d’utilisation du ORDER BY</a><ul>
+<li><a href="#tri-avec-une-seule-colonne"><span class="toc-section-number">6.3.4.3.1.1</span> Tri avec une seule colonne</a></li>
+<li><a href="#tri-avec-plusieurs-colonnes"><span class="toc-section-number">6.3.4.3.1.2</span> Tri avec plusieurs colonnes</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#fonctions-sql-dagrégation"><span class="toc-section-number">6.3.4.4</span> Fonctions SQL d’agrégation</a><ul>
+<li><a href="#exemples-dutilisation-des-fonctions-sql-dagrégation"><span class="toc-section-number">6.3.4.4.1</span> Exemples d’utilisation des fonctions SQL d’agrégation</a><ul>
+<li><a href="#utilisation-de-count"><span class="toc-section-number">6.3.4.4.1.1</span> Utilisation de <code>COUNT(*)</code></a></li>
+<li><a href="#utilisation-de-countdistinct"><span class="toc-section-number">6.3.4.4.1.2</span> Utilisation de <code>COUNT(DISTINCT)</code></a></li>
+<li><a href="#utilisation-de-count-et-sum"><span class="toc-section-number">6.3.4.4.1.3</span> Utilisation de <code>COUNT</code> et <code>SUM</code></a></li>
+<li><a href="#utilisation-de-min-max-et-avg"><span class="toc-section-number">6.3.4.4.1.4</span> Utilisation de <code>MIN</code>, <code>MAX</code> et <code>AVG</code></a></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -1414,6 +1429,197 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section id="prédicat-de-correspondance-à-un-masque-likenot-like" class="level6">
 <h6><a href="#prédicat-de-correspondance-à-un-masque-likenot-like"><span class="header-section-number">6.3.4.2.1.5</span> Prédicat de correspondance à un masque (LIKE/NOT LIKE)</a></h6>
 <p>Nous voulons trouver tous les propriétaires qui ont la chaîne de caractères ‘Glasgow’ dans leur adresse.</p>
+<p>Le SQL possède deux symboles pour trouver des correspondances entre des chaînes de caractères:</p>
+<ul>
+<li>Le caractère % représente une séquence de zéro caractère ou plus.</li>
+<li>Le caractère _ représente n’importe quel caractère.</li>
+</ul>
+<p>Tous les autres caractères se représentent eux-mêmes.</p>
+<p>Ainsi, notre requête pour résoudre notre problème serait la suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> ownerNo, fName, lName, address, telNo
+    <span class="kw">from</span> PrivateOwner
+    <span class="kw">where</span> address <span class="kw">like</span> <span class="st">&#39;%Glasgow%&#39;</span>; <span class="co">-- N&#39;importe quelle chaine, tant qu&#39;elle contient &#39;Glasgow&#39;</span></code></pre>
+</section>
+<section id="prédicat-de-recherche-de-null-is-nullis-not-null" class="level6">
+<h6><a href="#prédicat-de-recherche-de-null-is-nullis-not-null"><span class="header-section-number">6.3.4.2.1.6</span> Prédicat de recherche de NULL (IS NULL/IS NOT NULL)</a></h6>
+<p>Nous voulons avoir les détails sur toutes les propriétés PG4 où un commentaire n’a pas été fourni.</p>
+<p>Nous pouvons donc utiliser la clause de la manière suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> clientNo, viewDate
+    <span class="kw">from</span> Viewing
+    <span class="kw">where</span> propertyNo = <span class="st">&#39;PG4&#39;</span> <span class="kw">and</span> <span class="kw">comment</span> <span class="kw">is</span> <span class="kw">null</span>;</code></pre>
+</section>
+</section>
+</section>
+<section id="trier-les-résultats-order-by" class="level4">
+<h4><a href="#trier-les-résultats-order-by"><span class="header-section-number">6.3.4.3</span> Trier les résultats (ORDER BY)</a></h4>
+<p>La clause <code>ORDER BY</code> permet de classer des éléments selon un certain ordre. La clause <code>ORDER BY</code> reçoit en arguments la liste des identifiants des colonnes séparés par des virgules à partir desquels nous voulons trier. Il y a deux ordres de tri: en ordre croissant (ASC) et en ordre décroissant (DESC). La clause <code>ORDER BY</code> doit toujours être la dernière clause d’une expression <code>SELECT</code>. Le premier élément qui apparait dans la clause est appelé la <strong>clé majeure de tri</strong>. C’est elle qui va décider de l’ordre de tri général. Si les éléments de la colonne sont uniques, un élément de tri de va être suffisant. Sinon, on peut rajouter des éléments à la clause pour spécifier l’ordre de tri. On appelle tous les éléments qui apparaissent après la clé majeure de tri des <strong>clés mineures de tri</strong></p>
+<section id="exemples-dutilisation-du-order-by" class="level5">
+<h5><a href="#exemples-dutilisation-du-order-by"><span class="header-section-number">6.3.4.3.1</span> Exemples d’utilisation du ORDER BY</a></h5>
+<p>Dans cette section, nous verrons des exemples d’utilisation de la clause <code>ORDER BY</code>.</p>
+<section id="tri-avec-une-seule-colonne" class="level6">
+<h6><a href="#tri-avec-une-seule-colonne"><span class="header-section-number">6.3.4.3.1.1</span> Tri avec une seule colonne</a></h6>
+<p>Nous voulons la liste du salaire des employés en ordre décroissant.</p>
+<p>Nous pourrions donc écrire la clause suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, salary
+    <span class="kw">from</span> Staff
+    <span class="kw">order</span> <span class="kw">by</span> salary <span class="kw">desc</span>;</code></pre>
+</section>
+<section id="tri-avec-plusieurs-colonnes" class="level6">
+<h6><a href="#tri-avec-plusieurs-colonnes"><span class="header-section-number">6.3.4.3.1.2</span> Tri avec plusieurs colonnes</a></h6>
+<p>Nous voulons avoir la liste des propriétés triées par le type des propriétés.</p>
+<p>Nous pourrions écrire la clause suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">select</span> propertyNo, <span class="kw">type</span>, rooms, rent
+<span class="kw">from</span> PropertyForRent
+<span class="kw">order</span> <span class="kw">by</span> <span class="kw">type</span>;</code></pre>
+<p>On obtiendrait alors la table suivante:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">propertyNo</th>
+<th style="text-align: left;">type</th>
+<th style="text-align: left;">rooms</th>
+<th style="text-align: left;">rent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PL94</td>
+<td style="text-align: left;">Flat</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">400</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PG4</td>
+<td style="text-align: left;">Flat</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">350</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PG36</td>
+<td style="text-align: left;">Flat</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">375</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PG16</td>
+<td style="text-align: left;">Flat</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">450</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PA14</td>
+<td style="text-align: left;">House</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">650</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PG21</td>
+<td style="text-align: left;">House</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">600</td>
+</tr>
+</tbody>
+</table>
+<p>Par contre, si on précise une clé mineure de tri avec la clause suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">select</span> propertyNo, <span class="kw">type</span>, rooms, rent
+<span class="kw">from</span> PropertyForRent
+<span class="kw">order</span> <span class="kw">by</span> <span class="kw">type</span>, rent <span class="kw">desc</span>;</code></pre>
+<p>On obtiendrait la table suivante:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">propertyNo</th>
+<th style="text-align: left;">type</th>
+<th style="text-align: left;">rooms</th>
+<th style="text-align: left;">rent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PG16</td>
+<td style="text-align: left;">Flat</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">450</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PL94</td>
+<td style="text-align: left;">Flat</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PG36</td>
+<td style="text-align: left;">Flat</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">375</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PG4</td>
+<td style="text-align: left;">Flat</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">350</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PA14</td>
+<td style="text-align: left;">House</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">650</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PG21</td>
+<td style="text-align: left;">House</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">600</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="fonctions-sql-dagrégation" class="level4">
+<h4><a href="#fonctions-sql-dagrégation"><span class="header-section-number">6.3.4.4</span> Fonctions SQL d’agrégation</a></h4>
+<p>Les fonctions d’agrégation permettent d’effectuer des opérations sur des données. Il existe 5 types de fonctions d’agrégation définies par les standards ISO:</p>
+<ul>
+<li><code>COUNT</code>: Retourne le nombre de valeurs dans la colonne spécifiée.</li>
+<li><code>SUM</code>: Retourne la somme des valeurs dans la colonne spécifiée.</li>
+<li><code>AVG</code>: Retourne la moyenne des valeurs dans la colonne spécifiée.</li>
+<li><code>MIN</code>: Retourne la plus petite valeur dans la colonne spécifiée.</li>
+<li><code>MAX</code>: Retourne la plus grande valeur dans la colonne spécifiée.</li>
+</ul>
+<p>Les fonctions <code>AVG</code> et <code>SUM</code> peuvent seulement être utilisées sur des colonnes numériques. Toutes les fonctions éliminent les <em>nulls</em> avant d’effectuer leurs calculs. Il y a seulement <code>COUNT(*)</code> qui n’élimine pas les <em>nulls</em> avant de faire ses opérations.</p>
+<p>Si on veut éliminer les copies, il faut utiliser le mot clé <code>DISTINCT</code> avant le nom de la colonne dans la fonction. Si on spécifie le mot clé <code>ALL</code> devant le nom des colonnes, on indique qu’on permet les copies.</p>
+<section id="exemples-dutilisation-des-fonctions-sql-dagrégation" class="level5">
+<h5><a href="#exemples-dutilisation-des-fonctions-sql-dagrégation"><span class="header-section-number">6.3.4.4.1</span> Exemples d’utilisation des fonctions SQL d’agrégation</a></h5>
+<p>Dans cette section, nous verrons des exemples d’utilisation des fonctions SQL d’agrégation.</p>
+<section id="utilisation-de-count" class="level6">
+<h6><a href="#utilisation-de-count"><span class="header-section-number">6.3.4.4.1.1</span> Utilisation de <code>COUNT(*)</code></a></h6>
+<p>Nous souhaitons savoir combien de propriétés coûtent plus chères que 350$ par mois.</p>
+<p>Nous allons donc avoir la clause suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo <span class="fu">count</span>(salary)
+    <span class="kw">from</span> Staff;</code></pre>
+</section>
+<section id="utilisation-de-countdistinct" class="level6">
+<h6><a href="#utilisation-de-countdistinct"><span class="header-section-number">6.3.4.4.1.2</span> Utilisation de <code>COUNT(DISTINCT)</code></a></h6>
+<p>Nous souhaitons savoir combien de propriétés différentes ont été vues en mai 2013.</p>
+<p>Nous allons donc avoir la clause suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> <span class="fu">count</span>(<span class="kw">distinct</span> propertyNo) <span class="kw">as</span> myCount
+    <span class="kw">from</span> Viewing
+    <span class="kw">where</span> viewDate <span class="kw">between</span> <span class="st">&#39;1-May-13&#39;</span> <span class="kw">and</span> <span class="st">&#39;31-May-13&#39;</span>;</code></pre>
+</section>
+<section id="utilisation-de-count-et-sum" class="level6">
+<h6><a href="#utilisation-de-count-et-sum"><span class="header-section-number">6.3.4.4.1.3</span> Utilisation de <code>COUNT</code> et <code>SUM</code></a></h6>
+<p>Nous souhaitons trouver le nombre total de managers et la somme de leurs salaires.</p>
+<p>Nous allons donc avoir la clause suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> <span class="fu">count</span>(staffNo) <span class="kw">as</span> myCount, <span class="fu">sum</span>(salary) <span class="kw">as</span> mySum
+    <span class="kw">from</span> Staff
+    <span class="kw">where</span> position = <span class="st">&#39;Manager&#39;</span>;</code></pre>
+</section>
+<section id="utilisation-de-min-max-et-avg" class="level6">
+<h6><a href="#utilisation-de-min-max-et-avg"><span class="header-section-number">6.3.4.4.1.4</span> Utilisation de <code>MIN</code>, <code>MAX</code> et <code>AVG</code></a></h6>
+<p>Nous souhaitons trouver le salaire minimum et maximum ainsi que la moyenne des salaires des employés.</p>
+<p>Nous allons donc avoir la clause suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> <span class="fu">min</span>(salary) <span class="kw">as</span> myMin, <span class="fu">max</span>(salary) <span class="kw">as</span> myMax, <span class="fu">avg</span>(salary) <span class="kw">as</span> myAvg
+    <span class="kw">from</span> Staff;</code></pre>
 <hr />
 <pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">create</span> <span class="kw">table</span> PROPRIETE_A_LOUER
     (NUM PROPRIETE <span class="dt">varchar</span>(<span class="dv">5</span>) <span class="kw">not</span> <span class="kw">null</span>,

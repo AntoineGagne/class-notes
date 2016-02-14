@@ -336,6 +336,174 @@ Nous aurions aussi pu écrire
 Nous voulons trouver tous les propriétaires qui ont la chaîne de caractères 'Glasgow' dans
 leur adresse.
 
+Le SQL possède deux symboles pour trouver des correspondances entre des chaînes de caractères:
+
+- Le caractère % représente une séquence de zéro caractère ou plus.
+- Le caractère _ représente n'importe quel caractère.
+
+Tous les autres caractères se représentent eux-mêmes.
+
+Ainsi, notre requête pour résoudre notre problème serait la suivante:
+
+```SQL
+    select ownerNo, fName, lName, address, telNo
+    from PrivateOwner
+    where address like '%Glasgow%'; -- N'importe quelle chaine, tant qu'elle contient 'Glasgow'
+```
+
+###### Prédicat de recherche de NULL (IS NULL/IS NOT NULL)
+
+Nous voulons avoir les détails sur toutes les propriétés PG4 où un commentaire n'a pas été fourni.
+
+Nous pouvons donc utiliser la clause de la manière suivante:
+
+```SQL
+    select clientNo, viewDate
+    from Viewing
+    where propertyNo = 'PG4' and comment is null;
+```
+
+#### Trier les résultats (ORDER BY)
+
+La clause `ORDER BY` permet de classer des éléments selon un certain ordre. La clause `ORDER BY` reçoit
+en arguments la liste des identifiants des colonnes séparés par des virgules à partir desquels nous 
+voulons trier. Il y a deux ordres de tri: en ordre croissant (ASC) et en ordre décroissant (DESC). La 
+clause `ORDER BY` doit toujours être la dernière clause d'une expression `SELECT`. Le premier
+élément qui apparait dans la clause est appelé la **clé majeure de tri**. C'est elle qui va décider
+de l'ordre de tri général. Si les éléments de la colonne sont uniques, un élément de tri de va être
+suffisant. Sinon, on peut rajouter des éléments à la clause pour spécifier l'ordre de tri. On appelle
+tous les éléments qui apparaissent après la clé majeure de tri des **clés mineures de tri**
+
+##### Exemples d'utilisation du ORDER BY
+
+Dans cette section, nous verrons des exemples d'utilisation de la clause `ORDER BY`.
+
+###### Tri avec une seule colonne
+
+Nous voulons la liste du salaire des employés en ordre décroissant.
+
+Nous pourrions donc écrire la clause suivante:
+
+```SQL
+    select staffNo, fName, lName, salary
+    from Staff
+    order by salary desc;
+```
+
+###### Tri avec plusieurs colonnes
+
+Nous voulons avoir la liste des propriétés triées par le type des propriétés.
+
+Nous pourrions écrire la clause suivante:
+
+```SQL
+select propertyNo, type, rooms, rent
+from PropertyForRent
+order by type;
+```
+
+On obtiendrait alors la table suivante:
+
+propertyNo           type               rooms              rent
+-----------          ---------          --------           -----------
+PL94                 Flat               4                  400
+PG4                  Flat               3                  350
+PG36                 Flat               3                  375
+PG16                 Flat               4                  450
+PA14                 House              6                  650
+PG21                 House              5                  600
+-----------          ---------          --------           -----------
+
+Par contre, si on précise une clé mineure de tri avec la clause suivante:
+
+```SQL
+select propertyNo, type, rooms, rent
+from PropertyForRent
+order by type, rent desc;
+```
+
+On obtiendrait la table suivante:
+
+propertyNo           type               rooms              rent
+-----------          ---------          --------           -----------
+PG16                 Flat               4                  450
+PL94                 Flat               4                  400
+PG36                 Flat               3                  375
+PG4                  Flat               3                  350
+PA14                 House              6                  650
+PG21                 House              5                  600
+-----------          ---------          --------           -----------
+
+#### Fonctions SQL d'agrégation
+
+Les fonctions d'agrégation permettent d'effectuer des opérations sur des données. Il existe
+5 types de fonctions d'agrégation définies par les standards ISO:
+
+- `COUNT`: Retourne le nombre de valeurs dans la colonne spécifiée.
+- `SUM`: Retourne la somme des valeurs dans la colonne spécifiée.
+- `AVG`: Retourne la moyenne des valeurs dans la colonne spécifiée.
+- `MIN`: Retourne la plus petite valeur dans la colonne spécifiée.
+- `MAX`: Retourne la plus grande valeur dans la colonne spécifiée.
+
+Les fonctions `AVG` et `SUM` peuvent seulement être utilisées sur des colonnes numériques.
+Toutes les fonctions éliminent les *nulls* avant d'effectuer leurs calculs. Il y a seulement
+`COUNT(*)` qui n'élimine pas les *nulls* avant de faire ses opérations. 
+
+Si on veut éliminer les copies, il faut utiliser le mot clé `DISTINCT` avant le nom de la colonne 
+dans la fonction. Si on spécifie le mot clé `ALL` devant le nom des colonnes, on indique qu'on 
+permet les copies.
+
+##### Exemples d'utilisation des fonctions SQL d'agrégation
+
+Dans cette section, nous verrons des exemples d'utilisation des fonctions SQL d'agrégation.
+
+###### Utilisation de `COUNT(*)`
+
+Nous souhaitons savoir combien de propriétés coûtent plus chères que 350\$ par mois.
+
+Nous allons donc avoir la clause suivante:
+
+```SQL
+    select staffNo count(salary)
+    from Staff;
+```
+
+###### Utilisation de `COUNT(DISTINCT)`
+
+Nous souhaitons savoir combien de propriétés différentes ont été vues en mai 2013.
+
+Nous allons donc avoir la clause suivante:
+
+```SQL
+    select count(distinct propertyNo) as myCount
+    from Viewing
+    where viewDate between '1-May-13' and '31-May-13';
+```
+
+###### Utilisation de `COUNT` et `SUM`
+
+Nous souhaitons trouver le nombre total de managers et la somme de leurs salaires.
+
+Nous allons donc avoir la clause suivante:
+
+```SQL
+    select count(staffNo) as myCount, sum(salary) as mySum
+    from Staff
+    where position = 'Manager';
+```
+
+###### Utilisation de `MIN`, `MAX` et `AVG`
+
+Nous souhaitons trouver le salaire minimum et maximum ainsi que la moyenne des salaires des
+employés.
+
+Nous allons donc avoir la clause suivante:
+
+```SQL
+    select min(salary) as myMin, max(salary) as myMax, avg(salary) as myAvg
+    from Staff;
+```
+
 ------------------------------------------------------------------------------------------
 ```SQL
     create table PROPRIETE_A_LOUER
