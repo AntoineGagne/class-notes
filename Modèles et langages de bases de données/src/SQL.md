@@ -125,6 +125,13 @@ Il est important de retenir que l'ordre des clauses de l'expression `select` ne 
 et que les deux seules clauses obligatoires sont les deux premières: `select` et `from`. Les autres
 clauses sont optionnelles. Le résultat d'une expression `select` est une autre table.
 
+L'expression `select` ne peut seulement contenir que:
+
+- des noms de colonnes;
+- des fonctions agrégates;
+- des constantes;
+- une expression combinant les points précédents.
+
 #### Exemples d'utilisation du SELECT
 
 Dans tous les exemples suivants, nous allons nous servir de la table *DreamHome*.
@@ -250,6 +257,9 @@ Les prioriétés des opérations sont les suivantes:
 - Les sous-expressions entre parenthèses sont évaluées en premier.
 - Les `NOT` sont évalués avant les `AND` et les `OR`.
 - Les `AND` sont évalués avant les `OR`.
+
+Il est important de retenir que les fonctions d'agrégation ne peuvent pas être utilisées dans
+une clause `WHERE`.
 
 ##### Exemples d'utilisation du WHERE
 
@@ -504,21 +514,332 @@ Nous allons donc avoir la clause suivante:
     from Staff;
 ```
 
-------------------------------------------------------------------------------------------
+#### Grouper les résultats (`GROUP BY`)
+
+Lorsqu'on veut grouper des résultats, on se sert de la clause `GROUP BY`. Il est important de
+retenir que toutes les noms de colonnes qui apparaissent dans la clause `SELECT` doivent 
+apparaître dans la clause `GROUP BY`, mais toutes les colonnes de `GROUP BY` ne sont pas obligées
+d'être dans la clause `SELECT`. La seule exception est si le nom de la colonne est seulement
+utilisé dans une fonction d'agrégation.
+
+Aussi, lorsqu'une clause `WHERE` est utilisée avec la clause `GROUP BY`, la clause `WHERE` est 
+appliquée en premier.
+
+##### Exemple d'utilisation de `GROUP BY`
+
+Nous souhaitons trouver le nombre d'employés dans chaque branche ainsi que la somme de leurs salaires.
+
+Nous allons donc avoir la clause suivante:
+
 ```SQL
-    create table PROPRIETE_A_LOUER
-    (NUM PROPRIETE varchar(5) not null,
-        PIECES number(2) not null default 4,
-        LOCATION number(6,2) not null default 600, 
-        NUM_PROPRIETAIRE varchar(5) not null,
-        NUM_PERSONNEL varchar(5)
-        NUM_FILIALE char(4) not null,
-        constraint PK_PROPRIETE_A_LOUER primary key
-        (NUM_PROPRIETE),
-        constraint FK_PROPRIETE_NUM_PERSONNEL foreign key
-        (NUM PERSONNEL) references PERSONNEL on delete set null,
-        constraint CK_PIECES_RANGE check (PIECES between 1 and 15),
-        constraint CK_LOCATION_RANGE check(LOCATION between 0  and 
-        9999.99);
+    select branchNo, count(staffNo) as myCount, sum(salary) as mySum
+    from Staff
+    group by branchNo
+    order by branchNo;
 ```
 
+Nous aurons alors la table suivante:
+
+branchNo                myCount                 mySum
+---------               --------                --------
+B003                    3                       54000.00
+B005                    2                       39000.00
+B007                    1                        9000.00
+---------               --------                --------
+
+Nous aurions aussi pu réécrire cette requête comme
+
+```SQL
+    select branchNo, (select count(staffNo) as myCount
+                      from Staff s
+                      where s.branchNo = b.branchNo),
+                     (select sum(salary) as mySum
+                      from Staff s
+                      where s.branchNo = b.branchNo)
+    from Branch b
+    order by branchNo;
+```
+
+#### Restreindre les groupements (`HAVING`)
+
+La clause `HAVING` a été conçue pour être utilisée avec la clause `GROUP BY` afin de restreindre les
+groupes qui apparaissent dans la table de résultats finale. Les noms de colonnes qui se retrouvent
+dans la clause `HAVING` doivent se retrouver dans la clause `GROUP BY`. La clause `HAVING` doit
+toujours inclure une fonction d'agrégation.
+
+La clause `HAVING` n'est pas essentielle au langage SQL; le langage serait capable d'effectuer les mêmes 
+opérations sans la clause `HAVING`.
+
+##### Exemple d'utilisation de `HAVING`
+
+Nous souhaitons trouver le nombre d'employés qui travaillent dans chaque branche et la somme de leur
+salaire pour chaque branche qui a plus qu'un employé.
+
+Nous aurons donc la requête suivante:
+
+```SQL
+    select branchNo, count(staffNo) as myCount, sum(salary) as mySum
+    from Staff
+    group by branchNo
+    having count(staffNo) > 1
+    order by branchNo;
+```
+
+Nous aurons donc la table suivante:
+
+branchNo            myCount             mySum
+--------            --------            --------
+B003                3                   54000.00
+B005                2                   39000.00
+--------            --------            --------
+
+#### Sous-requêtes
+
+Une expression `SELECT` peut se retrouver dans une autre expression `SELECT`. Le résultat de ce `SELECT`
+sera alors utilisé pour déterminer le contenu du résultat final. Un `SELECT` peut aussi être utilisé
+dans une clause `WHERE` et `HAVING`. On l'appelle alors une **sous-requête**. Il y a trois types de 
+sous-requêtes:
+
+- **Sous-requête scalaire**: Retourne une seule colonne et une seule ligne, soit une seule valeur. Utilisée
+lorsqu'une seule valeur est nécessaire.
+- **Sous-requête de ligne**: Retourne plusieurs colonne, mais une seule ligne. Utilisée surtout dans les
+prédicats.
+- **Sous-requête de table**: Retourne une ou plusieurs colonnes et plusieurs lignes. Utilisée lorsqu'une
+table est requise.
+
+Les règles suivantes s'appliquent aux sous-requêtes:
+
+- La clause `ORDER BY` ne peut pas être utilisée dans une sous-requête.
+- Il ne doit y avoir qu'une seule colonne ou expression passée en argument au `SELECT` d'une 
+sous-requête sauf si le mot clé `EXISTS` est utilisé.
+- Par défaut, les noms de colonnes dans une sous-requête réfère à celles de la table de la clause
+`FROM` de la sous-requête.
+- Quand une sous-requête est utilisée comme opérande dans une comparaison, elle doit toujours
+être à droite dans la comparaison.
+
+##### Mots clés `ANY` et `ALL`
+
+Les mots clés `ANY` et `ALL` peuvent être utilisés avec les sous-requêtes qui produisent une
+seule colonne. Si la sous-requête est précédée du mot clé `ALL`, la condition va être vraie seulement
+si elle est satisfaite par toutes les valeurs de la sous-requête. Si la sous-requête est précédée
+par le mot clé `ANY`, la condition va être vraie si elle satisfaite par au moins une valeur de
+la sous-requête. Le mot clé `SOME` est équivalent au mot clé `ANY`.
+
+
+##### Exemple d'utilisation de sous-requêtes
+
+Dans cette section, nous verrons des exemples d'utilisation de sous-requêtes.
+
+###### Sous-requête avec l'opérateur d'égalité
+
+Nous souhaitons trouver le personnel qui travaille dans la branche '163 Main St'.
+
+Nous aurons donc la requête suivante:
+
+```SQL
+    select staffNo, fName, lName, position
+    from Staff
+    where branchNo = (select branchNo
+                      from Branch
+                      where street = '163 Main St');
+```
+
+La sous-requête va trouver le numéro de la branche qui correspond à la branche dont le nom de la rue
+est '163 Main St'. Cela va retourner une seule valeur. Il s'agit donc d'une sous-requête scalaire.
+
+###### Sous-requête avec une fonction d'agrégation
+
+Nous souhaitons trouver tous les employés dont le salaire est plus grand que la moyenne des salaires
+et montrer de combien leur salaire est plus grand que la moyenne.
+
+Nous aurons donc la requête suivante:
+
+```SQL
+    select staffNo, fName, lName, position,
+           salary - (select avg(salary) from Staff) as salDiff
+    from Staff
+    where salary > (select avg(salary) from Staff);
+```
+
+Nous ne pouvons pas utiliser `avg(salary)` direct dans la clause `WHERE`, car les fonctions d'agrégation
+ne sont pas permises dans une clause `WHERE`.
+
+###### Utilisation de `IN`
+
+Nous souhaitons avoir toutes les propriétés qui sont administrées par les employés qui travaillent
+à la branche à '163 Main St'.
+
+Nous aurons donc la requête suivante:
+
+```SQL
+    select propertyNo, street, city, postcode, type, rooms, rent
+    from PropertyForRent
+    where staffNo in (select staffNo
+                      from Staff
+                      where branchNo = (select branchNo
+                                        from Branch
+                                        where street = '163 Main St'));
+```
+
+La dernière sous-requête selectionne le numéro de la branche qui se trouve à '163 Main St'. 
+L'avant-dernière sous-requête sélectionne les employés qui travaille à cette branche. Ensuite,
+comme cette requête retourne plusieurs valeurs, nous utilisons le mot clé `IN`. 
+
+Nous obtenons donc la table suivante:
+
+propertyNo  street      city        postcode        type    rooms   rent
+----------  ---------   ---------   --------------  ----    -----   -----
+PG16        5 Novar Dr  Glasgow     G12 9AX         Flat    4       450
+PG36        2 Manor Rd  Glasgow     G32 4QX         Flat    3       375
+PG21        18 Dale Rd  Glasgow     G12             House   5       600
+----------  ---------   ---------   --------------  ----    -----   -----
+
+###### Utilisation de `ANY`/`SOME`
+
+Nous souhaitons trouver tous les employés dont le salaire est plus grand que le salaire d'au moins
+un employé à la branche B003.
+
+Nous aurons donc la requête suivante:
+
+```SQL
+    select staffNo, fName, lName, position, salary
+    from Staff
+    where salary > some(select salary
+                        from Staff
+                        where branchNo = 'B003');
+```
+
+Nous obtiendrons donc la table suivante:
+
+staffNo     fName       lName       position        salary
+-------     --------    --------    -----------     -----------
+SL21        John        White       Manager         30000.00
+SG14        David       Ford        Supervisor      18000.00
+SG5         Susan       Brand       Manager         24000.00
+-------     --------    --------    -----------     -----------
+
+###### Utilisation de `ALL`
+
+Nous souhaitons trouver tous les employés dont le salaire est plus grand que le salaire de
+tous les employés à la branche B003.
+
+Nous aurons donc la requête suivante:
+
+```SQL
+    select staffNo, fName, lName, position, salary
+    from Staff
+    where salary > all(select salary
+                       from Staff
+                       where branchNo = 'B003');
+```
+
+Nous obtiendrons donc la table suivante:
+
+staffNo     fName       lName       position        salary
+-------     --------    --------    -----------     -----------
+SL21        John        White       Manager         30000.00
+-------     --------    --------    -----------     -----------
+
+#### Requêtes multi-tables
+
+Pour combiner des colonnes de plusieurs tables dans une seule table, nous devons utiliser une
+opération de **jointure**. L'opération de jointure du SQL combine les informations de deux tables
+en formant des paires de rangées liés. Ces paires de rangées sont celles où les colonnes correspondantes
+des deux tables ont la même valeur.
+
+Pour faire une opération de jointure, il suffit d'inclure plus qu'une table dans la clause `FROM`.
+On sépare les noms de tables par des virgules. On peut aussi utiliser des alias. Pour ce faire,
+il suffit d'ajouter un espace après le nom de la table et mettre le nom de l'alias qu'on veut
+utiliser.
+
+##### Calculer une jointure
+
+Une jointure est un sous-ensemble du produit cartésien. Le produit cartésien de deux tables
+est une autre table avec toutes les paires de rangées possibles des deux tables. Si on fournit
+deux tables sans clause `WHERE`, le produit cartésien des deux tables sera calculé. 
+
+Les standards ISO ont établi une forme spéciale du `SELECT` pour le produit cartésien:
+
+```
+    SELECT [DISTINCT | ALL] {* | columnList}
+    FROM TableName1 CROSS JOIN TableName2
+```
+
+La procédure pour effectuer une jointure avec un `SELECT` est la suivante:
+
+1. Faire le produit cartésien avec les tables de la clause `FROM`.
+2. S'il y a une clause `WHERE`, il faut appliquer la condition de recherche sur chacune des rangées
+du résultat du produit cartésien de sorte de ne retenir que les rangées qui satisfont la condition.
+3. Pour chacune des rangées restantes, il faut déterminer la valeur de chacun des éléments dans la
+liste des éléments du `SELECT` afin de produire une seule rangée dans la table résultante.
+4. S'il y a le mot clé `DISTINCT`, il faut éliminer toutes les copies de rangées de la table
+résultante.
+5. S'il y a une clause `ORDER BY`, il faut trier la table selon la condition émise.
+
+##### Jointures externes
+
+Les jointures vues jusqu'à présent gardent seulement les rangées qui correspondent entre les
+tables. Si une rangée ne correspond à aucune autre rangée, elle est omise du résultat. La 
+jointure externe permet de garder seulement ces rangées qui ne correspondent à aucunes
+autres rangées.
+
+##### Exemples d'opérations de jointure
+
+Dans cette section, nous verrons des exemples d'opérations de jointure.
+
+###### Opération de jointure simple
+
+Nous souhaitons avoir le nom de tous les clients qui ont vu une propriété avec tous les
+commentaires associés.
+
+Nous aurons donc la requête suivante:
+
+```SQL
+    select c.clientNo, fName, lName, propertyNo, comment
+    from Client c, Viewing v
+    where c.clientNo = v.clientNo;
+```
+
+###### Trier une opération de jointure
+
+Pour chaque branche, nous souhaitons avoir la liste de tous les numéros d'employés et le nom
+des employés qui administrent des propriétés et les propriétés qu'ils administrent.
+
+Nous aurons donc la requête suivante:
+
+```SQL
+    select s.branchNo, s.staffNo, fName, lName, propertyNo
+    from Staff s, PropertyForRent p
+    where s.staffNo = p.staffNo
+    order by s.branchNo, s.staffNo, propertyNo;
+```
+
+###### Opération de jointure sur trois tables
+
+Pour chaque branche, nous souhaitons avoir la liste des numéros de personnel ainsi que le nom du personnel
+qui administre des propriétés y compris la ville dans laquelle chaque branche est située et les propriétés
+que le personnel administre.
+
+Nous aurons donc la requête suivante:
+
+```SQL
+    select b.branchNo, b.city, s.staffNo, fName, lName, propertyNo
+    from Branch b, Staff s, PropertyForRent p
+    where b.branchNo = s.branchNo and s.staffNo = p.staffNo
+    order by b.branchNo, s.staffNo, propertyNo;
+```
+
+###### Multiples groupements de colonnes
+
+Nous souhaitons trouver le nombre de propriétés administrées par chaque des membres du personnel ainsi
+que le numéro de branche de chaque membre du personnel.
+
+Nous aurons donc la requête suivante:
+
+```SQL
+    select s.branchNo, s.staffNo, count(*) as myCount
+    from Staff s, PropertyForRent p
+    where s.staffNo = p.staffNo
+    group by s.branchNo, s.staffNo
+    order by s.branchNo, s.staffNo;
+```

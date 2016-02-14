@@ -255,6 +255,32 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#utilisation-de-min-max-et-avg"><span class="toc-section-number">6.3.4.4.1.4</span> Utilisation de <code>MIN</code>, <code>MAX</code> et <code>AVG</code></a></li>
 </ul></li>
 </ul></li>
+<li><a href="#grouper-les-résultats-group-by"><span class="toc-section-number">6.3.4.5</span> Grouper les résultats (<code>GROUP BY</code>)</a><ul>
+<li><a href="#exemple-dutilisation-de-group-by"><span class="toc-section-number">6.3.4.5.1</span> Exemple d’utilisation de <code>GROUP BY</code></a></li>
+</ul></li>
+<li><a href="#restreindre-les-groupements-having"><span class="toc-section-number">6.3.4.6</span> Restreindre les groupements (<code>HAVING</code>)</a><ul>
+<li><a href="#exemple-dutilisation-de-having"><span class="toc-section-number">6.3.4.6.1</span> Exemple d’utilisation de <code>HAVING</code></a></li>
+</ul></li>
+<li><a href="#sous-requêtes"><span class="toc-section-number">6.3.4.7</span> Sous-requêtes</a><ul>
+<li><a href="#mots-clés-any-et-all"><span class="toc-section-number">6.3.4.7.1</span> Mots clés <code>ANY</code> et <code>ALL</code></a></li>
+<li><a href="#exemple-dutilisation-de-sous-requêtes"><span class="toc-section-number">6.3.4.7.2</span> Exemple d’utilisation de sous-requêtes</a><ul>
+<li><a href="#sous-requête-avec-lopérateur-dégalité"><span class="toc-section-number">6.3.4.7.2.1</span> Sous-requête avec l’opérateur d’égalité</a></li>
+<li><a href="#sous-requête-avec-une-fonction-dagrégation"><span class="toc-section-number">6.3.4.7.2.2</span> Sous-requête avec une fonction d’agrégation</a></li>
+<li><a href="#utilisation-de-in"><span class="toc-section-number">6.3.4.7.2.3</span> Utilisation de <code>IN</code></a></li>
+<li><a href="#utilisation-de-anysome"><span class="toc-section-number">6.3.4.7.2.4</span> Utilisation de <code>ANY</code>/<code>SOME</code></a></li>
+<li><a href="#utilisation-de-all"><span class="toc-section-number">6.3.4.7.2.5</span> Utilisation de <code>ALL</code></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#requêtes-multi-tables"><span class="toc-section-number">6.3.4.8</span> Requêtes multi-tables</a><ul>
+<li><a href="#calculer-une-jointure"><span class="toc-section-number">6.3.4.8.1</span> Calculer une jointure</a></li>
+<li><a href="#jointures-externes"><span class="toc-section-number">6.3.4.8.2</span> Jointures externes</a></li>
+<li><a href="#exemples-dopérations-de-jointure"><span class="toc-section-number">6.3.4.8.3</span> Exemples d’opérations de jointure</a><ul>
+<li><a href="#opération-de-jointure-simple"><span class="toc-section-number">6.3.4.8.3.1</span> Opération de jointure simple</a></li>
+<li><a href="#trier-une-opération-de-jointure"><span class="toc-section-number">6.3.4.8.3.2</span> Trier une opération de jointure</a></li>
+<li><a href="#opération-de-jointure-sur-trois-tables"><span class="toc-section-number">6.3.4.8.3.3</span> Opération de jointure sur trois tables</a></li>
+<li><a href="#multiples-groupements-de-colonnes"><span class="toc-section-number">6.3.4.8.3.4</span> Multiples groupements de colonnes</a></li>
+</ul></li>
+</ul></li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -1189,6 +1215,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
     <span class="kw">select</span>      <span class="co">-- Spécifie les colonnes qui vont apparaître dans la sortie</span>
     <span class="kw">order</span> <span class="kw">by</span>    <span class="co">-- Spécifie l&#39;ordre d&#39;affichage</span></code></pre>
 <p>Il est important de retenir que l’ordre des clauses de l’expression <code>select</code> ne peut être changé et que les deux seules clauses obligatoires sont les deux premières: <code>select</code> et <code>from</code>. Les autres clauses sont optionnelles. Le résultat d’une expression <code>select</code> est une autre table.</p>
+<p>L’expression <code>select</code> ne peut seulement contenir que:</p>
+<ul>
+<li>des noms de colonnes;</li>
+<li>des fonctions agrégates;</li>
+<li>des constantes;</li>
+<li>une expression combinant les points précédents.</li>
+</ul>
 <section id="exemples-dutilisation-du-select" class="level4">
 <h4><a href="#exemples-dutilisation-du-select"><span class="header-section-number">6.3.4.1</span> Exemples d’utilisation du SELECT</a></h4>
 <p>Dans tous les exemples suivants, nous allons nous servir de la table <em>DreamHome</em>.</p>
@@ -1379,6 +1412,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li>Les <code>NOT</code> sont évalués avant les <code>AND</code> et les <code>OR</code>.</li>
 <li>Les <code>AND</code> sont évalués avant les <code>OR</code>.</li>
 </ul>
+<p>Il est important de retenir que les fonctions d’agrégation ne peuvent pas être utilisées dans une clause <code>WHERE</code>.</p>
 <section id="exemples-dutilisation-du-where" class="level5">
 <h5><a href="#exemples-dutilisation-du-where"><span class="header-section-number">6.3.4.2.1</span> Exemples d’utilisation du WHERE</a></h5>
 <p>Dans cette section, nous allons voir des exemples d’utilisation de la clause <code>where</code>.</p>
@@ -1620,21 +1654,334 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>Nous allons donc avoir la clause suivante:</p>
 <pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> <span class="fu">min</span>(salary) <span class="kw">as</span> myMin, <span class="fu">max</span>(salary) <span class="kw">as</span> myMax, <span class="fu">avg</span>(salary) <span class="kw">as</span> myAvg
     <span class="kw">from</span> Staff;</code></pre>
-<hr />
-<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">create</span> <span class="kw">table</span> PROPRIETE_A_LOUER
-    (NUM PROPRIETE <span class="dt">varchar</span>(<span class="dv">5</span>) <span class="kw">not</span> <span class="kw">null</span>,
-        PIECES <span class="dt">number</span>(<span class="dv">2</span>) <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="dv">4</span>,
-        LOCATION <span class="dt">number</span>(<span class="dv">6</span>,<span class="dv">2</span>) <span class="kw">not</span> <span class="kw">null</span> <span class="kw">default</span> <span class="dv">600</span>, 
-        NUM_PROPRIETAIRE <span class="dt">varchar</span>(<span class="dv">5</span>) <span class="kw">not</span> <span class="kw">null</span>,
-        NUM_PERSONNEL <span class="dt">varchar</span>(<span class="dv">5</span>)
-        NUM_FILIALE <span class="dt">char</span>(<span class="dv">4</span>) <span class="kw">not</span> <span class="kw">null</span>,
-        <span class="kw">constraint</span> PK_PROPRIETE_A_LOUER <span class="kw">primary</span> <span class="kw">key</span>
-        (NUM_PROPRIETE),
-        <span class="kw">constraint</span> FK_PROPRIETE_NUM_PERSONNEL <span class="kw">foreign</span> <span class="kw">key</span>
-        (NUM PERSONNEL) <span class="kw">references</span> PERSONNEL <span class="kw">on</span> <span class="kw">delete</span> <span class="kw">set</span> <span class="kw">null</span>,
-        <span class="kw">constraint</span> CK_PIECES_RANGE <span class="kw">check</span> (PIECES <span class="kw">between</span> <span class="dv">1</span> <span class="kw">and</span> <span class="dv">15</span>),
-        <span class="kw">constraint</span> CK_LOCATION_RANGE <span class="kw">check</span>(LOCATION <span class="kw">between</span> <span class="dv">0</span>  <span class="kw">and</span> 
-        <span class="fl">9999.99</span>);</code></pre>
+</section>
+</section>
+</section>
+<section id="grouper-les-résultats-group-by" class="level4">
+<h4><a href="#grouper-les-résultats-group-by"><span class="header-section-number">6.3.4.5</span> Grouper les résultats (<code>GROUP BY</code>)</a></h4>
+<p>Lorsqu’on veut grouper des résultats, on se sert de la clause <code>GROUP BY</code>. Il est important de retenir que toutes les noms de colonnes qui apparaissent dans la clause <code>SELECT</code> doivent apparaître dans la clause <code>GROUP BY</code>, mais toutes les colonnes de <code>GROUP BY</code> ne sont pas obligées d’être dans la clause <code>SELECT</code>. La seule exception est si le nom de la colonne est seulement utilisé dans une fonction d’agrégation.</p>
+<p>Aussi, lorsqu’une clause <code>WHERE</code> est utilisée avec la clause <code>GROUP BY</code>, la clause <code>WHERE</code> est appliquée en premier.</p>
+<section id="exemple-dutilisation-de-group-by" class="level5">
+<h5><a href="#exemple-dutilisation-de-group-by"><span class="header-section-number">6.3.4.5.1</span> Exemple d’utilisation de <code>GROUP BY</code></a></h5>
+<p>Nous souhaitons trouver le nombre d’employés dans chaque branche ainsi que la somme de leurs salaires.</p>
+<p>Nous allons donc avoir la clause suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> branchNo, <span class="fu">count</span>(staffNo) <span class="kw">as</span> myCount, <span class="fu">sum</span>(salary) <span class="kw">as</span> mySum
+    <span class="kw">from</span> Staff
+    <span class="kw">group</span> <span class="kw">by</span> branchNo
+    <span class="kw">order</span> <span class="kw">by</span> branchNo;</code></pre>
+<p>Nous aurons alors la table suivante:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">branchNo</th>
+<th style="text-align: left;">myCount</th>
+<th style="text-align: left;">mySum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">B003</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">54000.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B005</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">39000.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">B007</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">9000.00</td>
+</tr>
+</tbody>
+</table>
+<p>Nous aurions aussi pu réécrire cette requête comme</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> branchNo, (<span class="kw">select</span> <span class="fu">count</span>(staffNo) <span class="kw">as</span> myCount
+                      <span class="kw">from</span> Staff s
+                      <span class="kw">where</span> s.branchNo = b.branchNo),
+                     (<span class="kw">select</span> <span class="fu">sum</span>(salary) <span class="kw">as</span> mySum
+                      <span class="kw">from</span> Staff s
+                      <span class="kw">where</span> s.branchNo = b.branchNo)
+    <span class="kw">from</span> Branch b
+    <span class="kw">order</span> <span class="kw">by</span> branchNo;</code></pre>
+</section>
+</section>
+<section id="restreindre-les-groupements-having" class="level4">
+<h4><a href="#restreindre-les-groupements-having"><span class="header-section-number">6.3.4.6</span> Restreindre les groupements (<code>HAVING</code>)</a></h4>
+<p>La clause <code>HAVING</code> a été conçue pour être utilisée avec la clause <code>GROUP BY</code> afin de restreindre les groupes qui apparaissent dans la table de résultats finale. Les noms de colonnes qui se retrouvent dans la clause <code>HAVING</code> doivent se retrouver dans la clause <code>GROUP BY</code>. La clause <code>HAVING</code> doit toujours inclure une fonction d’agrégation.</p>
+<p>La clause <code>HAVING</code> n’est pas essentielle au langage SQL; le langage serait capable d’effectuer les mêmes opérations sans la clause <code>HAVING</code>.</p>
+<section id="exemple-dutilisation-de-having" class="level5">
+<h5><a href="#exemple-dutilisation-de-having"><span class="header-section-number">6.3.4.6.1</span> Exemple d’utilisation de <code>HAVING</code></a></h5>
+<p>Nous souhaitons trouver le nombre d’employés qui travaillent dans chaque branche et la somme de leur salaire pour chaque branche qui a plus qu’un employé.</p>
+<p>Nous aurons donc la requête suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> branchNo, <span class="fu">count</span>(staffNo) <span class="kw">as</span> myCount, <span class="fu">sum</span>(salary) <span class="kw">as</span> mySum
+    <span class="kw">from</span> Staff
+    <span class="kw">group</span> <span class="kw">by</span> branchNo
+    <span class="kw">having</span> <span class="fu">count</span>(staffNo) &gt; <span class="dv">1</span>
+    <span class="kw">order</span> <span class="kw">by</span> branchNo;</code></pre>
+<p>Nous aurons donc la table suivante:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">branchNo</th>
+<th style="text-align: left;">myCount</th>
+<th style="text-align: left;">mySum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">B003</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">54000.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B005</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">39000.00</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="sous-requêtes" class="level4">
+<h4><a href="#sous-requêtes"><span class="header-section-number">6.3.4.7</span> Sous-requêtes</a></h4>
+<p>Une expression <code>SELECT</code> peut se retrouver dans une autre expression <code>SELECT</code>. Le résultat de ce <code>SELECT</code> sera alors utilisé pour déterminer le contenu du résultat final. Un <code>SELECT</code> peut aussi être utilisé dans une clause <code>WHERE</code> et <code>HAVING</code>. On l’appelle alors une <strong>sous-requête</strong>. Il y a trois types de sous-requêtes:</p>
+<ul>
+<li><strong>Sous-requête scalaire</strong>: Retourne une seule colonne et une seule ligne, soit une seule valeur. Utilisée lorsqu’une seule valeur est nécessaire.</li>
+<li><strong>Sous-requête de ligne</strong>: Retourne plusieurs colonne, mais une seule ligne. Utilisée surtout dans les prédicats.</li>
+<li><strong>Sous-requête de table</strong>: Retourne une ou plusieurs colonnes et plusieurs lignes. Utilisée lorsqu’une table est requise.</li>
+</ul>
+<p>Les règles suivantes s’appliquent aux sous-requêtes:</p>
+<ul>
+<li>La clause <code>ORDER BY</code> ne peut pas être utilisée dans une sous-requête.</li>
+<li>Il ne doit y avoir qu’une seule colonne ou expression passée en argument au <code>SELECT</code> d’une sous-requête sauf si le mot clé <code>EXISTS</code> est utilisé.</li>
+<li>Par défaut, les noms de colonnes dans une sous-requête réfère à celles de la table de la clause <code>FROM</code> de la sous-requête.</li>
+<li>Quand une sous-requête est utilisée comme opérande dans une comparaison, elle doit toujours être à droite dans la comparaison.</li>
+</ul>
+<section id="mots-clés-any-et-all" class="level5">
+<h5><a href="#mots-clés-any-et-all"><span class="header-section-number">6.3.4.7.1</span> Mots clés <code>ANY</code> et <code>ALL</code></a></h5>
+<p>Les mots clés <code>ANY</code> et <code>ALL</code> peuvent être utilisés avec les sous-requêtes qui produisent une seule colonne. Si la sous-requête est précédée du mot clé <code>ALL</code>, la condition va être vraie seulement si elle est satisfaite par toutes les valeurs de la sous-requête. Si la sous-requête est précédée par le mot clé <code>ANY</code>, la condition va être vraie si elle satisfaite par au moins une valeur de la sous-requête. Le mot clé <code>SOME</code> est équivalent au mot clé <code>ANY</code>.</p>
+</section>
+<section id="exemple-dutilisation-de-sous-requêtes" class="level5">
+<h5><a href="#exemple-dutilisation-de-sous-requêtes"><span class="header-section-number">6.3.4.7.2</span> Exemple d’utilisation de sous-requêtes</a></h5>
+<p>Dans cette section, nous verrons des exemples d’utilisation de sous-requêtes.</p>
+<section id="sous-requête-avec-lopérateur-dégalité" class="level6">
+<h6><a href="#sous-requête-avec-lopérateur-dégalité"><span class="header-section-number">6.3.4.7.2.1</span> Sous-requête avec l’opérateur d’égalité</a></h6>
+<p>Nous souhaitons trouver le personnel qui travaille dans la branche ‘163 Main St’.</p>
+<p>Nous aurons donc la requête suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, position
+    <span class="kw">from</span> Staff
+    <span class="kw">where</span> branchNo = (<span class="kw">select</span> branchNo
+                      <span class="kw">from</span> Branch
+                      <span class="kw">where</span> street = <span class="st">&#39;163 Main St&#39;</span>);</code></pre>
+<p>La sous-requête va trouver le numéro de la branche qui correspond à la branche dont le nom de la rue est ‘163 Main St’. Cela va retourner une seule valeur. Il s’agit donc d’une sous-requête scalaire.</p>
+</section>
+<section id="sous-requête-avec-une-fonction-dagrégation" class="level6">
+<h6><a href="#sous-requête-avec-une-fonction-dagrégation"><span class="header-section-number">6.3.4.7.2.2</span> Sous-requête avec une fonction d’agrégation</a></h6>
+<p>Nous souhaitons trouver tous les employés dont le salaire est plus grand que la moyenne des salaires et montrer de combien leur salaire est plus grand que la moyenne.</p>
+<p>Nous aurons donc la requête suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, position,
+           salary - (<span class="kw">select</span> <span class="fu">avg</span>(salary) <span class="kw">from</span> Staff) <span class="kw">as</span> salDiff
+    <span class="kw">from</span> Staff
+    <span class="kw">where</span> salary &gt; (<span class="kw">select</span> <span class="fu">avg</span>(salary) <span class="kw">from</span> Staff);</code></pre>
+<p>Nous ne pouvons pas utiliser <code>avg(salary)</code> direct dans la clause <code>WHERE</code>, car les fonctions d’agrégation ne sont pas permises dans une clause <code>WHERE</code>.</p>
+</section>
+<section id="utilisation-de-in" class="level6">
+<h6><a href="#utilisation-de-in"><span class="header-section-number">6.3.4.7.2.3</span> Utilisation de <code>IN</code></a></h6>
+<p>Nous souhaitons avoir toutes les propriétés qui sont administrées par les employés qui travaillent à la branche à ‘163 Main St’.</p>
+<p>Nous aurons donc la requête suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> propertyNo, street, city, postcode, <span class="kw">type</span>, rooms, rent
+    <span class="kw">from</span> PropertyForRent
+    <span class="kw">where</span> staffNo <span class="kw">in</span> (<span class="kw">select</span> staffNo
+                      <span class="kw">from</span> Staff
+                      <span class="kw">where</span> branchNo = (<span class="kw">select</span> branchNo
+                                        <span class="kw">from</span> Branch
+                                        <span class="kw">where</span> street = <span class="st">&#39;163 Main St&#39;</span>));</code></pre>
+<p>La dernière sous-requête selectionne le numéro de la branche qui se trouve à ‘163 Main St’. L’avant-dernière sous-requête sélectionne les employés qui travaille à cette branche. Ensuite, comme cette requête retourne plusieurs valeurs, nous utilisons le mot clé <code>IN</code>.</p>
+<p>Nous obtenons donc la table suivante:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">propertyNo</th>
+<th style="text-align: left;">street</th>
+<th style="text-align: left;">city</th>
+<th style="text-align: left;">postcode</th>
+<th style="text-align: left;">type</th>
+<th style="text-align: left;">rooms</th>
+<th style="text-align: left;">rent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PG16</td>
+<td style="text-align: left;">5 Novar Dr</td>
+<td style="text-align: left;">Glasgow</td>
+<td style="text-align: left;">G12 9AX</td>
+<td style="text-align: left;">Flat</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">450</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PG36</td>
+<td style="text-align: left;">2 Manor Rd</td>
+<td style="text-align: left;">Glasgow</td>
+<td style="text-align: left;">G32 4QX</td>
+<td style="text-align: left;">Flat</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">375</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PG21</td>
+<td style="text-align: left;">18 Dale Rd</td>
+<td style="text-align: left;">Glasgow</td>
+<td style="text-align: left;">G12</td>
+<td style="text-align: left;">House</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">600</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="utilisation-de-anysome" class="level6">
+<h6><a href="#utilisation-de-anysome"><span class="header-section-number">6.3.4.7.2.4</span> Utilisation de <code>ANY</code>/<code>SOME</code></a></h6>
+<p>Nous souhaitons trouver tous les employés dont le salaire est plus grand que le salaire d’au moins un employé à la branche B003.</p>
+<p>Nous aurons donc la requête suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, position, salary
+    <span class="kw">from</span> Staff
+    <span class="kw">where</span> salary &gt; <span class="kw">some</span>(<span class="kw">select</span> salary
+                        <span class="kw">from</span> Staff
+                        <span class="kw">where</span> branchNo = <span class="st">&#39;B003&#39;</span>);</code></pre>
+<p>Nous obtiendrons donc la table suivante:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">staffNo</th>
+<th style="text-align: left;">fName</th>
+<th style="text-align: left;">lName</th>
+<th style="text-align: left;">position</th>
+<th style="text-align: left;">salary</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SL21</td>
+<td style="text-align: left;">John</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: left;">Manager</td>
+<td style="text-align: left;">30000.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SG14</td>
+<td style="text-align: left;">David</td>
+<td style="text-align: left;">Ford</td>
+<td style="text-align: left;">Supervisor</td>
+<td style="text-align: left;">18000.00</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SG5</td>
+<td style="text-align: left;">Susan</td>
+<td style="text-align: left;">Brand</td>
+<td style="text-align: left;">Manager</td>
+<td style="text-align: left;">24000.00</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="utilisation-de-all" class="level6">
+<h6><a href="#utilisation-de-all"><span class="header-section-number">6.3.4.7.2.5</span> Utilisation de <code>ALL</code></a></h6>
+<p>Nous souhaitons trouver tous les employés dont le salaire est plus grand que le salaire de tous les employés à la branche B003.</p>
+<p>Nous aurons donc la requête suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> staffNo, fName, lName, position, salary
+    <span class="kw">from</span> Staff
+    <span class="kw">where</span> salary &gt; <span class="kw">all</span>(<span class="kw">select</span> salary
+                       <span class="kw">from</span> Staff
+                       <span class="kw">where</span> branchNo = <span class="st">&#39;B003&#39;</span>);</code></pre>
+<p>Nous obtiendrons donc la table suivante:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">staffNo</th>
+<th style="text-align: left;">fName</th>
+<th style="text-align: left;">lName</th>
+<th style="text-align: left;">position</th>
+<th style="text-align: left;">salary</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SL21</td>
+<td style="text-align: left;">John</td>
+<td style="text-align: left;">White</td>
+<td style="text-align: left;">Manager</td>
+<td style="text-align: left;">30000.00</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="requêtes-multi-tables" class="level4">
+<h4><a href="#requêtes-multi-tables"><span class="header-section-number">6.3.4.8</span> Requêtes multi-tables</a></h4>
+<p>Pour combiner des colonnes de plusieurs tables dans une seule table, nous devons utiliser une opération de <strong>jointure</strong>. L’opération de jointure du SQL combine les informations de deux tables en formant des paires de rangées liés. Ces paires de rangées sont celles où les colonnes correspondantes des deux tables ont la même valeur.</p>
+<p>Pour faire une opération de jointure, il suffit d’inclure plus qu’une table dans la clause <code>FROM</code>. On sépare les noms de tables par des virgules. On peut aussi utiliser des alias. Pour ce faire, il suffit d’ajouter un espace après le nom de la table et mettre le nom de l’alias qu’on veut utiliser.</p>
+<section id="calculer-une-jointure" class="level5">
+<h5><a href="#calculer-une-jointure"><span class="header-section-number">6.3.4.8.1</span> Calculer une jointure</a></h5>
+<p>Une jointure est un sous-ensemble du produit cartésien. Le produit cartésien de deux tables est une autre table avec toutes les paires de rangées possibles des deux tables. Si on fournit deux tables sans clause <code>WHERE</code>, le produit cartésien des deux tables sera calculé.</p>
+<p>Les standards ISO ont établi une forme spéciale du <code>SELECT</code> pour le produit cartésien:</p>
+<pre><code>    SELECT [DISTINCT | ALL] {* | columnList}
+    FROM TableName1 CROSS JOIN TableName2</code></pre>
+<p>La procédure pour effectuer une jointure avec un <code>SELECT</code> est la suivante:</p>
+<ol type="1">
+<li>Faire le produit cartésien avec les tables de la clause <code>FROM</code>.</li>
+<li>S’il y a une clause <code>WHERE</code>, il faut appliquer la condition de recherche sur chacune des rangées du résultat du produit cartésien de sorte de ne retenir que les rangées qui satisfont la condition.</li>
+<li>Pour chacune des rangées restantes, il faut déterminer la valeur de chacun des éléments dans la liste des éléments du <code>SELECT</code> afin de produire une seule rangée dans la table résultante.</li>
+<li>S’il y a le mot clé <code>DISTINCT</code>, il faut éliminer toutes les copies de rangées de la table résultante.</li>
+<li>S’il y a une clause <code>ORDER BY</code>, il faut trier la table selon la condition émise.</li>
+</ol>
+</section>
+<section id="jointures-externes" class="level5">
+<h5><a href="#jointures-externes"><span class="header-section-number">6.3.4.8.2</span> Jointures externes</a></h5>
+<p>Les jointures vues jusqu’à présent gardent seulement les rangées qui correspondent entre les tables. Si une rangée ne correspond à aucune autre rangée, elle est omise du résultat. La jointure externe permet de garder seulement ces rangées qui ne correspondent à aucunes autres rangées.</p>
+</section>
+<section id="exemples-dopérations-de-jointure" class="level5">
+<h5><a href="#exemples-dopérations-de-jointure"><span class="header-section-number">6.3.4.8.3</span> Exemples d’opérations de jointure</a></h5>
+<p>Dans cette section, nous verrons des exemples d’opérations de jointure.</p>
+<section id="opération-de-jointure-simple" class="level6">
+<h6><a href="#opération-de-jointure-simple"><span class="header-section-number">6.3.4.8.3.1</span> Opération de jointure simple</a></h6>
+<p>Nous souhaitons avoir le nom de tous les clients qui ont vu une propriété avec tous les commentaires associés.</p>
+<p>Nous aurons donc la requête suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> c.clientNo, fName, lName, propertyNo, <span class="kw">comment</span>
+    <span class="kw">from</span> Client c, Viewing v
+    <span class="kw">where</span> c.clientNo = v.clientNo;</code></pre>
+</section>
+<section id="trier-une-opération-de-jointure" class="level6">
+<h6><a href="#trier-une-opération-de-jointure"><span class="header-section-number">6.3.4.8.3.2</span> Trier une opération de jointure</a></h6>
+<p>Pour chaque branche, nous souhaitons avoir la liste de tous les numéros d’employés et le nom des employés qui administrent des propriétés et les propriétés qu’ils administrent.</p>
+<p>Nous aurons donc la requête suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> s.branchNo, s.staffNo, fName, lName, propertyNo
+    <span class="kw">from</span> Staff s, PropertyForRent p
+    <span class="kw">where</span> s.staffNo = p.staffNo
+    <span class="kw">order</span> <span class="kw">by</span> s.branchNo, s.staffNo, propertyNo;</code></pre>
+</section>
+<section id="opération-de-jointure-sur-trois-tables" class="level6">
+<h6><a href="#opération-de-jointure-sur-trois-tables"><span class="header-section-number">6.3.4.8.3.3</span> Opération de jointure sur trois tables</a></h6>
+<p>Pour chaque branche, nous souhaitons avoir la liste des numéros de personnel ainsi que le nom du personnel qui administre des propriétés y compris la ville dans laquelle chaque branche est située et les propriétés que le personnel administre.</p>
+<p>Nous aurons donc la requête suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> b.branchNo, b.city, s.staffNo, fName, lName, propertyNo
+    <span class="kw">from</span> Branch b, Staff s, PropertyForRent p
+    <span class="kw">where</span> b.branchNo = s.branchNo <span class="kw">and</span> s.staffNo = p.staffNo
+    <span class="kw">order</span> <span class="kw">by</span> b.branchNo, s.staffNo, propertyNo;</code></pre>
+</section>
+<section id="multiples-groupements-de-colonnes" class="level6">
+<h6><a href="#multiples-groupements-de-colonnes"><span class="header-section-number">6.3.4.8.3.4</span> Multiples groupements de colonnes</a></h6>
+<p>Nous souhaitons trouver le nombre de propriétés administrées par chaque des membres du personnel ainsi que le numéro de branche de chaque membre du personnel.</p>
+<p>Nous aurons donc la requête suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">    <span class="kw">select</span> s.branchNo, s.staffNo, <span class="fu">count</span>(*) <span class="kw">as</span> myCount
+    <span class="kw">from</span> Staff s, PropertyForRent p
+    <span class="kw">where</span> s.staffNo = p.staffNo
+    <span class="kw">group</span> <span class="kw">by</span> s.branchNo, s.staffNo
+    <span class="kw">order</span> <span class="kw">by</span> s.branchNo, s.staffNo;</code></pre>
 </section>
 </section>
 </section>
