@@ -193,6 +193,10 @@ table caption {
     text-align: center;
 }
 
+pre {
+    overflow-x: scroll;
+}
+
 @media screen and (max-width: 1300px) {
     table {
         width: 100%;
