@@ -779,9 +779,44 @@ résultante.
 ##### Jointures externes
 
 Les jointures vues jusqu'à présent gardent seulement les rangées qui correspondent entre les
-tables. Si une rangée ne correspond à aucune autre rangée, elle est omise du résultat. La 
-jointure externe permet de garder seulement ces rangées qui ne correspondent à aucunes
-autres rangées.
+tables. Si une rangée ne correspond à aucune autre rangée, elle est omise du résultat. 
+
+La **jointure externe** permet de garder seulement ces rangées qui ne correspondent à aucune
+autre rangée. Il y a trois types de jointures externes:
+
+- **Jointure externe gauche**
+- **Jointure externe droite**
+- **Jointure externe complète**
+
+##### Mots clés `EXISTS` et `NOT EXISTS`
+
+Les mots clés `EXISTS` et `NOT EXISTS` ont été conçus pour seulement fonctionner avec les
+sous-requêtes. Ils produisent une valeur de vrai ou faux. `EXISTS` est vrai seulement s'il
+existe au moins une rangée dans la table résultante retournée par la sous-requête. `EXISTS`
+retourne faux si la sous-requête retourne une table résultante vide.
+
+##### Combiner les tables résultantes (`UNION`, `INTERSECT`, `EXCEPT`)
+
+Dans le langage SQL, nous pouvons utiliser les opérations d'*union*, d'*intersection* et
+de *différence* pour combiner les résultats de deux ou plusieurs requêtes dans une seule
+table résultante:
+
+- L'**union** de deux tables, $A$ et $B$, est une table contenant toutes les rangées qui
+sont soit dans la table $A$ ou dans la table $B$.
+- L'**intersection** de deux tables, $A$ et $B$, est une table contenant toutes les
+rangées qui sont à la fois dans la table $A$ et $B$.
+- La **différence** de deux tables, $A$ et $B$, est une table contenant toutes les rangées
+qui sont dans la table $A$, mais pas dans la table $B$.
+
+Pour pouvoir se servir de ces opérations, les tables doivent être compatibles à l'union,
+c'est-à-dire avoir le même nombre de colonnes et que les colonnes ont la même longueur et
+le même type.
+
+La façon d'utiliser ces opérations dans le langage se fait de la manière suivante:
+
+```
+    operator[ALL][CORRESPONDING [BY {column1, [,...]}]]
+```
 
 ##### Exemples d'opérations de jointure
 
@@ -842,4 +877,398 @@ Nous aurons donc la requête suivante:
     where s.staffNo = p.staffNo
     group by s.branchNo, s.staffNo
     order by s.branchNo, s.staffNo;
+```
+
+###### Jointure externe gauche
+
+Nous souhaitons trouver toutes les branches et toutes les propriétés qui sont dans la même ville.
+
+Nous aurons donc la requête suivante:
+
+```SQL
+    select b.*, p.*
+    from Branch1 b left join PropertyForRent1 p on b.bCity = p.pCity;
+```
+
+La table résultante sera la suivante:
+
+branchNo        bCity       propertyNo      pCity
+--------        -------     ------------    --------
+B003            Glasgow     PG4             Glasgow
+B004            Bristol     null            null
+B002            London      PL94            London
+--------        -------     ------------    --------
+
+###### Jointure externe droite
+
+Nous souhaitons trouver toutes les propriétés et toutes les branches qui sont dans la même ville.
+
+Nous aurons alors la requête suivante:
+
+```SQL
+    select b.*, p.*
+    from Branch1 b right join PropertyForRent1 p on b.bCity = p.pCity;
+```
+
+La table résultante sera la suivante:
+
+branchNo        bCity       propertyNo      pCity
+--------        -------     ------------    --------
+null            null        PA14            Aberdeen
+B003            Glasgow     PG4             Glasgow
+B002            London      PL94            London
+--------        -------     ------------    --------
+
+###### Jointure externe complète
+
+Nous souhaitons trouver toutes les branches et propriétés qui sont dans la même ville avec
+toutes les branches ou propriétés qui n'ont aucune correspondance.
+
+Nous aurons alors la requête suivante:
+
+```SQL
+    select b.*, p.*
+    from Branch1 b full join PropertyForRent1 p on b.bCity = p.pCity;
+```
+
+La table résultant sera la suivante:
+
+branchNo        bCity       propertyNo      pCity
+--------        -------     ------------    --------
+null            null        PA14            Aberdeen
+B003            Glasgow     PG4             Glasgow
+B004            Bristol     null            null
+B002            London      PL94            London
+--------        -------     ------------    --------
+
+###### Requête utilisant `EXISTS`
+
+Nous souhaitons trouver tout le personnel qui travaille à la branche de Londres.
+
+Nous aurons alors la requête suivante:
+
+```SQL
+    select staffNo, fName, lName, position
+    from Staff s
+    where exists (select *
+                  from Branch b
+                  where s.branchNo = b.branchNo and city = 'London');
+```
+
+###### Utiliser `UNION`
+
+Nous souhaitons avoir la liste de toutes les villes qui sont une branche soit une propriété.
+
+Nous aurons alors la requête suivante:
+
+```SQL
+    (select city
+     from Branch
+     where city is not null)
+     union
+    (select city
+     from PropertyForRent
+     where city is not null);
+```
+
+ou
+
+```SQL
+    (select *
+     from Branch
+     where city is not null)
+     union corresponding by city
+    (select *
+     from PropertyForRent
+     where city is not null);
+```
+
+###### Utiliser `INTERSECT`
+
+Nous souhaitons avoir la liste des villes où il y a à la fois une branche et une propriété.
+
+Nous aurons alors la requête suivante:
+
+```SQL
+    (select city
+     from Branch)
+     intersect
+    (select city
+     from PropertyForRent);
+```
+
+ou
+
+```SQL
+    (select *
+     from Branch)
+     intersect corresponding by city
+    (select *
+     from PropertyForRent);
+```
+
+Nous pourrions également réécrire ces requêtes sans l'opérateur `INTERSECT`:
+
+```SQL
+    select distinct b.city
+    from Branch b, PropertyForRent p
+    where b.city = p.city;
+```
+
+ou
+
+```SQL
+    select distinct city
+    from Branch b
+    where exists (select *
+                  from PropertyForRent p
+                  where b.city = p.city);
+```
+
+###### Utiliser `EXCEPT`
+
+Nous souhaitons avoir la liste de toutes les villes où il y a une branche, mais pas de
+propriétés.
+
+Nous aurons alors la requête suivante:
+
+```SQL
+    (select city
+     from Branch)
+     except
+    (select city
+     from PropertyForRent);
+```
+
+ou
+
+```SQL
+    (select *
+     from Branch)
+     except corresponding by city
+    (select *
+     from PropertyForRent);
+```
+
+Nous pourrions également réécrire ces requêtes sans l'opérateur `EXCEPT`:
+
+```SQL
+    select distinct city
+    from Branch
+    where city not in (select city
+               from PropertyForRent);
+```
+
+ou
+
+```SQL
+    select distinct city
+    from Branch b
+    where not exists
+          (select *
+           from PropertyForRent p
+           where b.city = p.city);
+```
+
+#### Mises à jour de la base de données
+
+Le SQL est un langage de manipulation de données. Ainsi, il offre des instructions pour
+arriver à modifier le contenu des tables des bases de données. Il offre trois instructions:
+
+- `INSERT`: Ajoute des nouvelles rangées de données dans une table.
+- `UPDATE`: Mets à jour les données d'une table.
+- `DELETE`: Enlève des rangées de données d'une table.
+
+##### Insérer des données dans une base de données (`INSERT`)
+
+Il y a deux forme de clause `INSERT`. La première forme permet d'insérer des données et a la forme
+suivante:
+
+```
+    INSERT INTO TableName [(columnList)]
+    VALUES (dataValueList)
+```
+
+où *TableName* est soit une table de base ou une vue qu'on peut mettre à jour, *columnList* est une
+liste d'un nom de colonne ou plus séparés par des virgules. *columnList* est optionnel et, si omis,
+le SQL va considérer toutes les colonnes de la table originale dans l'ordre de création de celle-ci.
+Si spécifié, toutes les colonnes omises doivent être nullables excepté si `DEFAULT` a été spécifié
+au moment de leur création. *dataValueList* doit correspondre à *columnList* des manières suivantes:
+
+- Le nombre d'éléments dans chaque liste doit être le même.
+- Il doit y avoir une correspondance directe entre la position des éléments dans les deux listes.
+- Le type des données de *dataValueList* doit être compatible avec le type de la colonne correspondante.
+
+La deuxième forme de `INSERT` permet de copier des rangées d'une table à l'autre et a le format suivant:
+
+```
+    INSERT INTO TableName [(columnList)]
+      SELECT ...
+```
+
+*TableName* et *columnList* ont les mêmes valeurs que lorsqu'on insère une rangée. La clause `SELECT`
+peut être n'importe quelle clause `SELECT` valide.
+
+###### Exemple de `INSERT ... VALUES`
+
+Nous souhaitons insérer une nouvelle rangée dans la table *Staff* en donnant les données pour toutes
+les colonnes.
+
+Nous aurons la requête suivante:
+
+```SQL
+    insert into Staff
+    values ('SG16', 'Alan', 'Brown', 'Assistant', 'M', DATE '1957-05-25', 8300, 'B003');
+```
+
+###### Exemple de `INSERT` en utilisant des valeurs par défaut
+
+Nous souhaitons insérer une nouvelle rangée dans la table *Staff* en donnant toutes les données
+pour les colonnes obligatoires: *staffNo*, *fName*, *lName*, *position*, *salary* et *branchNo*.
+
+Nous aurons la requête suivante:
+
+```SQL
+    insert into Staff (staffNo, fName, lName, position, salary, branchNo)
+    values ('SG44', 'Anne', 'Jones', 'Assistant', 8100, 'B003');
+```
+
+Nous aurions aussi pu écrire:
+
+```SQL
+    insert into Staff
+    values ('SG44', 'Anne', 'Jones', 'Assistant', null, null, 8100, 'B003');
+```
+
+###### Exemple de `INSERT ... SELECT`
+
+Assumons qu'il existe une table *StaffPropCount* qui contient le nom du personnel et le nombre
+de propriétés qu'il administre. La table a la forme suivante:
+
+```
+    StaffPropCount(staffNo, fName, lName, propCount)
+```
+
+Nous souhaitons populer la table *StaffPropCount* en utilisant les détails des tables *Staff*
+et *PropertyForRent*.
+
+Nous aurons alors la requête suivante:
+
+```SQL
+    insert into StaffPropCount
+   (select s.staffNo, fName, lName, count(*)
+    from Staff s, PropertyForRent p
+    where s.staffNo = p.staffNo
+    group by s.staffNo, fName, lName)
+    union
+   (select staffNo, fName, lName, 0
+    from Staff s
+    where not exists(select *
+                     from PropertyForRent p
+                     where p.staffNo = s.staffNo));
+```
+
+*Il est bon de noter que quelques dialectes de SQL ne permettent pas d'utiliser `UNION` à
+l'intérieur d'une sous-selection.*
+
+Nous obtenons alors la table suivante:
+
+staffNo         fName           lName           propCount
+-------         -----           -----           ----------
+SG14            David           Ford            1
+SL21            John            White           0
+SG37            Ann             Beech           2
+SA9             Mary            Howe            1
+SG5             Susan           Brand           0
+SL41            Julie           Lee             1
+-------         -----           -----           ----------
+
+##### Modifier les données dans la base de données (`UPDATE`)
+
+L'expression `UPDATE` permet de modifier le contenu de rangées déjà existantes d'une table.
+Elle prend le format suivant:
+
+```
+    UPDATE TableName
+    SET columnName1 = dataValue1 [, columnName2 = dataValue2 ...]
+    [WHERE searchCondition]
+```
+
+*TableName* peut être le nom d'une table de base ou d'une vue qui peut être mise à jour. La
+clause `SET` spécifie le nom d'une ou plusieurs colonnes qui doivent être mises à jour. La
+clause `WHERE` est optionnelle, si omise, toutes les colonnes nommées sont mises à jour
+pour toutes leurs rangées. Si une clause `WHERE` est spécifiée, seules les rangées qui
+satisfont la condition de recherche vont être mises à jour. Les nouvelles *dataValues*
+doivent être compatibles avec le type de données pour la colonne correspondante.
+
+###### Mise à jour de toutes les rangées
+
+Nous souhaitons augmenter le salaire du personnel de 3\%.
+
+Nous aurons alors la requête suivante:
+
+```SQL
+    update Staff
+    set salary = salary * 1.03;
+```
+
+###### Mettre à jour des rangées spécifiques
+
+Nous souhaitons donner une augmentation de salaire de 5% à tous les managers.
+
+Nous aurons alors la requête suivante:
+
+```SQL
+    update Staff
+    set salary = salary * 1.05
+    where position = 'Manager';
+```
+
+###### Mettre à jour plusieurs colonnes
+
+Nous souhaitons promouvoir *David Ford (staffNo = 'SG14')* au rang de manager et 
+augmenter son salaire à 18000\$.
+
+Nous aurons alors la requête suivante:
+
+```SQL
+    update Staff
+    set position = 'Manager', salary = 18000
+    where staffNo = 'SG14';
+```
+
+##### Effacer des données de la base de données (`DELETE`)
+
+L'expression `DELETE` permet d'effacer des rangées d'une table donnée. Son format est
+le suivant:
+
+```
+    DELETE FROM TableName
+    [WHERE searchCondition]
+```
+
+Comme avec les clauses `INSERT` et `UPDATE`, *TableName* peut être le nom d'une table de base
+ou d'une vue qu'on peut mettre à jour. *searchCondition* est optionnel, si omis, toutes les
+rangées sont effacées de la table. Ça n'efface pas la table elle-même par contre. Si
+*searchCondition* est spécifié, seule les rangées qui satisfont la condition seront effacées.
+
+###### Effacer des rangées spécifiques
+
+Nous souhaitons effacer toutes les vues qui sont reliées à la propriété PG4.
+
+Nous aurons alors la requête suivante:
+
+```SQL
+    delete from Viewing
+    where propertyNo = 'PG4';
+```
+
+###### Effacer toutes les rangées
+
+Nous souhaitons effacer toutes les rangées de la table *Viewing*.
+
+Nous aurons alors la requête suivante:
+
+```SQL
+    delete from Viewing;
 ```

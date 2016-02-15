@@ -81,7 +81,7 @@
 
 **Compatible à l'union**
 :   Quand les schémas de deux relations concordent, c'est-à-dire qu'ils ont le même nombre
-    d'attributs avec chaque pair d'attributs correspondant ayant le même domaine.
+    d'attributs avec chaque paire d'attributs correspondant ayant le même domaine.
 
 **Concepteurs de bases de données logiques**
 :   Responsables d'identifier les données (ou plutôt les entités et les attributs), 
