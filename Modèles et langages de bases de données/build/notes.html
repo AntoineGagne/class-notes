@@ -205,12 +205,22 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li><a href="#opérations-de-jointure"><span class="toc-section-number">5.2.3</span> Opérations de jointure</a><ul>
 <li><a href="#jointure-theta-theta-join"><span class="toc-section-number">5.2.3.1</span> Jointure theta (<span class="math">\(\theta\)</span>-join)</a></li>
-<li><a href="#equijointure"><span class="toc-section-number">5.2.3.2</span> Equijointure</a></li>
-<li><a href="#jointure-naturelle"><span class="toc-section-number">5.2.3.3</span> Jointure naturelle</a></li>
-<li><a href="#jointure-externe"><span class="toc-section-number">5.2.3.4</span> Jointure externe</a></li>
-<li><a href="#semi-jointure"><span class="toc-section-number">5.2.3.5</span> Semi-jointure</a></li>
+<li><a href="#equijointure"><span class="toc-section-number">5.2.3.2</span> Equijointure</a><ul>
+<li><a href="#exemple-dequijointure"><span class="toc-section-number">5.2.3.2.1</span> Exemple d’equijointure</a></li>
 </ul></li>
-<li><a href="#division"><span class="toc-section-number">5.2.4</span> Division</a></li>
+<li><a href="#jointure-naturelle"><span class="toc-section-number">5.2.3.3</span> Jointure naturelle</a><ul>
+<li><a href="#exemple-de-jointure-naturelle"><span class="toc-section-number">5.2.3.3.1</span> Exemple de jointure naturelle</a></li>
+</ul></li>
+<li><a href="#jointure-externe"><span class="toc-section-number">5.2.3.4</span> Jointure externe</a><ul>
+<li><a href="#exemple-de-jointure-externe"><span class="toc-section-number">5.2.3.4.1</span> Exemple de jointure externe</a></li>
+</ul></li>
+<li><a href="#semi-jointure"><span class="toc-section-number">5.2.3.5</span> Semi-jointure</a><ul>
+<li><a href="#exemple-de-semi-jointure"><span class="toc-section-number">5.2.3.5.1</span> Exemple de semi-jointure</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#division"><span class="toc-section-number">5.2.4</span> Division</a><ul>
+<li><a href="#exemple-de-division"><span class="toc-section-number">5.2.4.1</span> Exemple de division</a></li>
+</ul></li>
 <li><a href="#agrégation"><span class="toc-section-number">5.2.5</span> Agrégation</a></li>
 <li><a href="#regroupement"><span class="toc-section-number">5.2.6</span> Regroupement</a></li>
 </ul></li>
@@ -1046,6 +1056,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section id="equijointure" class="level4">
 <h4><a href="#equijointure"><span class="header-section-number">5.2.3.2</span> Equijointure</a></h4>
 <p>L’<strong>equijointure</strong> est un cas particulier de <span class="math">\(\theta\)</span>-join. C’est le cas où le prédicat <span class="math">\(F\)</span> contient seulement l’égalité (<span class="math">\(=\)</span>).</p>
+<section id="exemple-dequijointure" class="level5">
+<h5><a href="#exemple-dequijointure"><span class="header-section-number">5.2.3.2.1</span> Exemple d’equijointure</a></h5>
+<p>Nous souhaitons lister les noms et les commentaires de tous les clients qui ont vus une propriété à louer:</p>
+<p><span class="math">\[
+    (\Pi_{\mathrm{numClient},~\mathrm{prenom},~\mathrm{nom}}(\mathrm{Client})) \bowtie_{\mathrm{Client}.\mathrm{numClient}~=~\mathrm{Visite}.\mathrm{numClient}} (\Pi_{\mathrm{numClient},~\mathrm{numPropriete},~\mathrm{commentaire}}(\mathrm{Visite}))
+\]</span></p>
+</section>
 </section>
 <section id="jointure-naturelle" class="level4">
 <h4><a href="#jointure-naturelle"><span class="header-section-number">5.2.3.3</span> Jointure naturelle</a></h4>
@@ -1055,6 +1072,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
   R \bowtie S
 \]</span></p>
 <p>où <span class="math">\(R\)</span> et <span class="math">\(S\)</span> sont des relations.</p>
+<section id="exemple-de-jointure-naturelle" class="level5">
+<h5><a href="#exemple-de-jointure-naturelle"><span class="header-section-number">5.2.3.3.1</span> Exemple de jointure naturelle</a></h5>
+<p>Nous souhaitons énumérer les noms et les commentaires de tous les clients qui ont visité une propriété à louer:</p>
+<p><span class="math">\[
+    (\Pi_{\mathrm{numClient},~\mathrm{prenom},~\mathrm{nom}}(\mathrm{Client})) \bowtie (\Pi_{\mathrm{numClient},~\mathrm{numPropriete},~\mathrm{commentaire}}(\mathrm{Visite}))
+\]</span></p>
+</section>
 </section>
 <section id="jointure-externe" class="level4">
 <h4><a href="#jointure-externe"><span class="header-section-number">5.2.3.4</span> Jointure externe</a></h4>
@@ -1067,6 +1091,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
   &amp;R \ltimes S \text{ (Jointure externe droite) }
 \end{align*}
 \]</span></p>
+<section id="exemple-de-jointure-externe" class="level5">
+<h5><a href="#exemple-de-jointure-externe"><span class="header-section-number">5.2.3.4.1</span> Exemple de jointure externe</a></h5>
+<p>Nous souhaitons produire un rapport d’état des visites de propriétés à louer:</p>
+<p><span class="math">\[
+    (\Pi_{\mathrm{numPropriete},~\mathrm{rue},~\mathrm{ville}}(\mathrm{ProprieteALouer})) \rtimes~\mathrm{Visite}
+\]</span></p>
+</section>
 </section>
 <section id="semi-jointure" class="level4">
 <h4><a href="#semi-jointure"><span class="header-section-number">5.2.3.5</span> Semi-jointure</a></h4>
@@ -1076,6 +1107,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
   R \triangleright_{F} S \iff \Pi_{A}(R \bowtie_{F} S)
 \]</span></p>
 <p>où <span class="math">\(A\)</span> est l’ensemble de tous les attributs de <span class="math">\(R\)</span>.</p>
+<section id="exemple-de-semi-jointure" class="level5">
+<h5><a href="#exemple-de-semi-jointure"><span class="header-section-number">5.2.3.5.1</span> Exemple de semi-jointure</a></h5>
+<p>On souhaite énumérer les détails complets de tous les membres du personnel qui travaillent à la filiale de Montréal:</p>
+<p><span class="math">\[
+    \mathrm{Personnel}~\triangleright_{\mathrm{Personnel}.\mathrm{numFiliale}~=~\mathrm{Filiale}.\mathrm{numFiliale}}~(\rho_{\mathrm{Filiale}.\mathrm{ville}~=~&#39;\mathrm{Montreal}&#39;}(\mathrm{Filiale}))
+\]</span></p>
+</section>
 </section>
 </section>
 <section id="division" class="level3">
@@ -1088,13 +1126,20 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>que l’on peut aussi réécrire comme</p>
 <p><span class="math">\[
 \begin{align*}
-  T_1~ &amp;\neg ~\Pi_{C}(R)
+  T_1~ &amp;\gets ~\Pi_{C}(R)
   \\
-  T_2~ &amp;\neg ~\Pi_{C}((T_1 \times S) - R)
+  T_2~ &amp;\gets ~\Pi_{C}((T_1 \times S) - R)
   \\
-  T~ &amp;\neg ~T_{1} - T_{2}
+  T~ &amp;\gets ~T_{1} - T_{2}
 \end{align*}
 \]</span></p>
+<section id="exemple-de-division" class="level4">
+<h4><a href="#exemple-de-division"><span class="header-section-number">5.2.4.1</span> Exemple de division</a></h4>
+<p>On souhaite identifier tous les clients qui ont visité toutes les propriétés de trois pièces:</p>
+<p><span class="math">\[
+    (\Pi_{\mathrm{numClient},~\mathrm{numPropriete}}(\mathrm{Visite})) \div (\Pi_{\mathrm{numPropriete}}(\rho_{\mathrm{piece}~=~3}(\mathrm{ProprieteALouer})))
+\]</span></p>
+</section>
 </section>
 <section id="agrégation" class="level3">
 <h3><a href="#agrégation"><span class="header-section-number">5.2.5</span> Agrégation</a></h3>

@@ -163,6 +163,15 @@ où $F$ est le prédicat et $R$ ainsi que $S$ sont des relations.
 L'**equijointure** est un cas particulier de $\theta$-join. C'est le cas où le prédicat $F$ contient 
 seulement l'égalité ($=$).
 
+##### Exemple d'equijointure
+
+Nous souhaitons lister les noms et les commentaires de tous les clients qui ont vus une propriété à
+louer:
+
+$$
+    (\Pi_{\mathrm{numClient},~\mathrm{prenom},~\mathrm{nom}}(\mathrm{Client})) \bowtie_{\mathrm{Client}.\mathrm{numClient}~=~\mathrm{Visite}.\mathrm{numClient}} (\Pi_{\mathrm{numClient},~\mathrm{numPropriete},~\mathrm{commentaire}}(\mathrm{Visite}))
+$$
+
 #### Jointure naturelle
 
 La **jointure naturelle** est une equijointure des deux relations $R$ et $S$ sur tous leurs attributs
@@ -175,6 +184,15 @@ $$
 $$
 
 où $R$ et $S$ sont des relations.
+
+##### Exemple de jointure naturelle
+
+Nous souhaitons énumérer les noms et les commentaires de tous les clients qui ont visité une propriété
+à louer:
+
+$$
+    (\Pi_{\mathrm{numClient},~\mathrm{prenom},~\mathrm{nom}}(\mathrm{Client})) \bowtie (\Pi_{\mathrm{numClient},~\mathrm{numPropriete},~\mathrm{commentaire}}(\mathrm{Visite}))
+$$
 
 #### Jointure externe
 
@@ -192,6 +210,14 @@ $$
 \end{align*}
 $$
 
+##### Exemple de jointure externe
+
+Nous souhaitons produire un rapport d'état des visites de propriétés à louer:
+
+$$
+    (\Pi_{\mathrm{numPropriete},~\mathrm{rue},~\mathrm{ville}}(\mathrm{ProprieteALouer})) \rtimes~\mathrm{Visite}
+$$
+
 #### Semi-jointure
 
 La **semi-jointure** définit une relation qui contient les tuples de $R$ qui participent
@@ -204,6 +230,15 @@ $$
 $$
 
 où $A$ est l'ensemble de tous les attributs de $R$.
+
+##### Exemple de semi-jointure
+
+On souhaite énumérer les détails complets de tous les membres du personnel qui travaillent à la filiale
+de Montréal:
+
+$$
+    \mathrm{Personnel}~\triangleright_{\mathrm{Personnel}.\mathrm{numFiliale}~=~\mathrm{Filiale}.\mathrm{numFiliale}}~(\rho_{\mathrm{Filiale}.\mathrm{ville}~=~'\mathrm{Montreal}'}(\mathrm{Filiale}))
+$$
 
 ### Division
 
@@ -223,12 +258,20 @@ que l'on peut aussi réécrire comme
 
 $$
 \begin{align*}
-  T_1~ &\neg ~\Pi_{C}(R)
+  T_1~ &\gets ~\Pi_{C}(R)
   \\
-  T_2~ &\neg ~\Pi_{C}((T_1 \times S) - R)
+  T_2~ &\gets ~\Pi_{C}((T_1 \times S) - R)
   \\
-  T~ &\neg ~T_{1} - T_{2}
+  T~ &\gets ~T_{1} - T_{2}
 \end{align*}
+$$
+
+#### Exemple de division
+
+On souhaite identifier tous les clients qui ont visité toutes les propriétés de trois pièces:
+
+$$
+    (\Pi_{\mathrm{numClient},~\mathrm{numPropriete}}(\mathrm{Visite})) \div (\Pi_{\mathrm{numPropriete}}(\rho_{\mathrm{piece}~=~3}(\mathrm{ProprieteALouer})))
 $$
 
 ### Agrégation

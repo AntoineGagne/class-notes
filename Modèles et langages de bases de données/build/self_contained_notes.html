@@ -204,12 +204,22 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 <li><a href="#opérations-de-jointure"><span class="toc-section-number">5.2.3</span> Opérations de jointure</a><ul>
 <li><a href="#jointure-theta-theta-join"><span class="toc-section-number">5.2.3.1</span> Jointure theta (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>θ</mi></mrow></math>-join)</a></li>
-<li><a href="#equijointure"><span class="toc-section-number">5.2.3.2</span> Equijointure</a></li>
-<li><a href="#jointure-naturelle"><span class="toc-section-number">5.2.3.3</span> Jointure naturelle</a></li>
-<li><a href="#jointure-externe"><span class="toc-section-number">5.2.3.4</span> Jointure externe</a></li>
-<li><a href="#semi-jointure"><span class="toc-section-number">5.2.3.5</span> Semi-jointure</a></li>
+<li><a href="#equijointure"><span class="toc-section-number">5.2.3.2</span> Equijointure</a><ul>
+<li><a href="#exemple-dequijointure"><span class="toc-section-number">5.2.3.2.1</span> Exemple d’equijointure</a></li>
 </ul></li>
-<li><a href="#division"><span class="toc-section-number">5.2.4</span> Division</a></li>
+<li><a href="#jointure-naturelle"><span class="toc-section-number">5.2.3.3</span> Jointure naturelle</a><ul>
+<li><a href="#exemple-de-jointure-naturelle"><span class="toc-section-number">5.2.3.3.1</span> Exemple de jointure naturelle</a></li>
+</ul></li>
+<li><a href="#jointure-externe"><span class="toc-section-number">5.2.3.4</span> Jointure externe</a><ul>
+<li><a href="#exemple-de-jointure-externe"><span class="toc-section-number">5.2.3.4.1</span> Exemple de jointure externe</a></li>
+</ul></li>
+<li><a href="#semi-jointure"><span class="toc-section-number">5.2.3.5</span> Semi-jointure</a><ul>
+<li><a href="#exemple-de-semi-jointure"><span class="toc-section-number">5.2.3.5.1</span> Exemple de semi-jointure</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#division"><span class="toc-section-number">5.2.4</span> Division</a><ul>
+<li><a href="#exemple-de-division"><span class="toc-section-number">5.2.4.1</span> Exemple de division</a></li>
+</ul></li>
 <li><a href="#agrégation"><span class="toc-section-number">5.2.5</span> Agrégation</a></li>
 <li><a href="#regroupement"><span class="toc-section-number">5.2.6</span> Regroupement</a></li>
 </ul></li>
@@ -1026,6 +1036,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <section id="equijointure" class="level4">
 <h4><a href="#equijointure"><span class="header-section-number">5.2.3.2</span> Equijointure</a></h4>
 <p>L’<strong>equijointure</strong> est un cas particulier de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>θ</mi></mrow></math>-join. C’est le cas où le prédicat <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>F</mi></mrow></math> contient seulement l’égalité (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo>=</mo></mrow></math>).</p>
+<section id="exemple-dequijointure" class="level5">
+<h5><a href="#exemple-dequijointure"><span class="header-section-number">5.2.3.2.1</span> Exemple d’equijointure</a></h5>
+<p>Nous souhaitons lister les noms et les commentaires de tous les clients qui ont vus une propriété à louer:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><msub><mo>Π</mo><mrow><mtext mathvariant="normal">numClient</mtext><mo>,</mo><mspace width="0.333em"></mspace><mtext mathvariant="normal">prenom</mtext><mo>,</mo><mspace width="0.333em"></mspace><mtext mathvariant="normal">nom</mtext></mrow></msub><mo stretchy="false">(</mo><mtext mathvariant="normal">Client</mtext><mo stretchy="false">)</mo><mo stretchy="false">)</mo><munder><mo>⋈</mo><mrow><mtext mathvariant="normal">Client</mtext><mo>.</mo><mtext mathvariant="normal">numClient</mtext><mspace width="0.333em"></mspace><mo>=</mo><mspace width="0.333em"></mspace><mtext mathvariant="normal">Visite</mtext><mo>.</mo><mtext mathvariant="normal">numClient</mtext></mrow></munder><mo stretchy="false">(</mo><msub><mo>Π</mo><mrow><mtext mathvariant="normal">numClient</mtext><mo>,</mo><mspace width="0.333em"></mspace><mtext mathvariant="normal">numPropriete</mtext><mo>,</mo><mspace width="0.333em"></mspace><mtext mathvariant="normal">commentaire</mtext></mrow></msub><mo stretchy="false">(</mo><mtext mathvariant="normal">Visite</mtext><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></math></p>
+</section>
 </section>
 <section id="jointure-naturelle" class="level4">
 <h4><a href="#jointure-naturelle"><span class="header-section-number">5.2.3.3</span> Jointure naturelle</a></h4>
@@ -1033,6 +1048,11 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>On l’écrit</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi><mo>⋈</mo><mi>S</mi></mrow></math></p>
 <p>où <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> et <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math> sont des relations.</p>
+<section id="exemple-de-jointure-naturelle" class="level5">
+<h5><a href="#exemple-de-jointure-naturelle"><span class="header-section-number">5.2.3.3.1</span> Exemple de jointure naturelle</a></h5>
+<p>Nous souhaitons énumérer les noms et les commentaires de tous les clients qui ont visité une propriété à louer:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><msub><mo>Π</mo><mrow><mtext mathvariant="normal">numClient</mtext><mo>,</mo><mspace width="0.333em"></mspace><mtext mathvariant="normal">prenom</mtext><mo>,</mo><mspace width="0.333em"></mspace><mtext mathvariant="normal">nom</mtext></mrow></msub><mo stretchy="false">(</mo><mtext mathvariant="normal">Client</mtext><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>⋈</mo><mo stretchy="false">(</mo><msub><mo>Π</mo><mrow><mtext mathvariant="normal">numClient</mtext><mo>,</mo><mspace width="0.333em"></mspace><mtext mathvariant="normal">numPropriete</mtext><mo>,</mo><mspace width="0.333em"></mspace><mtext mathvariant="normal">commentaire</mtext></mrow></msub><mo stretchy="false">(</mo><mtext mathvariant="normal">Visite</mtext><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></math></p>
+</section>
 </section>
 <section id="jointure-externe" class="level4">
 <h4><a href="#jointure-externe"><span class="header-section-number">5.2.3.4</span> Jointure externe</a></h4>
@@ -1045,6 +1065,13 @@ code > span.er { color: #ff0000; font-weight: bold; }
   &amp;R \ltimes S \text{ (Jointure externe droite) }
 \end{align*}
 $$</span></p>
+<section id="exemple-de-jointure-externe" class="level5">
+<h5><a href="#exemple-de-jointure-externe"><span class="header-section-number">5.2.3.4.1</span> Exemple de jointure externe</a></h5>
+<p>Nous souhaitons produire un rapport d’état des visites de propriétés à louer:</p>
+<p><span class="math">$$
+    (\Pi_{\mathrm{numPropriete},~\mathrm{rue},~\mathrm{ville}}(\mathrm{ProprieteALouer})) \rtimes~\mathrm{Visite}
+$$</span></p>
+</section>
 </section>
 <section id="semi-jointure" class="level4">
 <h4><a href="#semi-jointure"><span class="header-section-number">5.2.3.5</span> Semi-jointure</a></h4>
@@ -1052,6 +1079,11 @@ $$</span></p>
 <p>On l’écrit</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi><munder><mo>⊳</mo><mi>F</mi></munder><mi>S</mi><mo>⇔</mo><msub><mo>Π</mo><mi>A</mi></msub><mo stretchy="false">(</mo><mi>R</mi><munder><mo>⋈</mo><mi>F</mi></munder><mi>S</mi><mo stretchy="false">)</mo></mrow></math></p>
 <p>où <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>A</mi></mrow></math> est l’ensemble de tous les attributs de <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math>.</p>
+<section id="exemple-de-semi-jointure" class="level5">
+<h5><a href="#exemple-de-semi-jointure"><span class="header-section-number">5.2.3.5.1</span> Exemple de semi-jointure</a></h5>
+<p>On souhaite énumérer les détails complets de tous les membres du personnel qui travaillent à la filiale de Montréal:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtext mathvariant="normal">Personnel</mtext><mspace width="0.333em"></mspace><munder><mo>⊳</mo><mrow><mtext mathvariant="normal">Personnel</mtext><mo>.</mo><mtext mathvariant="normal">numFiliale</mtext><mspace width="0.333em"></mspace><mo>=</mo><mspace width="0.333em"></mspace><mtext mathvariant="normal">Filiale</mtext><mo>.</mo><mtext mathvariant="normal">numFiliale</mtext></mrow></munder><mspace width="0.333em"></mspace><mo stretchy="false">(</mo><msub><mi>ρ</mi><mrow><mtext mathvariant="normal">Filiale</mtext><mo>.</mo><mtext mathvariant="normal">ville</mtext><mspace width="0.333em"></mspace><mo>=</mo><mspace width="0.333em"></mspace><mo>ʹ</mo><mtext mathvariant="normal">Montreal</mtext><mo>ʹ</mo></mrow></msub><mo stretchy="false">(</mo><mtext mathvariant="normal">Filiale</mtext><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></math></p>
+</section>
 </section>
 </section>
 <section id="division" class="level3">
@@ -1060,7 +1092,12 @@ $$</span></p>
 <p>On l’écrit</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi><mo>÷</mo><mi>S</mi></mrow></math></p>
 <p>que l’on peut aussi réécrire comme</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtable><mtr><mtd columnalign="right"><msub><mi>T</mi><mn>1</mn></msub><mspace width="0.333em"></mspace></mtd><mtd columnalign="left"><mo>¬</mo><mspace width="0.333em"></mspace><msub><mo>Π</mo><mi>C</mi></msub><mo stretchy="false">(</mo><mi>R</mi><mo stretchy="false">)</mo></mtd></mtr><mtr><mtd columnalign="right"><msub><mi>T</mi><mn>2</mn></msub><mspace width="0.333em"></mspace></mtd><mtd columnalign="left"><mo>¬</mo><mspace width="0.333em"></mspace><msub><mo>Π</mo><mi>C</mi></msub><mo stretchy="false">(</mo><mo stretchy="false">(</mo><msub><mi>T</mi><mn>1</mn></msub><mo>×</mo><mi>S</mi><mo stretchy="false">)</mo><mo>−</mo><mi>R</mi><mo stretchy="false">)</mo></mtd></mtr><mtr><mtd columnalign="right"><mi>T</mi><mspace width="0.333em"></mspace></mtd><mtd columnalign="left"><mo>¬</mo><mspace width="0.333em"></mspace><msub><mi>T</mi><mn>1</mn></msub><mo>−</mo><msub><mi>T</mi><mn>2</mn></msub></mtd></mtr></mtable></mrow></math></p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mtable><mtr><mtd columnalign="right"><msub><mi>T</mi><mn>1</mn></msub><mspace width="0.333em"></mspace></mtd><mtd columnalign="left"><mo>←</mo><mspace width="0.333em"></mspace><msub><mo>Π</mo><mi>C</mi></msub><mo stretchy="false">(</mo><mi>R</mi><mo stretchy="false">)</mo></mtd></mtr><mtr><mtd columnalign="right"><msub><mi>T</mi><mn>2</mn></msub><mspace width="0.333em"></mspace></mtd><mtd columnalign="left"><mo>←</mo><mspace width="0.333em"></mspace><msub><mo>Π</mo><mi>C</mi></msub><mo stretchy="false">(</mo><mo stretchy="false">(</mo><msub><mi>T</mi><mn>1</mn></msub><mo>×</mo><mi>S</mi><mo stretchy="false">)</mo><mo>−</mo><mi>R</mi><mo stretchy="false">)</mo></mtd></mtr><mtr><mtd columnalign="right"><mi>T</mi><mspace width="0.333em"></mspace></mtd><mtd columnalign="left"><mo>←</mo><mspace width="0.333em"></mspace><msub><mi>T</mi><mn>1</mn></msub><mo>−</mo><msub><mi>T</mi><mn>2</mn></msub></mtd></mtr></mtable></mrow></math></p>
+<section id="exemple-de-division" class="level4">
+<h4><a href="#exemple-de-division"><span class="header-section-number">5.2.4.1</span> Exemple de division</a></h4>
+<p>On souhaite identifier tous les clients qui ont visité toutes les propriétés de trois pièces:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><msub><mo>Π</mo><mrow><mtext mathvariant="normal">numClient</mtext><mo>,</mo><mspace width="0.333em"></mspace><mtext mathvariant="normal">numPropriete</mtext></mrow></msub><mo stretchy="false">(</mo><mtext mathvariant="normal">Visite</mtext><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>÷</mo><mo stretchy="false">(</mo><msub><mo>Π</mo><mtext mathvariant="normal">numPropriete</mtext></msub><mo stretchy="false">(</mo><msub><mi>ρ</mi><mrow><mtext mathvariant="normal">piece</mtext><mspace width="0.333em"></mspace><mo>=</mo><mspace width="0.333em"></mspace><mn>3</mn></mrow></msub><mo stretchy="false">(</mo><mtext mathvariant="normal">ProprieteALouer</mtext><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></math></p>
+</section>
 </section>
 <section id="agrégation" class="level3">
 <h3><a href="#agrégation"><span class="header-section-number">5.2.5</span> Agrégation</a></h3>
