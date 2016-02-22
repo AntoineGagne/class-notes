@@ -237,7 +237,7 @@ On souhaite énumérer les détails complets de tous les membres du personnel qu
 de Montréal:
 
 $$
-    \mathrm{Personnel}~\triangleright_{\mathrm{Personnel}.\mathrm{numFiliale}~=~\mathrm{Filiale}.\mathrm{numFiliale}}~(\rho_{\mathrm{Filiale}.\mathrm{ville}~=~'\mathrm{Montreal}'}(\mathrm{Filiale}))
+    \mathrm{Personnel}~\triangleright_{\mathrm{Personnel}.\mathrm{numFiliale}~=~\mathrm{Filiale}.\mathrm{numFiliale}}~(\sigma_{\mathrm{Filiale}.\mathrm{ville}~=~'\mathrm{Montreal}'}(\mathrm{Filiale}))
 $$
 
 ### Division
@@ -271,7 +271,7 @@ $$
 On souhaite identifier tous les clients qui ont visité toutes les propriétés de trois pièces:
 
 $$
-    (\Pi_{\mathrm{numClient},~\mathrm{numPropriete}}(\mathrm{Visite})) \div (\Pi_{\mathrm{numPropriete}}(\rho_{\mathrm{piece}~=~3}(\mathrm{ProprieteALouer})))
+    (\Pi_{\mathrm{numClient},~\mathrm{numPropriete}}(\mathrm{Visite})) \div (\Pi_{\mathrm{numPropriete}}(\sigma_{\mathrm{piece}~=~3}(\mathrm{ProprieteALouer})))
 $$
 
 ### Agrégation
@@ -283,7 +283,7 @@ Applique la liste des fonctions agrégates, $AL$, à la relation $R$ pour défin
 On l'écrit
 
 $$
-  _ {AL} (R)
+  \Im_{AL} (R)
 $$
 
 Les principales fonctions agrégates sont les suivantes:
@@ -293,6 +293,14 @@ Les principales fonctions agrégates sont les suivantes:
 - *AVG*: Retourne la moyenne des valeurs de l'attribut associé.
 - *MIN*: Retourne la plus petite valeur de l'attribut associé.
 - *MAX*: Retourne la plus grande valeur de l'attribut associé.
+
+#### Exemple d'agrégation
+
+On souhaite trouver le salaire minimum, maximum et moyen des employés:
+
+$$
+    \rho_{R}(\mathrm{monMin},~\mathrm{monMax},~\mathrm{maMoyenne})~\Im_{\mathrm{MIN}~\mathrm{salaire},~\mathrm{MAX}~\mathrm{salaire},~\mathrm{AVG}~\mathrm{salaire}}(\mathrm{Personnel})
+$$
 
 ### Regroupement
 
@@ -305,13 +313,13 @@ fonctions agrégates.
 On l'écrit
 
 $$
- _ {GA~AL}(R)
+ {}_{GA}\Im_{AL}(R)
 $$
 
 La forme générale de l'opération de regroupement est la suivante:
 
 $$
-  a_1, a_2, \dots, a_n~ {}_{\langle A_p a_p \rangle, \langle A_q a_q \rangle, \dots, \langle A_z a_z \rangle}(R)
+  {}_{a_1, a_2, \dots, a_n}\Im_{\langle A_p a_p \rangle, \langle A_q a_q \rangle, \dots, \langle A_z a_z \rangle}(R)
 $$
 
 où $R$ est une relation quelconque, $a_1, a_2, \dots, a_n$ sont des attributs de $R$, $a_p, a_q, \dots, a_z$ sont
@@ -320,3 +328,11 @@ partitionnés de sorte que:
 
 - tous les tuples dans un groupe on la même valeur pour $a_1, a_2, \dots, a_n$;
 - les tuples dans différents groupes ont des valeurs différentes pour $a_1, a_2, \dots, a_n$.
+
+#### Exemple de regroupement
+
+Nous souhaitons trouver le nombre d'employés qui travaillent dans chaque filiale et calculer la somme de leurs salaires:
+
+$$
+    \rho_{R}(\mathrm{numFiliale},~\mathrm{monCompte},~\mathrm{maSomme}) {}_{\mathrm{numFiliale}}\Im_{\mathrm{COUNT}~\mathrm{numPersonnel},~\mathrm{SUM}~\mathrm{salaire}}(\mathrm{Personnel})
+$$
