@@ -350,8 +350,18 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#exemple"><span class="toc-section-number">7.3.3.1.1</span> Exemple</a></li>
 </ul></li>
 <li><a href="#énoncé-while-et-repeat"><span class="toc-section-number">7.3.3.2</span> Énoncé <code>WHILE</code> et <code>REPEAT</code></a></li>
+<li><a href="#énoncé-for"><span class="toc-section-number">7.3.3.3</span> Énoncé <code>FOR</code></a><ul>
+<li><a href="#exemple-1"><span class="toc-section-number">7.3.3.3.1</span> Exemple</a></li>
 </ul></li>
 </ul></li>
+</ul></li>
+<li><a href="#exceptions"><span class="toc-section-number">7.4</span> Exceptions</a><ul>
+<li><a href="#exemple-dexceptions"><span class="toc-section-number">7.4.1</span> Exemple d’exceptions</a><ul>
+<li><a href="#exemple-1-1"><span class="toc-section-number">7.4.1.1</span> Exemple 1</a></li>
+<li><a href="#exemple-2"><span class="toc-section-number">7.4.1.2</span> Exemple 2</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#curseurs"><span class="toc-section-number">7.5</span> Curseurs</a></li>
 </ul></li>
 <li><a href="#annexe"><span class="toc-section-number">8</span> Annexe</a></li>
 </ul>
@@ -2651,8 +2661,101 @@ REPEAT
     &lt;SQL statement list&gt;
 <span class="kw">UNTIL</span> (condition)
 <span class="kw">END</span> REPEAT [labelName];</code></pre>
+<p>Il est bon de noter que l’énoncé <code>REPEAT</code> n’a pas d’équivalent dans le PL/SQL.</p>
+</section>
+<section id="énoncé-for" class="level4">
+<h4><a href="#énoncé-for"><span class="header-section-number">7.3.3.3</span> Énoncé <code>FOR</code></a></h4>
+<p>L’énoncé <code>FOR</code> a la forme suivante dans le PL/SQL:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">FOR</span> indexVariable
+    <span class="kw">IN</span> [<span class="kw">REVERSE</span>] lowerBound .. upperBound <span class="kw">LOOP</span>
+    &lt;SQL statement list&gt;
+<span class="kw">END</span> <span class="kw">LOOP</span> [labelName];</code></pre>
+<p>Dans le standard SQL, il a la forme suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">FOR</span> indexVariable
+    <span class="kw">AS</span> querySpecification DO
+    &lt;SQL statement list&gt;
+<span class="kw">END</span> <span class="kw">FOR</span> [labelName];</code></pre>
+<section id="exemple-1" class="level5">
+<h5><a href="#exemple-1"><span class="header-section-number">7.3.3.3.1</span> Exemple</a></h5>
+<p>Voici un exemple d’une boucle <code>FOR</code> dans le PL/SQL:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">DECLARE</span>
+    numberOfStaff <span class="dt">NUMBER</span>;
+<span class="kw">SELECT</span> <span class="fu">COUNT</span>(*) <span class="kw">INTO</span> numberOfStaff
+    <span class="kw">FROM</span> PropertyForRent
+    <span class="kw">WHERE</span> staffNo = <span class="st">&#39;SG14&#39;</span>;
+myLoop1:
+<span class="kw">FOR</span> iStaff <span class="kw">IN</span> <span class="dv">1</span> .. numberOfStaff <span class="kw">LOOP</span>
+    <span class="co">-- Statements</span>
+<span class="kw">END</span> <span class="kw">LOOP</span> myLoop1;</code></pre>
+<p>Voici un exemple dans le SQL standard:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">myLoop1:
+<span class="kw">FOR</span> iStaff <span class="kw">AS</span> <span class="kw">SELECT</span> <span class="fu">COUNT</span>(*)
+    <span class="kw">FROM</span> PropertyForRent
+    <span class="kw">WHERE</span> staffNo = <span class="st">&#39;SG14&#39;</span> DO
+    <span class="co">-- Statements</span>
+<span class="kw">END</span> <span class="kw">FOR</span> myLoop1;</code></pre>
 </section>
 </section>
+</section>
+</section>
+<section id="exceptions" class="level2">
+<h2><a href="#exceptions"><span class="header-section-number">7.4</span> Exceptions</a></h2>
+<p>Une <strong>exception</strong> dans le PL/SQL est un identifieur lancé lors de l’exécution d’un bloc et qui va terminer les actions du programme. Un block va toujours se terminer lorsqu’une exception est lancée. Toutefois, un gestionnaire d’exception peut toutefois exécuter des dernières opérations. Il est possible de soulever des exceptions en utilisant le mot clé <code>RAISE</code>. Une exception est définie dans le bloc déclaratif d’un programme PL/SQL.</p>
+<section id="exemple-dexceptions" class="level3">
+<h3><a href="#exemple-dexceptions"><span class="header-section-number">7.4.1</span> Exemple d’exceptions</a></h3>
+<section id="exemple-1-1" class="level4">
+<h4><a href="#exemple-1-1"><span class="header-section-number">7.4.1.1</span> Exemple 1</a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">DECLARE</span>
+    vpCount <span class="dt">NUMBER</span>;
+    vStaffNo PropertyForRent.staffNo%<span class="kw">TYPE</span> := <span class="st">&#39;SG14&#39;</span>;
+<span class="co">-- Define an exception for the enterprise constraint that prevents a member of staff</span>
+<span class="co">-- from managing more than 100 properties</span>
+    e_too_many_properties <span class="kw">EXCEPTION</span>;
+    PRAGMA_EXCEPTION_INIT(e_too_many_properties, -<span class="dv">20000</span>);
+<span class="kw">BEGIN</span>
+    <span class="kw">SELECT</span> <span class="fu">COUNT</span>(*) <span class="kw">INTO</span> vpCount
+    <span class="kw">FROM</span> PropertyForRent
+    <span class="kw">WHERE</span> staffNo = vStaffNo;
+    <span class="kw">IF</span> vpCount = <span class="dv">100</span>
+<span class="co">-- Raise an exception for the general constraint</span>
+        RAISE e_too_many_properties;
+    <span class="kw">END</span> <span class="kw">IF</span>;
+    <span class="kw">UPDATE</span> PropertyForRent 
+        <span class="kw">SET</span> staffNo = vStaffNo
+        <span class="kw">WHERE</span> propertyNo = <span class="st">&#39;PG4&#39;</span>;
+<span class="kw">EXCEPTION</span>
+<span class="co">-- Handle the exception for the general constraint</span>
+    <span class="kw">WHEN</span> e_too_many_properties <span class="kw">THEN</span>
+        dbms_output.put_line(<span class="st">&#39;Member of staff&#39;</span> || staffNo || <span class="st">&#39;already managing 100 properties&#39;</span>);
+<span class="kw">END</span>;</code></pre>
+</section>
+<section id="exemple-2" class="level4">
+<h4><a href="#exemple-2"><span class="header-section-number">7.4.1.2</span> Exemple 2</a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">DECLARE</span>
+    vNameEt <span class="dt">VARCHAR2</span>(<span class="dv">30</span>);
+<span class="kw">BEGIN</span>
+    <span class="kw">SELECT</span> prenomEt || <span class="st">&#39; &#39;</span> || nomEt
+    <span class="kw">INTO</span> vNameEt
+    <span class="kw">FROM</span> Etudiant
+    <span class="kw">WHERE</span> idEtudiant = <span class="dv">123456</span>;
+    dbms_output.put_line(<span class="st">&#39;Le nom de &#39;</span> || <span class="st">&#39;l</span><span class="ch">&#39;&#39;</span><span class="st">etudiant est &#39;</span> || vName);
+<span class="kw">EXCEPTION</span>
+    <span class="kw">when</span> no_data_found <span class="kw">THEN</span>
+    dbms_output.put_line(<span class="st">&#39;Il n</span><span class="ch">&#39;&#39;</span><span class="st">y a pas &#39;</span> || <span class="st">&#39;d</span><span class="ch">&#39;&#39;</span><span class="st">etudiant avec le numero 123456&#39;</span>);
+<span class="kw">END</span>;</code></pre>
+</section>
+</section>
+</section>
+<section id="curseurs" class="level2">
+<h2><a href="#curseurs"><span class="header-section-number">7.5</span> Curseurs</a></h2>
+<p>Un <code>SELECT</code> ne peut être utilisé que si la requête ne retourne qu’une seule et unique ligne. Pour gérer une requête qui peut retourner un nombre arbitraire de rangées, le PL/SQL utilise les <strong>curseurs</strong>. Les curseurs agissent comme des pointeurs sur une rangée particulière d’une requête. Un curseur peut être incrémenté pour accéder aux prochaines rangées. Un curseur doit être <em>déclaré</em> et <em>ouvert</em> avant de pouvoir être utilisé et il doit être <em>fermé</em> après qu’il ne soit plus utilisé. Les rangées d’une requête peuvent être accédées en utilisant un <code>FETCH</code> sur le curseur.</p>
+<p>Un curseur possède quelques fonctions tel que:</p>
+<ul>
+<li><code>%FOUND</code>: Retourne vrai si le <code>FETCH</code> le plus récent retourne une rangée.</li>
+<li><code>%NOTFOUND</code>: Retourne faux si le <code>FETCH</code> le plus récent ne retourne pas de rangée.</li>
+<li><code>%ISOPEN</code>: Retourne vrai si le curseur est ouvert.</li>
+<li><code>%ROWCOUNT</code>: Retourne le nombre total de rangées retournés jusqu’à présent.</li>
+</ul>
 </section>
 </section>
 <section id="annexe" class="level1">
