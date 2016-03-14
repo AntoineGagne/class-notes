@@ -361,7 +361,34 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#exemple-2"><span class="toc-section-number">7.4.1.2</span> Exemple 2</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#curseurs"><span class="toc-section-number">7.5</span> Curseurs</a></li>
+<li><a href="#curseurs"><span class="toc-section-number">7.5</span> Curseurs</a><ul>
+<li><a href="#exemples-dutilisation-curseurs"><span class="toc-section-number">7.5.1</span> Exemples d’utilisation curseurs</a><ul>
+<li><a href="#exemple-1-2"><span class="toc-section-number">7.5.1.1</span> Exemple 1</a></li>
+<li><a href="#exemple-2-1"><span class="toc-section-number">7.5.1.2</span> Exemple 2</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#procédures-et-fonctions"><span class="toc-section-number">7.6</span> Procédures et fonctions</a><ul>
+<li><a href="#procédures-1"><span class="toc-section-number">7.6.1</span> Procédures</a><ul>
+<li><a href="#exécution"><span class="toc-section-number">7.6.1.1</span> Exécution</a></li>
+<li><a href="#exemple-3"><span class="toc-section-number">7.6.1.2</span> Exemple</a></li>
+</ul></li>
+<li><a href="#fonctions"><span class="toc-section-number">7.6.2</span> Fonctions</a><ul>
+<li><a href="#exemple-4"><span class="toc-section-number">7.6.2.1</span> Exemple</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#packages"><span class="toc-section-number">7.7</span> Packages</a></li>
+<li><a href="#déclencheurs"><span class="toc-section-number">7.8</span> Déclencheurs</a><ul>
+<li><a href="#beforeafterinstead-of"><span class="toc-section-number">7.8.1</span> <code>BEFORE</code>/<code>AFTER</code>/<code>INSTEAD OF</code></a><ul>
+<li><a href="#before"><span class="toc-section-number">7.8.1.1</span> <code>BEFORE</code></a></li>
+<li><a href="#after"><span class="toc-section-number">7.8.1.2</span> <code>AFTER</code></a></li>
+</ul></li>
+<li><a href="#oldnew"><span class="toc-section-number">7.8.2</span> <code>:OLD</code>/<code>:NEW</code></a></li>
+<li><a href="#exemples-2"><span class="toc-section-number">7.8.3</span> Exemples</a><ul>
+<li><a href="#exemple-1-3"><span class="toc-section-number">7.8.3.1</span> Exemple 1</a></li>
+<li><a href="#exemple-2-2"><span class="toc-section-number">7.8.3.2</span> Exemple 2</a></li>
+<li><a href="#exemple-3-1"><span class="toc-section-number">7.8.3.3</span> Exemple 3</a></li>
+</ul></li>
+</ul></li>
 </ul></li>
 <li><a href="#annexe"><span class="toc-section-number">8</span> Annexe</a></li>
 </ul>
@@ -2756,11 +2783,293 @@ myLoop1:
 <li><code>%ISOPEN</code>: Retourne vrai si le curseur est ouvert.</li>
 <li><code>%ROWCOUNT</code>: Retourne le nombre total de rangées retournés jusqu’à présent.</li>
 </ul>
+<section id="exemples-dutilisation-curseurs" class="level3">
+<h3><a href="#exemples-dutilisation-curseurs"><span class="header-section-number">7.5.1</span> Exemples d’utilisation curseurs</a></h3>
+<section id="exemple-1-2" class="level4">
+<h4><a href="#exemple-1-2"><span class="header-section-number">7.5.1.1</span> Exemple 1</a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">declare</span>
+    V_NUM_PROPRIETE PROPRIETE_A_LOUER.NUM_PROPRIETE<span class="dt">%type</span>;
+    V_RUE PROPRIETE_A_LOUER.RUE<span class="dt">%type</span>;
+    V_VILLE PROPRIETE_A_LOUER.VILLE<span class="dt">%type</span>;
+    V_CODE_POSTAL PROPRIETE_A_LOUER.CODE_POSTAL<span class="dt">%type</span>;
+    <span class="kw">cursor</span> PROPRIETE_CURSEUR <span class="kw">is</span>
+        <span class="kw">select</span> NUM_PROPRIETE, RUE, VILLE, CODE_POSTAL
+            <span class="kw">from</span> PROPRIETE_A_LOUER
+            <span class="kw">where</span> NUM_PERSONNEL = <span class="st">&#39;EM14&#39;</span>
+            <span class="kw">order</span> <span class="kw">by</span> NUM_PROPRIETE;
+
+<span class="kw">begin</span>
+    <span class="kw">open</span> PROPRIETE_CURSEUR;
+    <span class="kw">loop</span>
+<span class="co">-- Prendre la ligne suivante</span>
+        fetch PROPRIETE_CURSEUR
+        <span class="kw">into</span> V_NUM_PROPRIETE, V_RUE, V_VILLE,
+             V_CODE_POSTAL;
+        exit <span class="kw">when</span> PROPRIETE_CURSEUR<span class="dt">%notfound</span>;
+        dbms_output.put_line(<span class="st">&#39;No de propriete: &#39;</span> || V_NUM_PROPRIETE);
+        dbms_output.put_line(<span class="st">&#39;Rue: &#39;</span> || V_RUE);
+        <span class="kw">if</span> V_CODE_POSTAL <span class="kw">is</span> <span class="kw">not</span> <span class="kw">null</span> <span class="kw">then</span>
+            dbms_output.put_line(<span class="st">&#39;Code postal: &#39;</span> || V_CODE_POSTAL);
+        <span class="kw">else</span>
+            dbms_output.put_line(<span class="st">&#39;Code postal: &#39;</span> || <span class="st">&#39;NULL&#39;</span>);
+        <span class="kw">end</span> <span class="kw">if</span>;
+    <span class="kw">end</span> <span class="kw">loop</span>;
+    <span class="kw">if</span> PROPRIETE_CURSEUR<span class="dt">%isopen</span> <span class="kw">then</span>
+        <span class="kw">close</span> PROPRIETE_CURSEUR
+    <span class="kw">end</span> <span class="kw">if</span>;
+
+<span class="co">-- Si condition d&#39;erreur, alors afficher l&#39;erreur</span>
+<span class="kw">exception</span>
+    <span class="kw">when</span> others <span class="kw">then</span>
+        dbms_output.put_line(<span class="st">&#39;Erreur detectee.&#39;</span>);
+        <span class="kw">if</span> PROPRIETE_CURSEUR<span class="dt">%isopen</span> <span class="kw">then</span>
+            <span class="kw">close</span> PROPRIETE_CURSEUR
+        <span class="kw">end</span> <span class="kw">if</span>;
+<span class="kw">end</span>;</code></pre>
+</section>
+<section id="exemple-2-1" class="level4">
+<h4><a href="#exemple-2-1"><span class="header-section-number">7.5.1.2</span> Exemple 2</a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">declare</span> 
+    V_TOTAL_VAL <span class="dt">number</span>(<span class="dv">6</span>);
+
+    <span class="kw">cursor</span> C1 <span class="kw">is</span>
+        <span class="kw">select</span> REVENU_MENSUEL_EM
+            <span class="kw">from</span> EMPLOYE
+            <span class="kw">where</span> NOM_EN = <span class="st">&#39;King&#39;</span>;
+
+<span class="kw">begin</span>
+    V_TOTAL_VAL := <span class="dv">0</span>;
+
+<span class="co">-- L&#39;equivalent d&#39;un &quot;for each&quot;</span>
+    <span class="kw">for</span> ENR_EMPLOYE <span class="kw">in</span> C1 <span class="kw">loop</span>
+        V_TOTAL_VAL := V_TOTAL_VAL +
+            ENR_EMPLOYE.REVENU_MENSUEL_EM;
+    <span class="kw">end</span> <span class="kw">loop</span>;
+<span class="kw">end</span>;</code></pre>
+</section>
+</section>
+</section>
+<section id="procédures-et-fonctions" class="level2">
+<h2><a href="#procédures-et-fonctions"><span class="header-section-number">7.6</span> Procédures et fonctions</a></h2>
+<p>Il est possible de définir des procédures et des fonctions en PL/SQL. Il existe toutefois une différence entre les deux. Une <strong>procédure</strong> ne possède pas de retour alors qu’une fonction en possède un.</p>
+<section id="procédures-1" class="level3">
+<h3><a href="#procédures-1"><span class="header-section-number">7.6.1</span> Procédures</a></h3>
+<p>On définit une procédure de la façon suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">create</span> [<span class="kw">or</span> <span class="kw">replace</span>] <span class="kw">procedure</span> NOM_PROCEDURE
+    [(ARGUMENT_1 ... [,ARGUMENT_N)] <span class="kw">is</span>
+    <span class="co">-- Pas de mot clé &quot;declare&quot;</span>
+        [Section de déclaration de variable]
+
+<span class="kw">begin</span>
+    <span class="co">-- Section exécutable</span>
+
+[Section gestion <span class="kw">exception</span>]
+
+<span class="kw">end</span> [nom_procedure];
+/</code></pre>
+<p>où <code>ARGUMENT_1 .. ARGUMENT_N</code> sont définis comme</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="co">-- U pour out et I pour in</span>
+P[U | I]_NOM_ARGUMENT [<span class="kw">in</span> | <span class="kw">out</span>] <span class="kw">type</span> [{:= | <span class="kw">default</span>} valeur]</code></pre>
+<section id="exécution" class="level4">
+<h4><a href="#exécution"><span class="header-section-number">7.6.1.1</span> Exécution</a></h4>
+<p>Pour exécuter une procédure, on exécute les commandes suivantes:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="co">-- Permet d&#39;afficher les dbms_output.putline</span>
+<span class="kw">set</span> serveroutput <span class="kw">on</span>; 
+<span class="kw">execute</span> nom_procedure(...);</code></pre>
+</section>
+<section id="exemple-3" class="level4">
+<h4><a href="#exemple-3"><span class="header-section-number">7.6.1.2</span> Exemple</a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">create</span> <span class="kw">procedure</span> SP_SALUT_LE_MONDE <span class="kw">is</span>
+    V_SALUTATION <span class="dt">varchar2</span>(<span class="dv">20</span>);
+    
+<span class="kw">begin</span>
+    V_SALUTATION := <span class="st">&#39;Salut le monde&#39;</span>;
+    dbms_output.put_line(V_SALUTATION);
+
+<span class="kw">end</span> SP_SALUT_LE_MONDE;
+/</code></pre>
+</section>
+</section>
+<section id="fonctions" class="level3">
+<h3><a href="#fonctions"><span class="header-section-number">7.6.2</span> Fonctions</a></h3>
+<p>On définit une fonction de la façon suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">create</span> [<span class="kw">or</span> <span class="kw">replace</span>] <span class="kw">function</span> NOM_FONCTION
+    [(ARGUMENT_1 ... [,ARGUMENT_N)]
+    <span class="co">-- On spécifie le type du retour</span>
+    <span class="kw">return</span> <span class="kw">type</span> <span class="kw">is</span>
+        [Section de déclaration de variable]
+
+<span class="kw">begin</span>
+    <span class="co">-- Section exécutable</span>
+    {<span class="kw">return</span> NOM_VARIABLE;}
+
+[Section gestion <span class="kw">exception</span>]
+
+<span class="kw">end</span> [NOM_FONCTION];
+/</code></pre>
+<section id="exemple-4" class="level4">
+<h4><a href="#exemple-4"><span class="header-section-number">7.6.2.1</span> Exemple</a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">create</span> <span class="kw">or</span> <span class="kw">replace</span> <span class="kw">function</span> 
+    <span class="co">-- IMPORTANT: On ne precise pas de format pour les types</span>
+    FCT_BALANCE(P_I_NO_COMPTE <span class="dt">number</span>)
+    <span class="kw">return</span> <span class="dt">number</span>
+    <span class="kw">is</span>
+        V_BALANCE_COMPTE <span class="dt">number</span>(<span class="dv">8</span>, <span class="dv">2</span>);
+
+<span class="kw">begin</span>
+    <span class="kw">select</span> BALANCE_COMPTE <span class="kw">into</span>
+        V_BALANCE_COMPTE <span class="kw">from</span> COMPTE
+        <span class="kw">where</span> NO_COMPTE = P_I_NO_COMPTE;
+    <span class="kw">return</span> V_BALANCE_COMPTE;
+
+<span class="kw">end</span> FCT_BALANCE;
+/</code></pre>
+</section>
+</section>
+</section>
+<section id="packages" class="level2">
+<h2><a href="#packages"><span class="header-section-number">7.7</span> Packages</a></h2>
+<p>Les packages sont des collections de procédres, fonctions, variables et requêtes SQL regroupées et stockées dans une seule unité. La spécification d’un package déclare tous les objets publics du package. Le corps définit les objets publics et privés du package. Pour utiliser un objet d’un package, on utilise la notation suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">nomDuPackage.NomDeLObjet();</code></pre>
+</section>
+<section id="déclencheurs" class="level2">
+<h2><a href="#déclencheurs"><span class="header-section-number">7.8</span> Déclencheurs</a></h2>
+<p>Un déclencheur définit une action que la base de données devrait entreprendre lorsque certains événements se produisent dans l’application. Le format général d’un déclencheur est le suivant:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">CREATE</span> [<span class="kw">OR</span> <span class="kw">REPLACE</span>] <span class="kw">TRIGGER</span> TriggerName
+<span class="co">-- Moment at which the trigger is executed</span>
+    {<span class="kw">BEFORE</span> | <span class="kw">AFTER</span> | <span class="kw">INSTEAD</span> <span class="kw">OF</span>}
+<span class="co">-- On which action the trigger is executed</span>
+    <span class="kw">INSERT</span> | <span class="kw">DELETE</span> | <span class="kw">UPDATE</span> [<span class="kw">of</span> TriggerColumnList]
+    <span class="kw">ON</span> TableName
+    [<span class="kw">REFERENCING</span> {<span class="kw">OLD</span> | <span class="kw">NEW</span>} <span class="kw">AS</span> {OldName | NewName}
+    [<span class="kw">FOR</span> <span class="kw">EACH</span> {<span class="kw">ROW</span> | STATEMENT}]
+    [<span class="kw">WHEN</span> Condition]
+    &lt;trigger action&gt;
+
+<span class="co">-- PL/SQL block</span>
+
+<span class="kw">END</span>;</code></pre>
+<section id="beforeafterinstead-of" class="level3">
+<h3><a href="#beforeafterinstead-of"><span class="header-section-number">7.8.1</span> <code>BEFORE</code>/<code>AFTER</code>/<code>INSTEAD OF</code></a></h3>
+<p>Les mots clés <code>BEFORE</code>/<code>AFTER</code>/<code>INSTEAD OF</code> spécifient le moment où le déclencheur sera effectué.</p>
+<section id="before" class="level4">
+<h4><a href="#before"><span class="header-section-number">7.8.1.1</span> <code>BEFORE</code></a></h4>
+<p>Le déclencheur sera exécuté avant l’action. On peut s’en servir pour:</p>
+<ul>
+<li>Champs qui sont à calculer avant l’action</li>
+<li>Faire des vérifications sans considérer les nouvelles valeurs</li>
+</ul>
+</section>
+<section id="after" class="level4">
+<h4><a href="#after"><span class="header-section-number">7.8.1.2</span> <code>AFTER</code></a></h4>
+<p>Le déclencheur sera exécuté après l’action. On peut s’en servir pour:</p>
+<ul>
+<li>Considérer une nouvelle valeur dans le calcul</li>
+</ul>
+</section>
+</section>
+<section id="oldnew" class="level3">
+<h3><a href="#oldnew"><span class="header-section-number">7.8.2</span> <code>:OLD</code>/<code>:NEW</code></a></h3>
+<p>Les mots clés <code>:OLD</code>/<code>:NEW</code> font référence aux anciennes et nouvelles valeurs respectivement. Elles sont seulement utilisables dans les déclencheurs qui utilisent <code>for each row</code>. Ils peuvent seulement être utilisés sur certains déclencheurs:</p>
+<ul>
+<li><code>update</code>: <code>:NEW.&lt;colonne&gt;</code>, <code>:OLD.&lt;colonne&gt;</code></li>
+<li><code>insert</code>: <code>:NEW.&lt;colonne&gt;</code></li>
+<li><code>delete</code>: <code>:OLD.&lt;colonne&gt;</code></li>
+</ul>
+</section>
+<section id="exemples-2" class="level3">
+<h3><a href="#exemples-2"><span class="header-section-number">7.8.3</span> Exemples</a></h3>
+<section id="exemple-1-3" class="level4">
+<h4><a href="#exemple-1-3"><span class="header-section-number">7.8.3.1</span> Exemple 1</a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">create</span> <span class="kw">or</span> <span class="kw">replace</span> <span class="kw">trigger</span> TRG_EMPRUNT_AIU <span class="kw">after</span>
+    <span class="kw">insert</span> <span class="kw">or</span> <span class="kw">update</span> <span class="kw">of</span> DATE_RET <span class="kw">on</span> EMPRUNT
+
+<span class="kw">declare</span>
+    V_NB_MAX_EMPRUNTE <span class="dt">number</span>;
+    V_NB_MAX_EXEMPLAIRE <span class="dt">number</span>;
+
+<span class="kw">begin</span>
+<span class="co">-- Cherche la quantite maximal des livres empruntes par l&#39;adherent</span>
+<span class="co">-- On ne peut pas aller lire la table qu&#39;on modifie</span>
+<span class="kw">select</span> <span class="fu">max</span>(<span class="fu">count</span>(*)) <span class="kw">into</span> V_NB_MAX_EMPRUNTE
+    <span class="kw">from</span> EMPRUNT
+    <span class="kw">where</span> DATE_RET <span class="kw">is</span> <span class="kw">null</span>
+    <span class="kw">group</span> <span class="kw">by</span> NO_ADH;
+
+<span class="co">-- S&#39;il existe un adherent qui emprunte plus </span>
+<span class="co">-- de 5 livres, l&#39;insertion sera interdite</span>
+<span class="kw">if</span> V_NB_MAX_EMPRUNTE &gt; <span class="dv">5</span> <span class="kw">then</span>
+    raise application_error(-<span class="dv">20056</span>, <span class="st">&#39;On ne &#39;</span> || 
+        <span class="st">&#39;peut emprunter plus de 5 livres&#39;</span>);
+<span class="kw">end</span> <span class="kw">if</span>;
+
+<span class="co">-- Chercher le plus grand nombre d&#39;exemplaires</span>
+<span class="co">-- empruntés par un adherent</span>
+<span class="kw">select</span> <span class="fu">max</span>(<span class="fu">count</span>(*)) <span class="kw">into</span>
+    V_NB_MAX_EXEMPLAIRE <span class="kw">from</span> EMPRUNT, LIVRE
+    <span class="kw">where</span> (EMPRUNT.COTE = LIVRE.COTE) <span class="kw">and</span>
+        (DATE_RET <span class="kw">is</span> <span class="kw">null</span>)
+    <span class="kw">group</span> <span class="kw">by</span> NO_ADH, TITRE;
+
+<span class="co">-- S&#39;il existe un titre qui est emprunté deux fois,</span>
+<span class="co">-- l&#39;insertion est interdite</span>
+<span class="kw">if</span> V_NB_MAX_EXEMPLAIRE &gt; <span class="dv">1</span> <span class="kw">then</span>
+    raise application_error(-<span class="dv">20057</span>, <span class="st">&#39;Ce &#39;</span> ||
+        <span class="st">&#39;titre est deja emprunte&#39;</span>);
+<span class="kw">end</span> <span class="kw">if</span>;
+<span class="kw">end</span>;
+/</code></pre>
+</section>
+<section id="exemple-2-2" class="level4">
+<h4><a href="#exemple-2-2"><span class="header-section-number">7.8.3.2</span> Exemple 2</a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">create</span> <span class="kw">or</span> <span class="kw">replace</span> <span class="kw">trigger</span> TRG_AU_LIVRE_EMPRUNTE
+    <span class="kw">after</span> <span class="kw">update</span> <span class="kw">on</span> LIVRE <span class="kw">for</span> <span class="kw">each</span> <span class="kw">row</span>
+
+<span class="kw">declare</span>
+    V_NB_EMPRUNT <span class="dt">number</span>;
+
+<span class="kw">begin</span>
+<span class="co">-- Verifier si ce livre est deja emprunte</span>
+    <span class="kw">select</span> <span class="fu">count</span>(*) <span class="kw">into</span> V_NB_EMPRUNT
+        <span class="kw">from</span> EMPRUNT
+        <span class="kw">where</span> COTE = <span class="ch">:OLD</span>.COTE;
+
+    <span class="kw">if</span> V_NB_EMPRUNT &gt; <span class="dv">0</span> <span class="kw">then</span> <span class="co">-- Si oui, refuser la MAJ</span>
+        raise application_error(-<span class="dv">20052</span>, <span class="st">&#39;Ce livre a &#39;</span> ||
+            <span class="st">&#39;ete emprunte. La MAJ est interdite.&#39;</span>);
+    <span class="kw">end</span> <span class="kw">if</span>;
+<span class="kw">end</span>;</code></pre>
+</section>
+<section id="exemple-3-1" class="level4">
+<h4><a href="#exemple-3-1"><span class="header-section-number">7.8.3.3</span> Exemple 3</a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="co">-- BI pour before insert</span>
+<span class="kw">create</span> <span class="kw">or</span> <span class="kw">replace</span> <span class="kw">trigger</span> TRG_ENSEIGNANT_BI
+<span class="kw">before</span> <span class="kw">insert</span> <span class="kw">on</span> ENSEIGNANT
+<span class="kw">for</span> <span class="kw">each</span> <span class="kw">row</span>
+
+<span class="kw">declare</span>
+    V_CODE_POSTAL <span class="dt">char</span>(<span class="dv">1</span>);
+
+<span class="kw">begin</span>
+    <span class="ch">:NEW</span>.CREE_PAR := <span class="fu">user</span>;
+    <span class="ch">:NEW</span>.DATE_CREATION := <span class="fu">sysdate</span>;
+    <span class="ch">:NEW</span>.MODIFIE_PAR := <span class="fu">user</span>;
+    <span class="ch">:NEW</span>.DATE_MODIFICATION := <span class="fu">sysdate</span>;
+
+<span class="kw">end</span>;</code></pre>
+</section>
+</section>
 </section>
 </section>
 <section id="annexe" class="level1">
 <h1><a href="#annexe"><span class="header-section-number">8</span> Annexe</a></h1>
 <dl>
+<dt><strong>Procédure</strong></dt>
+<dd><p>Bloc PL/SQL nommé qui prend des paramètres et qui peut être invoqué. À l’inverse d’une fonction, une procédure ne possède pas de retour.</p>
+</dd>
+<dt><strong>Fonction</strong></dt>
+<dd><p>Bloc PL/SQL nommé qui prend des paramètres et qui peut être invoqué. À l’inverse d’une procédure, une fonction possède un retour.</p>
+</dd>
 <dt><strong>Abstraction des données</strong></dt>
 <dd><p>Nom donné à l’approche qui cache la définition interne des données aux utilisateurs de la base de données et expose seulement la définition externe.</p>
 </dd>

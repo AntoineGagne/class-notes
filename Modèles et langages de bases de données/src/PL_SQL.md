@@ -332,3 +332,314 @@ Un curseur possède quelques fonctions tel que:
 - `%NOTFOUND`: Retourne faux si le `FETCH` le plus récent ne retourne pas de rangée.
 - `%ISOPEN`: Retourne vrai si le curseur est ouvert.
 - `%ROWCOUNT`: Retourne le nombre total de rangées retournés jusqu'à présent.
+
+### Exemples d'utilisation curseurs
+
+#### Exemple 1
+
+```SQL
+declare
+    V_NUM_PROPRIETE PROPRIETE_A_LOUER.NUM_PROPRIETE%type;
+    V_RUE PROPRIETE_A_LOUER.RUE%type;
+    V_VILLE PROPRIETE_A_LOUER.VILLE%type;
+    V_CODE_POSTAL PROPRIETE_A_LOUER.CODE_POSTAL%type;
+    cursor PROPRIETE_CURSEUR is
+        select NUM_PROPRIETE, RUE, VILLE, CODE_POSTAL
+            from PROPRIETE_A_LOUER
+            where NUM_PERSONNEL = 'EM14'
+            order by NUM_PROPRIETE;
+
+begin
+    open PROPRIETE_CURSEUR;
+    loop
+-- Prendre la ligne suivante
+        fetch PROPRIETE_CURSEUR
+        into V_NUM_PROPRIETE, V_RUE, V_VILLE,
+             V_CODE_POSTAL;
+        exit when PROPRIETE_CURSEUR%notfound;
+        dbms_output.put_line('No de propriete: ' || V_NUM_PROPRIETE);
+        dbms_output.put_line('Rue: ' || V_RUE);
+        if V_CODE_POSTAL is not null then
+            dbms_output.put_line('Code postal: ' || V_CODE_POSTAL);
+        else
+            dbms_output.put_line('Code postal: ' || 'NULL');
+        end if;
+    end loop;
+    if PROPRIETE_CURSEUR%isopen then
+        close PROPRIETE_CURSEUR
+    end if;
+
+-- Si condition d'erreur, alors afficher l'erreur
+exception
+    when others then
+        dbms_output.put_line('Erreur detectee.');
+        if PROPRIETE_CURSEUR%isopen then
+            close PROPRIETE_CURSEUR
+        end if;
+end;
+```
+
+#### Exemple 2
+
+```SQL
+declare 
+    V_TOTAL_VAL number(6);
+
+    cursor C1 is
+        select REVENU_MENSUEL_EM
+            from EMPLOYE
+            where NOM_EN = 'King';
+
+begin
+    V_TOTAL_VAL := 0;
+
+-- L'equivalent d'un "for each"
+    for ENR_EMPLOYE in C1 loop
+        V_TOTAL_VAL := V_TOTAL_VAL +
+            ENR_EMPLOYE.REVENU_MENSUEL_EM;
+    end loop;
+end;
+```
+
+## Procédures et fonctions
+
+Il est possible de définir des procédures et des fonctions en PL/SQL. Il existe toutefois une différence
+entre les deux. Une **procédure** ne possède pas de retour alors qu'une fonction en possède un.
+
+### Procédures
+
+On définit une procédure de la façon suivante:
+
+```SQL
+create [or replace] procedure NOM_PROCEDURE
+    [(ARGUMENT_1 ... [,ARGUMENT_N)] is
+    -- Pas de mot clé "declare"
+        [Section de déclaration de variable]
+
+begin
+    -- Section exécutable
+
+[Section gestion exception]
+
+end [nom_procedure];
+/
+```
+
+où `ARGUMENT_1 .. ARGUMENT_N` sont définis comme
+
+```SQL
+-- U pour out et I pour in
+P[U | I]_NOM_ARGUMENT [in | out] type [{:= | default} valeur]
+```
+
+#### Exécution
+
+Pour exécuter une procédure, on exécute les commandes suivantes:
+
+```SQL
+-- Permet d'afficher les dbms_output.putline
+set serveroutput on; 
+execute nom_procedure(...);
+```
+
+#### Exemple
+
+```SQL
+create procedure SP_SALUT_LE_MONDE is
+    V_SALUTATION varchar2(20);
+    
+begin
+    V_SALUTATION := 'Salut le monde';
+    dbms_output.put_line(V_SALUTATION);
+
+end SP_SALUT_LE_MONDE;
+/
+```
+
+### Fonctions
+
+On définit une fonction de la façon suivante:
+
+```SQL
+create [or replace] function NOM_FONCTION
+    [(ARGUMENT_1 ... [,ARGUMENT_N)]
+    -- On spécifie le type du retour
+    return type is
+        [Section de déclaration de variable]
+
+begin
+    -- Section exécutable
+    {return NOM_VARIABLE;}
+
+[Section gestion exception]
+
+end [NOM_FONCTION];
+/
+```
+
+#### Exemple
+
+```SQL
+create or replace function 
+    -- IMPORTANT: On ne precise pas de format pour les types
+    FCT_BALANCE(P_I_NO_COMPTE number)
+    return number
+    is
+        V_BALANCE_COMPTE number(8, 2);
+
+begin
+    select BALANCE_COMPTE into
+        V_BALANCE_COMPTE from COMPTE
+        where NO_COMPTE = P_I_NO_COMPTE;
+    return V_BALANCE_COMPTE;
+
+end FCT_BALANCE;
+/
+```
+
+## Packages
+
+Les packages sont des collections de procédres, fonctions, variables et requêtes SQL regroupées et
+stockées dans une seule unité. La spécification d'un package déclare tous les objets publics du
+package. Le corps définit les objets publics et privés du package. Pour utiliser un objet d'un
+package, on utilise la notation suivante:
+
+```SQL
+nomDuPackage.NomDeLObjet();
+```
+
+## Déclencheurs
+
+Un déclencheur définit une action que la base de données devrait entreprendre lorsque certains
+événements se produisent dans l'application. Le format général d'un déclencheur est le suivant:
+
+```SQL
+CREATE [OR REPLACE] TRIGGER TriggerName
+-- Moment at which the trigger is executed
+    {BEFORE | AFTER | INSTEAD OF}
+-- On which action the trigger is executed
+    INSERT | DELETE | UPDATE [of TriggerColumnList]
+    ON TableName
+    [REFERENCING {OLD | NEW} AS {OldName | NewName}
+    [FOR EACH {ROW | STATEMENT}]
+    [WHEN Condition]
+    <trigger action>
+
+-- PL/SQL block
+
+END;
+```
+
+### `BEFORE`/`AFTER`/`INSTEAD OF`
+
+Les mots clés `BEFORE`/`AFTER`/`INSTEAD OF` spécifient le moment où le déclencheur sera effectué.
+
+#### `BEFORE`
+
+Le déclencheur sera exécuté avant l'action. On peut s'en servir pour:
+
+- Champs qui sont à calculer avant l'action
+- Faire des vérifications sans considérer les nouvelles valeurs
+
+#### `AFTER`
+
+Le déclencheur sera exécuté après l'action. On peut s'en servir pour:
+
+- Considérer une nouvelle valeur dans le calcul
+
+### `:OLD`/`:NEW`
+
+Les mots clés `:OLD`/`:NEW` font référence aux anciennes et nouvelles valeurs respectivement. Elles
+sont seulement utilisables dans les déclencheurs qui utilisent `for each row`. Ils peuvent seulement
+être utilisés sur certains déclencheurs:
+
+- `update`: `:NEW.<colonne>`, `:OLD.<colonne>`
+- `insert`: `:NEW.<colonne>`
+- `delete`: `:OLD.<colonne>`
+
+### Exemples
+
+#### Exemple 1
+
+```SQL
+create or replace trigger TRG_EMPRUNT_AIU after
+    insert or update of DATE_RET on EMPRUNT
+
+declare
+    V_NB_MAX_EMPRUNTE number;
+    V_NB_MAX_EXEMPLAIRE number;
+
+begin
+-- Cherche la quantite maximal des livres empruntes par l'adherent
+-- On ne peut pas aller lire la table qu'on modifie
+select max(count(*)) into V_NB_MAX_EMPRUNTE
+    from EMPRUNT
+    where DATE_RET is null
+    group by NO_ADH;
+
+-- S'il existe un adherent qui emprunte plus 
+-- de 5 livres, l'insertion sera interdite
+if V_NB_MAX_EMPRUNTE > 5 then
+    raise application_error(-20056, 'On ne ' || 
+        'peut emprunter plus de 5 livres');
+end if;
+
+-- Chercher le plus grand nombre d'exemplaires
+-- empruntés par un adherent
+select max(count(*)) into
+    V_NB_MAX_EXEMPLAIRE from EMPRUNT, LIVRE
+    where (EMPRUNT.COTE = LIVRE.COTE) and
+        (DATE_RET is null)
+    group by NO_ADH, TITRE;
+
+-- S'il existe un titre qui est emprunté deux fois,
+-- l'insertion est interdite
+if V_NB_MAX_EXEMPLAIRE > 1 then
+    raise application_error(-20057, 'Ce ' ||
+        'titre est deja emprunte');
+end if;
+end;
+/
+```
+
+#### Exemple 2
+
+```SQL
+create or replace trigger TRG_AU_LIVRE_EMPRUNTE
+    after update on LIVRE for each row
+
+declare
+    V_NB_EMPRUNT number;
+
+begin
+-- Verifier si ce livre est deja emprunte
+    select count(*) into V_NB_EMPRUNT
+        from EMPRUNT
+        where COTE = :OLD.COTE;
+
+    if V_NB_EMPRUNT > 0 then -- Si oui, refuser la MAJ
+        raise application_error(-20052, 'Ce livre a ' ||
+            'ete emprunte. La MAJ est interdite.');
+    end if;
+end;
+```
+
+#### Exemple 3
+
+```SQL
+-- BI pour before insert
+create or replace trigger TRG_ENSEIGNANT_BI
+before insert on ENSEIGNANT
+for each row
+
+declare
+    V_CODE_POSTAL char(1);
+
+begin
+    :NEW.CREE_PAR := user;
+    :NEW.DATE_CREATION := sysdate;
+    :NEW.MODIFIE_PAR := user;
+    :NEW.DATE_MODIFICATION := sysdate;
+
+end;
+```

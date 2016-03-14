@@ -1,5 +1,13 @@
 # Annexe
 
+**Procédure**
+:   Bloc PL/SQL nommé qui prend des paramètres et qui peut être invoqué. À l'inverse d'une fonction,
+    une procédure ne possède pas de retour.
+
+**Fonction**
+:   Bloc PL/SQL nommé qui prend des paramètres et qui peut être invoqué. À l'inverse d'une procédure,
+    une fonction possède un retour.
+
 **Abstraction des données**
 :   Nom donné à l'approche qui cache la définition interne des données aux utilisateurs de la base de données 
     et expose seulement la définition externe.
