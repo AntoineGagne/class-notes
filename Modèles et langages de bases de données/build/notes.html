@@ -323,7 +323,37 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </ul></li>
 </ul></li>
 </ul></li>
-<li><a href="#annexe"><span class="toc-section-number">7</span> Annexe</a></li>
+<li><a href="#sql-avancé"><span class="toc-section-number">7</span> SQL avancé</a><ul>
+<li><a href="#déclaration"><span class="toc-section-number">7.1</span> Déclaration</a><ul>
+<li><a href="#les-annotations-type-et-rowtype"><span class="toc-section-number">7.1.1</span> Les annotations <code>%TYPE</code> et <code>%ROWTYPE</code></a></li>
+<li><a href="#exemples"><span class="toc-section-number">7.1.2</span> Exemples</a><ul>
+<li><a href="#exemple-de-déclarations-normales"><span class="toc-section-number">7.1.2.1</span> Exemple de déclarations normales</a></li>
+<li><a href="#exemple-dutilisations-de-lannotation-type"><span class="toc-section-number">7.1.2.2</span> Exemple d’utilisations de l’annotation <code>%TYPE</code></a></li>
+<li><a href="#exemple-dutilisations-de-lannotation-rowtype"><span class="toc-section-number">7.1.2.3</span> Exemple d’utilisations de l’annotation <code>%ROWTYPE</code></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#assignation"><span class="toc-section-number">7.2</span> Assignation</a><ul>
+<li><a href="#exemples-1"><span class="toc-section-number">7.2.1</span> Exemples</a><ul>
+<li><a href="#exemple-dassignation-avec-un-select"><span class="toc-section-number">7.2.1.1</span> Exemple d’assignation avec un <code>SELECT</code></a></li>
+<li><a href="#exemple-dassignations-avec-lopérateur"><span class="toc-section-number">7.2.1.2</span> Exemple d’assignations avec l’opérateur <code>:=</code></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#clauses-de-contrôle"><span class="toc-section-number">7.3</span> Clauses de contrôle</a><ul>
+<li><a href="#lénoncé-conditionnel-if"><span class="toc-section-number">7.3.1</span> L’énoncé conditionnel <code>IF</code></a><ul>
+<li><a href="#exemple-dutilisation-du-if"><span class="toc-section-number">7.3.1.1</span> Exemple d’utilisation du <code>IF</code></a></li>
+</ul></li>
+<li><a href="#lénoncé-conditionnel-case"><span class="toc-section-number">7.3.2</span> L’énoncé conditionnel <code>CASE</code></a><ul>
+<li><a href="#exemple-dutilisation-du-case"><span class="toc-section-number">7.3.2.1</span> Exemple d’utilisation du <code>CASE</code></a></li>
+</ul></li>
+<li><a href="#énoncés-itératifs"><span class="toc-section-number">7.3.3</span> Énoncés itératifs</a><ul>
+<li><a href="#énoncé-loop"><span class="toc-section-number">7.3.3.1</span> Énoncé <code>LOOP</code></a><ul>
+<li><a href="#exemple"><span class="toc-section-number">7.3.3.1.1</span> Exemple</a></li>
+</ul></li>
+<li><a href="#énoncé-while-et-repeat"><span class="toc-section-number">7.3.3.2</span> Énoncé <code>WHILE</code> et <code>REPEAT</code></a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><a href="#annexe"><span class="toc-section-number">8</span> Annexe</a></li>
 </ul>
 </nav>
 <p>Ce document regroupe l’ensemble de mes notes pour le cours <strong>Modèles et langages de bases de données</strong>.</p>
@@ -2463,8 +2493,170 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </section>
 </section>
 </section>
+<section id="sql-avancé" class="level1">
+<h1><a href="#sql-avancé"><span class="header-section-number">7</span> SQL avancé</a></h1>
+<p>Le SQL, contrairement aux autres langages, est un langage déclaratif. Pour introduire des concepts de langages de programmation, le standard du SQL a été mis à jour. Cette extension ce nomme le <strong>PL/SQL</strong>. Un programme <strong>PL/SQL</strong> comporte un maximum de trois parties:</p>
+<ul>
+<li>Une partie optionnelle de déclaration dans laquelle les variables, constantes, curseurs et exceptions sont déclarés</li>
+<li>Une partie d’exécution obligatoire dans laquelle les variables sont manipulées</li>
+<li>Une partie optionnelle pour les exceptions pour gérer les exceptions lancées lors de la partie d’exécution</li>
+</ul>
+<p>Un programme a la structure suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">[<span class="kw">DECLARE</span>             <span class="co">-- Optionnel</span>
+    <span class="co">-- Déclarations]</span>
+<span class="kw">BEGIN</span>                <span class="co">-- Obligatoire</span>
+    <span class="co">-- Clauses exécutables</span>
+[<span class="kw">EXCEPTION</span>           <span class="co">-- Optionnel</span>
+    <span class="co">-- Gestionnaire d&#39;exceptions]</span>
+<span class="kw">END</span>;                 <span class="co">-- Obligatoire</span></code></pre>
+<section id="déclaration" class="level2">
+<h2><a href="#déclaration"><span class="header-section-number">7.1</span> Déclaration</a></h2>
+<p>Les variables et constantes doivent être déclarées avant de pouvoir être utilisées dans d’autres clauses ou déclarations.</p>
+<section id="les-annotations-type-et-rowtype" class="level3">
+<h3><a href="#les-annotations-type-et-rowtype"><span class="header-section-number">7.1.1</span> Les annotations <code>%TYPE</code> et <code>%ROWTYPE</code></a></h3>
+<p>L’annotation <code>%TYPE</code> permet de dire au programme que la variable a le même type qu’une autre variable ou colonne. De manière similaire, l’annotation <code>%ROWTYPE</code> permet de dire qu’une variable a le même type qu’une rangée entière d’une table.<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+</section>
+<section id="exemples" class="level3">
+<h3><a href="#exemples"><span class="header-section-number">7.1.2</span> Exemples</a></h3>
+<p>Dans cette section, nous allons voir des exemples de déclarations.</p>
+<section id="exemple-de-déclarations-normales" class="level4">
+<h4><a href="#exemple-de-déclarations-normales"><span class="header-section-number">7.1.2.1</span> Exemple de déclarations normales</a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql">vStaffNo <span class="dt">VARCHAR2</span>(<span class="dv">5</span>);
+vRent <span class="dt">NUMBER</span>(<span class="dv">6</span>, <span class="dv">2</span>) <span class="kw">NOT</span> <span class="kw">NULL</span> := <span class="dv">600</span>;
+MAX_PROPERTIES <span class="kw">CONSTANT</span> <span class="dt">NUMBER</span> := <span class="dv">100</span>;</code></pre>
+</section>
+<section id="exemple-dutilisations-de-lannotation-type" class="level4">
+<h4><a href="#exemple-dutilisations-de-lannotation-type"><span class="header-section-number">7.1.2.2</span> Exemple d’utilisations de l’annotation <code>%TYPE</code></a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql">vStaff Staff.staffNo%<span class="kw">TYPE</span>;
+vStaffNo1 vStaffNo%<span class="kw">TYPE</span>;</code></pre>
+</section>
+<section id="exemple-dutilisations-de-lannotation-rowtype" class="level4">
+<h4><a href="#exemple-dutilisations-de-lannotation-rowtype"><span class="header-section-number">7.1.2.3</span> Exemple d’utilisations de l’annotation <code>%ROWTYPE</code></a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql">vStaffRec Staff%ROWTYPE;</code></pre>
+</section>
+</section>
+</section>
+<section id="assignation" class="level2">
+<h2><a href="#assignation"><span class="header-section-number">7.2</span> Assignation</a></h2>
+<p>Les variables peuvent être assignées de deux façons:</p>
+<ol type="1">
+<li>En utilisant l’opérateur d’assignation (<code>:=</code>)</li>
+<li>En utilisant le résultat d’un <code>SELECT</code> ou d’un <code>FETCH</code></li>
+</ol>
+<p>Dans le SQL standard, l’assignation se fait en utilisant le mot clé <code>SET</code> avec l’opérateur <code>=</code>.</p>
+<section id="exemples-1" class="level3">
+<h3><a href="#exemples-1"><span class="header-section-number">7.2.1</span> Exemples</a></h3>
+<p>Dans cette section, nous allons voir des exemples d’assignation.</p>
+<section id="exemple-dassignation-avec-un-select" class="level4">
+<h4><a href="#exemple-dassignation-avec-un-select"><span class="header-section-number">7.2.1.1</span> Exemple d’assignation avec un <code>SELECT</code></a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">SELECT</span> <span class="fu">COUNT</span>(*) <span class="kw">INTO</span> x
+  <span class="kw">FROM</span> PropertyForRent
+  <span class="kw">WHERE</span> staffNo = vStaffNo;</code></pre>
+</section>
+<section id="exemple-dassignations-avec-lopérateur" class="level4">
+<h4><a href="#exemple-dassignations-avec-lopérateur"><span class="header-section-number">7.2.1.2</span> Exemple d’assignations avec l’opérateur <code>:=</code></a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql">vStaffNo := <span class="st">&#39;SG14&#39;</span>;
+vRent := <span class="dv">500</span>;</code></pre>
+<p>En SQL standard, nous écririons</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">SET</span> vStaffNo = <span class="st">&#39;SG14&#39;</span>;
+<span class="kw">SET</span> vRent = <span class="dv">500</span>;</code></pre>
+</section>
+</section>
+</section>
+<section id="clauses-de-contrôle" class="level2">
+<h2><a href="#clauses-de-contrôle"><span class="header-section-number">7.3</span> Clauses de contrôle</a></h2>
+<p>Le PL/SQL supporte les clauses de contrôle conditionnelles, itératives et séquentielles.</p>
+<section id="lénoncé-conditionnel-if" class="level3">
+<h3><a href="#lénoncé-conditionnel-if"><span class="header-section-number">7.3.1</span> L’énoncé conditionnel <code>IF</code></a></h3>
+<p>L’énoncé conditionnel <code>IF</code> a la forme suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">IF</span> (condition) <span class="kw">THEN</span>
+    &lt;SQL statement list&gt;
+[<span class="kw">ELSIF</span> (condition) <span class="kw">THEN</span> &lt;SQL statement list&gt;]
+[<span class="kw">ELSE</span> &lt;SQL statement list&gt;]
+<span class="kw">END</span> <span class="kw">IF</span>;</code></pre>
+<section id="exemple-dutilisation-du-if" class="level4">
+<h4><a href="#exemple-dutilisation-du-if"><span class="header-section-number">7.3.1.1</span> Exemple d’utilisation du <code>IF</code></a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">IF</span> (position = <span class="st">&#39;Manager&#39;</span>) <span class="kw">THEN</span>
+    salary := salary * <span class="fl">1.05</span>;
+<span class="kw">ELSE</span>
+    salary := salary * <span class="fl">1.03</span>;
+<span class="kw">END</span> <span class="kw">IF</span>;</code></pre>
+</section>
+</section>
+<section id="lénoncé-conditionnel-case" class="level3">
+<h3><a href="#lénoncé-conditionnel-case"><span class="header-section-number">7.3.2</span> L’énoncé conditionnel <code>CASE</code></a></h3>
+<p>L’énoncé conditionnel <code>CASE</code> permet la sélection d’un chemin d’exécution basé sur un ensemble d’alternatives. Il a la forme suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">CASE</span>(operand)
+[<span class="kw">WHEN</span> (whenOperandList) | <span class="kw">WHEN</span> (searchCondition)
+    <span class="kw">THEN</span> &lt;SQL statement list&gt;]
+[<span class="kw">ELSE</span> &lt;SQL statement list&gt;]
+<span class="kw">END</span> <span class="kw">CASE</span>;</code></pre>
+<section id="exemple-dutilisation-du-case" class="level4">
+<h4><a href="#exemple-dutilisation-du-case"><span class="header-section-number">7.3.2.1</span> Exemple d’utilisation du <code>CASE</code></a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">CASE</span> lowercase(x)
+    <span class="kw">WHEN</span> <span class="st">&#39;a&#39;</span>        
+        <span class="kw">THEN</span> x := <span class="dv">1</span>;
+    <span class="kw">WHEN</span> <span class="st">&#39;b&#39;</span>        
+        <span class="kw">THEN</span> x := <span class="dv">2</span>;
+             y := <span class="dv">0</span>;
+    <span class="kw">WHEN</span> <span class="st">&#39;default&#39;</span>  
+        <span class="kw">THEN</span> x := <span class="dv">3</span>;
+<span class="kw">END</span> <span class="kw">CASE</span>;</code></pre>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">UPDATE</span> Staff
+<span class="kw">SET</span> salary = <span class="kw">CASE</span>
+    <span class="kw">WHEN</span> position = <span class="st">&#39;Manager&#39;</span>
+        <span class="kw">THEN</span> salary * <span class="fl">1.05</span>
+    <span class="kw">ELSE</span>
+        <span class="kw">THEN</span> salary * <span class="fl">1.02</span>
+<span class="kw">END</span>;</code></pre>
+</section>
+</section>
+<section id="énoncés-itératifs" class="level3">
+<h3><a href="#énoncés-itératifs"><span class="header-section-number">7.3.3</span> Énoncés itératifs</a></h3>
+<p>Dans cette section, nous allons voir les différents énoncés itératifs.</p>
+<section id="énoncé-loop" class="level4">
+<h4><a href="#énoncé-loop"><span class="header-section-number">7.3.3.1</span> Énoncé <code>LOOP</code></a></h4>
+<p>L’énoncé <code>LOOP</code> a la forme suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql">[labelName:]
+<span class="kw">LOOP</span>
+    &lt;SQL statement list&gt;
+    EXIT [labelName] [<span class="kw">WHEN</span> (condition)]
+<span class="kw">END</span> <span class="kw">LOOP</span> [labelName];</code></pre>
+<p>Il est bon de noter que le standard SQL spécifie <code>LEAVE</code> au lieu de <code>EXIT WHEN (condition)</code>.</p>
+<section id="exemple" class="level5">
+<h5><a href="#exemple"><span class="header-section-number">7.3.3.1.1</span> Exemple</a></h5>
+<pre class="sourceCode SQL"><code class="sourceCode sql">x := <span class="dv">1</span>;
+myLoop:
+<span class="kw">LOOP</span>
+    x := x + <span class="dv">1</span>;
+    <span class="kw">IF</span> (x &gt; <span class="dv">3</span>) <span class="kw">THEN</span>
+        EXIT myLoop; <span class="co">-- Exit loop immediately</span>
+<span class="kw">END</span> <span class="kw">LOOP</span> myLoop;
+
+<span class="co">-- Control resumes here</span>
+y := <span class="dv">2</span>;</code></pre>
+</section>
+</section>
+<section id="énoncé-while-et-repeat" class="level4">
+<h4><a href="#énoncé-while-et-repeat"><span class="header-section-number">7.3.3.2</span> Énoncé <code>WHILE</code> et <code>REPEAT</code></a></h4>
+<p>L’énoncé <code>WHILE</code> a la forme suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">WHILE</span> (condition) <span class="kw">LOOP</span>
+    &lt;SQL statement list&gt;
+<span class="kw">END</span> <span class="kw">LOOP</span> [labelName];</code></pre>
+<p>L’énoncé <code>REPEAT</code> a la forme suivante:</p>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">WHILE</span> (condition) DO
+    &lt;SQL statement list&gt;
+<span class="kw">END</span> <span class="kw">WHILE</span> [labelName];
+REPEAT
+    &lt;SQL statement list&gt;
+<span class="kw">UNTIL</span> (condition)
+<span class="kw">END</span> REPEAT [labelName];</code></pre>
+</section>
+</section>
+</section>
+</section>
 <section id="annexe" class="level1">
-<h1><a href="#annexe"><span class="header-section-number">7</span> Annexe</a></h1>
+<h1><a href="#annexe"><span class="header-section-number">8</span> Annexe</a></h1>
 <dl>
 <dt><strong>Abstraction des données</strong></dt>
 <dd><p>Nom donné à l’approche qui cache la définition interne des données aux utilisateurs de la base de données et expose seulement la définition externe.</p>
@@ -2737,6 +2929,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <dd><p>Résultat dynamique d’une ou plusieurs opérations opérant sur les relations de base afin de produire une autre relation. Une vue est une <em>relation virtuelle</em> qui n’existe pas nécessairement dans la base de données mais qui peut être produite sur demande par un utilisateur donné au moment de la requête.</p>
 </dd>
 </dl>
+</section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Il est important de se rappeler que ces annotations sont propres aux bases de données <em>Oracle</em>.<a href="#fnref1">↩</a></p></li>
+</ol>
 </section>
 <script>
     document.getElementById("TOC").className = "mobile-hidden";
