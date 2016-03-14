@@ -388,6 +388,12 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#exemple-3-1"><span class="toc-section-number">7.8.3.3</span> Exemple 3</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#récursivité"><span class="toc-section-number">7.9</span> Récursivité</a><ul>
+<li><a href="#exemple-5"><span class="toc-section-number">7.9.1</span> Exemple</a><ul>
+<li><a href="#exemple-1-4"><span class="toc-section-number">7.9.1.1</span> Exemple 1</a></li>
+<li><a href="#exemple-2-3"><span class="toc-section-number">7.9.1.2</span> Exemple 2</a></li>
+</ul></li>
+</ul></li>
 </ul></li>
 <li><a href="#annexe"><span class="toc-section-number">8</span> Annexe</a></li>
 </ul>
@@ -3008,16 +3014,146 @@ P[U | I]_NOM_ARGUMENT [<span class="kw">in</span> | <span class="kw">out</span>]
 </section>
 </section>
 </section>
+<section id="récursivité" class="level2">
+<h2><a href="#récursivité"><span class="header-section-number">7.9</span> Récursivité</a></h2>
+<p>Il est possible de faire des requêtes récursives.</p>
+<section id="exemple-5" class="level3">
+<h3><a href="#exemple-5"><span class="header-section-number">7.9.1</span> Exemple</a></h3>
+<section id="exemple-1-4" class="level4">
+<h4><a href="#exemple-1-4"><span class="header-section-number">7.9.1.1</span> Exemple 1</a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">with</span> recursive
+TOUT_GESTIONNAIRE(NO_EMPLOYE, NO_EMPLOYE_GESTION) <span class="kw">as</span> 
+    (<span class="kw">select</span> NO_EMPLOYE, NO_EMPLOYE_GESTION 
+    <span class="kw">from</span> EMPLOYE
+
+    <span class="kw">union</span>
+
+    <span class="kw">select</span> IN.NO_EMPLOYE, OUT_NO_EMPLOYE_GESTION
+    <span class="kw">from</span> TOUT_GESTIONNAIRE <span class="kw">IN</span>, EMPLOYE <span class="kw">OUT</span>
+    <span class="kw">where</span> IN.NO_EMPLOYE_GESTION = OUT.NO_EMPLOYE);</code></pre>
+</section>
+<section id="exemple-2-3" class="level4">
+<h4><a href="#exemple-2-3"><span class="header-section-number">7.9.1.2</span> Exemple 2</a></h4>
+<pre class="sourceCode SQL"><code class="sourceCode sql"><span class="kw">select</span> <span class="fu">lpad</span>(<span class="st">' '</span>, <span class="kw">LEVEL</span> * <span class="dv">2</span>, <span class="st">' '</span>) || LAST_NAME <span class="kw">as</span> ARBRE,
+    EMPLOYEE_ID,
+    MANAGER_ID,
+    <span class="fu">sys_connect_by_path</span>(LAST_NAME, <span class="st">'/'</span>) <span class="kw">as</span> CHEMIN,
+    <span class="kw">LEVEL</span> <span class="kw">as</span> NIVEAU
+<span class="kw">from</span> EMPLOYEES
+<span class="kw">connect</span> <span class="kw">by</span> <span class="kw">prior</span> EMPLOYEE_ID = MANAGER_ID
+<span class="kw">start</span> <span class="kw">with</span> MANAGER_ID <span class="kw">is</span> <span class="kw">null</span>;</code></pre>
+<p>Ce qui donne le résultat suivant:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Arbre</th>
+<th style="text-align: left;">EMPLOYEE_ID</th>
+<th style="text-align: left;">MANAGER_ID</th>
+<th style="text-align: left;">CHEMIN</th>
+<th style="text-align: left;">NIVEAU</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">King</td>
+<td style="text-align: left;">100</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">/King</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kochhar</td>
+<td style="text-align: left;">101</td>
+<td style="text-align: left;">100</td>
+<td style="text-align: left;">/King/Kochhar</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Greenberg</td>
+<td style="text-align: left;">108</td>
+<td style="text-align: left;">101</td>
+<td style="text-align: left;">/King/Kochhar/Greenberg</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Faviet</td>
+<td style="text-align: left;">109</td>
+<td style="text-align: left;">108</td>
+<td style="text-align: left;">/King/Kochhar/Greenberg/Faviet</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Chen</td>
+<td style="text-align: left;">110</td>
+<td style="text-align: left;">108</td>
+<td style="text-align: left;">/King/Kochhar/Greenberg/Chen</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sciarra</td>
+<td style="text-align: left;">111</td>
+<td style="text-align: left;">108</td>
+<td style="text-align: left;">/King/Kochhar/Greenberg/Sciarra</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Urman</td>
+<td style="text-align: left;">112</td>
+<td style="text-align: left;">108</td>
+<td style="text-align: left;">/King/Kochhar/Greenberg/Urman</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Popp</td>
+<td style="text-align: left;">113</td>
+<td style="text-align: left;">108</td>
+<td style="text-align: left;">/King/Kochhar/Greenberg/Popp</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Whalen</td>
+<td style="text-align: left;">200</td>
+<td style="text-align: left;">101</td>
+<td style="text-align: left;">/King/Kochhar/Whalen</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mavris</td>
+<td style="text-align: left;">203</td>
+<td style="text-align: left;">101</td>
+<td style="text-align: left;">/King/Kochhar/Mavris</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Baer</td>
+<td style="text-align: left;">204</td>
+<td style="text-align: left;">101</td>
+<td style="text-align: left;">/King/Kochhar/Baer</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Higgins</td>
+<td style="text-align: left;">205</td>
+<td style="text-align: left;">101</td>
+<td style="text-align: left;">/King/Kochhar/Higgins</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gietz</td>
+<td style="text-align: left;">206</td>
+<td style="text-align: left;">205</td>
+<td style="text-align: left;">/King/Kochhar/Higgins/Gietz</td>
+<td style="text-align: left;">4</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
 </section>
 <section id="annexe" class="level1">
 <h1><a href="#annexe"><span class="header-section-number">8</span> Annexe</a></h1>
 <dl>
-<dt><strong>Procédure</strong></dt>
-<dd><p>Bloc PL/SQL nommé qui prend des paramètres et qui peut être invoqué. À l’inverse d’une fonction, une procédure ne possède pas de retour.</p>
-</dd>
-<dt><strong>Fonction</strong></dt>
-<dd><p>Bloc PL/SQL nommé qui prend des paramètres et qui peut être invoqué. À l’inverse d’une procédure, une fonction possède un retour.</p>
-</dd>
 <dt><strong>Abstraction des données</strong></dt>
 <dd><p>Nom donné à l’approche qui cache la définition interne des données aux utilisateurs de la base de données et expose seulement la définition externe.</p>
 </dd>
@@ -3155,6 +3291,9 @@ P[U | I]_NOM_ARGUMENT [<span class="kw">in</span> | <span class="kw">out</span>]
 <dt><strong>Fermeture</strong></dt>
 <dd><p>L’ensemble de toutes les dépendances fonctionnelles sous-entendues par un ensemble de dépendences fonctionnelles <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>X</mi></mrow></math>. Notée <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msup><mi>X</mi><mo>+</mo></msup></mrow></math>.</p>
 </dd>
+<dt><strong>Fonction</strong></dt>
+<dd><p>Bloc PL/SQL nommé qui prend des paramètres et qui peut être invoqué. À l’inverse d’une procédure, une fonction possède un retour.</p>
+</dd>
 <dt><strong>Forme non normalisée (UNF)</strong></dt>
 <dd><p>Une table qui contient une ou plusieurs répétitions de groupe.</p>
 </dd>
@@ -3206,6 +3345,9 @@ P[U | I]_NOM_ARGUMENT [<span class="kw">in</span> | <span class="kw">out</span>]
 </dd>
 <dt><strong>Première forme normale (1NF)</strong></dt>
 <dd><p>Une relation dans laquelle l’intersection de chaque ligne et colonne contient seulement une valeur.</p>
+</dd>
+<dt><strong>Procédure</strong></dt>
+<dd><p>Bloc PL/SQL nommé qui prend des paramètres et qui peut être invoqué. À l’inverse d’une fonction, une procédure ne possède pas de retour.</p>
 </dd>
 <dt><strong>Produit cartésien</strong></dt>
 <dd><p>Opération binaire de l’algèbre relationnelle qui définit une relation qui est la concaténation de tous les tuples de la relation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi></mrow></math> avec tous les tuples de la relation <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>S</mi></mrow></math>.</p>

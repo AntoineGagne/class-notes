@@ -1,13 +1,5 @@
 # Annexe
 
-**Procédure**
-:   Bloc PL/SQL nommé qui prend des paramètres et qui peut être invoqué. À l'inverse d'une fonction,
-    une procédure ne possède pas de retour.
-
-**Fonction**
-:   Bloc PL/SQL nommé qui prend des paramètres et qui peut être invoqué. À l'inverse d'une procédure,
-    une fonction possède un retour.
-
 **Abstraction des données**
 :   Nom donné à l'approche qui cache la définition interne des données aux utilisateurs de la base de données 
     et expose seulement la définition externe.
@@ -191,6 +183,10 @@
 :   L'ensemble de toutes les dépendances fonctionnelles sous-entendues par
     un ensemble de dépendences fonctionnelles $X$. Notée $X^+$.
 
+**Fonction**
+:   Bloc PL/SQL nommé qui prend des paramètres et qui peut être invoqué. À l'inverse d'une procédure,
+    une fonction possède un retour.
+
 **Forme non normalisée (UNF)**
 :   Une table qui contient une ou plusieurs répétitions de groupe.
 
@@ -263,6 +259,10 @@
 **Première forme normale (1NF)**
 :   Une relation dans laquelle l'intersection de chaque ligne et
     colonne contient seulement une valeur.
+
+**Procédure**
+:   Bloc PL/SQL nommé qui prend des paramètres et qui peut être invoqué. À l'inverse d'une fonction,
+    une procédure ne possède pas de retour.
 
 **Produit cartésien** 
 :   Opération binaire de l'algèbre relationnelle qui définit une relation qui est la concaténation 
@@ -372,4 +372,3 @@
     afin de produire une autre relation. Une vue est une *relation virtuelle* qui n'existe pas 
     nécessairement dans la base de données mais qui peut être produite sur demande par un utilisateur
     donné au moment de la requête.
-

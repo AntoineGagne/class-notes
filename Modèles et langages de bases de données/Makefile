@@ -1,13 +1,13 @@
 all: self_contained_html html
 
-html: create_dir
+html: sort_appendix create_dir
 	pandoc -S -N -s -B ../web_notes/html/navbar.html -A \
 	../web_notes/html/navbar_animations.html --section-divs --mathjax --normalize --to=html5 \
 	--toc --toc-depth=6 --css=../../web_notes/css/notes_style.css ./src/introduction.md ./src/SGBD_et_modele_relationnel_de_donnees.md \
 	./src/normalisation.md ./src/normalisation_avancee.md \
 	./src/algebre_relationnelle.md ./src/SQL.md ./src/PL_SQL.md ./src/annexe.md -o ./build/notes.html
 
-self_contained_html: create_dir
+self_contained_html: sort_appendix create_dir
 	pandoc -S -N -s --section-divs -B ../web_notes/html/navbar.html -A \
 	../web_notes/html/navbar_animations.html --self-contained --normalize --mathml --to=html5 \
 	--toc --toc-depth=6 --css=../web_notes/css/notes_style.css ./src/introduction.md ./src/SGBD_et_modele_relationnel_de_donnees.md \

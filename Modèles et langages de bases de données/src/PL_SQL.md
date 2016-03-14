@@ -643,3 +643,56 @@ begin
 
 end;
 ```
+
+## Récursivité
+
+Il est possible de faire des requêtes récursives.
+
+### Exemple
+
+#### Exemple 1
+
+```SQL
+with recursive
+TOUT_GESTIONNAIRE(NO_EMPLOYE, NO_EMPLOYE_GESTION) as 
+    (select NO_EMPLOYE, NO_EMPLOYE_GESTION 
+    from EMPLOYE
+
+    union
+
+    select IN.NO_EMPLOYE, OUT_NO_EMPLOYE_GESTION
+    from TOUT_GESTIONNAIRE IN, EMPLOYE OUT
+    where IN.NO_EMPLOYE_GESTION = OUT.NO_EMPLOYE);
+```
+
+#### Exemple 2
+
+```SQL
+select lpad(' ', LEVEL * 2, ' ') || LAST_NAME as ARBRE,
+    EMPLOYEE_ID,
+    MANAGER_ID,
+    sys_connect_by_path(LAST_NAME, '/') as CHEMIN,
+    LEVEL as NIVEAU
+from EMPLOYEES
+connect by prior EMPLOYEE_ID = MANAGER_ID
+start with MANAGER_ID is null;
+```
+
+Ce qui donne le résultat suivant:
+
+Arbre             EMPLOYEE_ID         MANAGER_ID          CHEMIN                                NIVEAU
+--------------    ---------------     --------------      ---------------------------------     ----------
+King              100                                     /King                                 1
+  Kochhar         101                 100                 /King/Kochhar                         2
+    Greenberg     108                 101                 /King/Kochhar/Greenberg               3
+      Faviet      109                 108                 /King/Kochhar/Greenberg/Faviet        4
+      Chen        110                 108                 /King/Kochhar/Greenberg/Chen          4
+      Sciarra     111                 108                 /King/Kochhar/Greenberg/Sciarra       4
+      Urman       112                 108                 /King/Kochhar/Greenberg/Urman         4
+      Popp        113                 108                 /King/Kochhar/Greenberg/Popp          4
+    Whalen        200                 101                 /King/Kochhar/Whalen                  3
+    Mavris        203                 101                 /King/Kochhar/Mavris                  3
+    Baer          204                 101                 /King/Kochhar/Baer                    3
+    Higgins       205                 101                 /King/Kochhar/Higgins                 3
+      Gietz       206                 205                 /King/Kochhar/Higgins/Gietz           4
+--------------    ---------------     --------------      ---------------------------------     ----------
