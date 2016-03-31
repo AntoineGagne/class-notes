@@ -52,3 +52,8 @@ solutions
         - Pas vraiment réflexif
         - Détecter les défauts d'implémentation
         - Déviation des standards
+
+## Qu'est-ce que c'est le CMMI (Examen)
+
+- CMMI est un processus de référence suggérant une grande quantité de pratiques
+- CMMI est une approche d'évaluation de processus
