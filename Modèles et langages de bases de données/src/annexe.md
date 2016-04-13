@@ -372,3 +372,6 @@
     afin de produire une autre relation. Une vue est une *relation virtuelle* qui n'existe pas 
     nécessairement dans la base de données mais qui peut être produite sur demande par un utilisateur
     donné au moment de la requête.
+
+Annexe
+
