@@ -1,37 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="generator" content="pandoc">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <meta name="author" content="Antoine Gagné">
-  <title>Notes de cours</title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <style type="text/css">
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; }
-code > span.dt { color: #902000; }
-code > span.dv { color: #40a070; }
-code > span.bn { color: #40a070; }
-code > span.fl { color: #40a070; }
-code > span.ch { color: #4070a0; }
-code > span.st { color: #4070a0; }
-code > span.co { color: #60a0b0; font-style: italic; }
-code > span.ot { color: #007020; }
-code > span.al { color: #ff0000; font-weight: bold; }
-code > span.fu { color: #06287e; }
-code > span.er { color: #ff0000; font-weight: bold; }
-  </style>
-  <link href="data:text/css,%2Emobile%2Dhidden%20%7B%0A%20%20%20%20display%3A%20none%3B%0A%7D%0A%0A%2Efixed%2Dnavbar%20%7B%0A%20%20%20%20background%2Dcolor%3A%20white%3B%0A%20%20%20%20z%2Dindex%3A%20100%3B%0A%20%20%20%20top%3A%200%3B%0A%7D%0A%0A%2Enavbar%20%7B%0A%20%20%20%20padding%2Dleft%3A%201em%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20background%2Dcolor%3A%20white%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20z%2Dindex%3A%20100%3B%0A%20%20%20%20top%3A%200%3B%0A%7D%0A%0A%23toggle%2Dnav%20%7B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20width%3A%2030px%3B%0A%20%20%20%20height%3A%2030px%3B%0A%20%20%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20%20%20border%3A%201px%20solid%20%23666%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%20%20%20%20padding%3A%203px%203px%200%203px%3B%0A%7D%0A%0A%2Esr%2Donly%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20width%3A%201px%3B%0A%20%20%20%20height%3A%201px%3B%0A%20%20%20%20margin%3A%20%2D1px%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20clip%3A%20rect%280%2C%200%2C%200%2C%200%29%3B%0A%20%20%20%20border%3A%200%3B%0A%7D%0A%0A%2Ebar%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20background%2Dcolor%3A%20%23000%3B%0A%20%20%20%20border%2Dradius%3A%202px%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%202px%3B%0A%20%20%20%20margin%3A%202px%200%203px%3B%0A%20%20%20%20padding%3A%200%3B%0A%7D%0A%0Abody%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20font%3A%2016px%2F1%2E6%20%27Source%20Serif%20Pro%27%2C%20Georgia%2C%20Times%2C%20%27Times%20New%20Roman%27%2C%20serif%3B%20%20%20%20%0A%20%20%20%20text%2Dalign%3A%20justify%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20width%3A%2090%25%3B%0A%20%20%20%20max%2Dwidth%3A%20600px%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20padding%3A%200%3B%0A%7D%0A%0Ah1%2C%20h2%2C%20h3%2C%20h4%2C%20h5%2C%20h6%20%7B%0A%20%20%20%20text%2Dalign%3A%20left%3B%0A%20%20%20%20padding%2Dbottom%3A%200%2E01em%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20solid%20%23DDDDDD%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20%20%20font%2Dsize%3A%202em%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20%20%20font%2Dsize%3A%201%2E7em%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20%20%20font%2Dsize%3A%201%2E5em%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20%20%20font%2Dsize%3A%201%2E3em%3B%20%20%20%20%0A%7D%0A%0Ah5%20%7B%0A%20%20%20%20font%2Dsize%3A%201%2E1em%3B%0A%7D%0A%0Ah6%20%7B%0A%20%20%20%20font%2Dsize%3A%201%2E05em%3B%0A%7D%0A%0Ali%20%7B%0A%20%20%20%20padding%3A%200%2E2em%3B%0A%7D%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20color%3A%20%234078c0%3B%0A%20%20%20%20background%2Dcolor%3A%20transparent%3B%0A%7D%0A%0A%2Etitle%20%7B%0A%20%20%20%20margin%2Dtop%3A%201em%3B%0A%20%20%20%20margin%2Dbottom%3A%200%2E4em%3B%0A%7D%0A%0A%2Eauthor%20%7B%0A%20%20%20%20display%3A%20inline%3B%0A%20%20%20%20font%2Dsize%3A%200%2E8em%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20margin%3A%200%3B%0A%7D%0A%0A%2Edate%20%7B%0A%20%20%20%20float%3A%20right%3B%0A%20%20%20%20display%3A%20inline%3B%0A%20%20%20%20font%2Dsize%3A%200%2E8em%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20border%3A%20none%3B%0A%7D%0A%0Aa%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%2038px%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20overflow%2Dy%3A%20scroll%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%0A%20%20%20%20background%2Dcolor%3A%20%23fafafa%3B%0A%7D%0A%0A%23TOC%20a%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%7D%0A%0A%23TOC%20ul%20%7B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20padding%2Dleft%3A%201em%3B%0A%7D%0A%0A%23TOC%20li%20%7B%0A%20%20%20%20list%2Dstyle%2Dtype%3A%20none%3B%0A%7D%0A%0A%23TOC%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%234390FF%0A%7D%0A%0A%23mat%C3%A9riel%20img%20%7B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20width%3A%2090%25%3B%0A%20%20%20%20max%2Dwidth%3A%20600px%3B%0A%20%20%20%20margin%2Dtop%3A%202em%3B%0A%7D%0A%0Afigure%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20max%2Dwidth%3A%20600px%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%7D%0A%0Aimg%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20max%2Dwidth%3A%20600px%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%7D%0A%0Afigcaption%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%2EsourceCode%20%7B%0A%20%20%20%20overflow%2Dx%3A%20auto%3B%0A%20%20%20%20border%2Dradius%3A%208px%3B%0A%20%20%20%20background%2Dcolor%3A%20%23F7F7F7%3B%0A%7D%0A%0Atable%20caption%20%7B%0A%20%20%20%20margin%2Dbottom%3A%201em%3B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Apre%20%7B%0A%20%20%20%20overflow%2Dx%3A%20scroll%3B%0A%7D%0A%0A%40media%20screen%20and%20%28max%2Dwidth%3A%201300px%29%20%7B%0A%20%20%20%20table%20%7B%0A%20%20%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20%20%20display%3A%20block%3B%0A%20%20%20%20%20%20%20%20overflow%2Dx%3A%20auto%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20%23TOC%20%7B%0A%20%20%20%20%20%20%20%20z%2Dindex%3A%201000%3B%0A%20%20%20%20%20%20%20%20%2F%2A%0A%20%20%20%20%20%20%20%20%2Dwebkit%2Danimation%3A%200%2E5s%20linear%200s%20slideIn%3B%0A%20%20%20%20%20%20%20%20%20%20%20%2Dmoz%2Danimation%3A%200%2E5s%20linear%200s%20slideIn%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%2Do%2Danimation%3A%200%2E5s%20linear%200s%20slideIn%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20animation%3A%200%2E5s%20linear%200s%20slideIn%3B%0A%20%20%20%20%20%20%20%20%2A%2F%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20%2F%2A%0A%20%20%20%20%40%2Dwebkit%2Dkeyframes%20slideIn%20%7B%20from%20%7B%20left%3A%20%2D100%25%3B%20%7D%20to%20%7B%20left%3A%200%3B%20%7D%20%20%7D%0A%20%20%20%20%20%20%20%40%2Dmoz%2Dkeyframes%20slideIn%20%7B%20from%20%7B%20left%3A%20%2D100%25%3B%20%7D%20to%20%7B%20left%3A%200%3B%20%7D%20%20%7D%0A%20%20%20%20%20%20%20%20%20%40%2Do%2Dkeyframes%20slideIn%20%7B%20from%20%7B%20left%3A%20%2D100%25%3B%20%7D%20to%20%7B%20left%3A%200%3B%20%7D%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%40keyframes%20slideIn%20%7B%20from%20%7B%20left%3A%20%2D100%25%3B%20%7D%20to%20%7B%20left%3A%200%3B%20%7D%20%20%7D%0A%20%20%20%20%2A%2F%0A%20%20%20%20%0A%20%20%20%20ol%20%7B%0A%20%20%20%20%20%20%20%20overflow%2Dx%3A%20scroll%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20div%2EMathJax%5FDisplay%20%7B%0A%20%20%20%20%20%20%20%20overflow%2Dx%3A%20scroll%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20p%20%7B%0A%20%20%20%20%20%20%20%20overflow%2Dx%3A%20scroll%3B%0A%20%20%20%20%7D%0A%7D%0A%0A%40media%20screen%20and%20%28min%2Dwidth%3A%201300px%29%20%7B%0A%20%20%20%20%2Emobile%2Dhidden%20%7B%0A%20%20%20%20%20%20%20%20display%3A%20block%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%23toggle%2Dnav%20%7B%0A%20%20%20%20%20%20%20%20display%3A%20none%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20body%20%7B%0A%20%20%20%20%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20%20%20%20%20width%3A%2090%25%3B%0A%20%20%20%20%20%20%20%20max%2Dwidth%3A%20900px%3B%0A%20%20%20%20%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20%20%20%20%20top%3A%200%3B%0A%20%20%20%20%20%20%20%20left%3A%20300px%3B%0A%20%20%20%20%20%20%20%20right%3A%200%3B%0A%20%20%20%20%20%20%20%20padding%3A%200%2015px%3B%0A%20%20%20%20%20%20%20%20%2Dwebkit%2Doverflow%2Dscrolling%3A%20touch%3B%0A%20%20%20%20%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20%23TOC%20%7B%0A%20%20%20%20%20%20%20%20font%2Dsize%3A%2014px%3B%0A%20%20%20%20%20%20%20%20border%2Dright%3A%201px%20solid%20%23e8e8e8%3B%0A%20%20%20%20%20%20%20%20padding%3A%200%2015px%3B%0A%20%20%20%20%20%20%20%20margin%2Dright%3A%200%3B%0A%20%20%20%20%20%20%20%20width%3A%20300px%3B%0A%20%20%20%20%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20%20%20%20%20top%3A%200%3B%0A%20%20%20%20%20%20%20%20left%3A%200%3B%0A%20%20%20%20%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20%20%20%20%20overflow%2Dy%3A%20auto%3B%0A%20%20%20%20%7D%0A%7D%0A" rel="stylesheet">
-</head>
-<body>
+    <head>
+        <meta charset="utf-8">
+        <title>Notes de cours</title>
+
+        <meta name="description" content="Notes de cours">
+                  <meta name="author" content="Antoine Gagné" />
+        
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+
+                    <style type="text/css">
+        table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+          margin: 0; padding: 0; vertical-align: baseline; border: none; }
+        table.sourceCode { width: 100%; line-height: 100%; }
+        td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+        td.sourceCode { padding-left: 5px; }
+        code > span.kw { color: #007020; font-weight: bold; }
+        code > span.dt { color: #902000; }
+        code > span.dv { color: #40a070; }
+        code > span.bn { color: #40a070; }
+        code > span.fl { color: #40a070; }
+        code > span.ch { color: #4070a0; }
+        code > span.st { color: #4070a0; }
+        code > span.co { color: #60a0b0; font-style: italic; }
+        code > span.ot { color: #007020; }
+        code > span.al { color: #ff0000; font-weight: bold; }
+        code > span.fu { color: #06287e; }
+        code > span.er { color: #ff0000; font-weight: bold; }
+            </style>
+        
+        
+                  <link href="data:text/css,%2Emobile%2Dhidden%20%7B%0A%20%20%20%20display%3A%20none%3B%0A%7D%0A%0A%2Efixed%2Dnavbar%20%7B%0A%20%20%20%20background%2Dcolor%3A%20white%3B%0A%20%20%20%20z%2Dindex%3A%20100%3B%0A%20%20%20%20top%3A%200%3B%0A%7D%0A%0A%2Enavbar%20%7B%0A%20%20%20%20padding%2Dleft%3A%201em%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20background%2Dcolor%3A%20white%3B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20z%2Dindex%3A%20100%3B%0A%20%20%20%20top%3A%200%3B%0A%7D%0A%0A%23toggle%2Dnav%20%7B%0A%20%20%20%20cursor%3A%20pointer%3B%0A%20%20%20%20margin%2Dtop%3A%205px%3B%0A%20%20%20%20width%3A%2030px%3B%0A%20%20%20%20height%3A%2030px%3B%0A%20%20%20%20background%2Dcolor%3A%20%23fff%3B%0A%20%20%20%20border%3A%201px%20solid%20%23666%3B%0A%20%20%20%20border%2Dradius%3A%203px%3B%0A%20%20%20%20padding%3A%203px%203px%200%203px%3B%0A%7D%0A%0A%2Esr%2Donly%20%7B%0A%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20width%3A%201px%3B%0A%20%20%20%20height%3A%201px%3B%0A%20%20%20%20margin%3A%20%2D1px%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20overflow%3A%20hidden%3B%0A%20%20%20%20clip%3A%20rect%280%2C%200%2C%200%2C%200%29%3B%0A%20%20%20%20border%3A%200%3B%0A%7D%0A%0A%2Ebar%20%7B%0A%20%20%20%20display%3A%20block%3B%0A%20%20%20%20background%2Dcolor%3A%20%23000%3B%0A%20%20%20%20border%2Dradius%3A%202px%3B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20height%3A%202px%3B%0A%20%20%20%20margin%3A%202px%200%203px%3B%0A%20%20%20%20padding%3A%200%3B%0A%7D%0A%0Abody%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20font%3A%2016px%2F1%2E6%20%27Source%20Serif%20Pro%27%2C%20Georgia%2C%20Times%2C%20%27Times%20New%20Roman%27%2C%20serif%3B%20%20%20%20%0A%20%20%20%20text%2Dalign%3A%20justify%3B%0A%20%20%20%20font%2Dsize%3A%2018px%3B%0A%20%20%20%20width%3A%2090%25%3B%0A%20%20%20%20max%2Dwidth%3A%20600px%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20padding%3A%200%3B%0A%7D%0A%0Ah1%2C%20h2%2C%20h3%2C%20h4%2C%20h5%2C%20h6%20%7B%0A%20%20%20%20text%2Dalign%3A%20left%3B%0A%20%20%20%20padding%2Dbottom%3A%200%2E01em%3B%0A%20%20%20%20border%2Dbottom%3A%202px%20solid%20%23DDDDDD%3B%0A%7D%0A%0Ah1%20%7B%0A%20%20%20%20font%2Dsize%3A%202em%3B%0A%7D%0A%0Ah2%20%7B%0A%20%20%20%20font%2Dsize%3A%201%2E7em%3B%0A%7D%0A%0Ah3%20%7B%0A%20%20%20%20font%2Dsize%3A%201%2E5em%3B%0A%7D%0A%0Ah4%20%7B%0A%20%20%20%20font%2Dsize%3A%201%2E3em%3B%20%20%20%20%0A%7D%0A%0Ah5%20%7B%0A%20%20%20%20font%2Dsize%3A%201%2E1em%3B%0A%7D%0A%0Ah6%20%7B%0A%20%20%20%20font%2Dsize%3A%201%2E05em%3B%0A%7D%0A%0Ali%20%7B%0A%20%20%20%20padding%3A%200%2E2em%3B%0A%7D%0A%0Aa%20%7B%0A%20%20%20%20text%2Ddecoration%3A%20none%3B%0A%20%20%20%20color%3A%20%234078c0%3B%0A%20%20%20%20background%2Dcolor%3A%20transparent%3B%0A%7D%0A%0A%2Etitle%20%7B%0A%20%20%20%20margin%2Dtop%3A%201em%3B%0A%20%20%20%20margin%2Dbottom%3A%200%2E4em%3B%0A%7D%0A%0A%2Eauthor%20%7B%0A%20%20%20%20display%3A%20inline%3B%0A%20%20%20%20font%2Dsize%3A%200%2E8em%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20border%3A%20none%3B%0A%20%20%20%20margin%3A%200%3B%0A%7D%0A%0A%2Edate%20%7B%0A%20%20%20%20float%3A%20right%3B%0A%20%20%20%20display%3A%20inline%3B%0A%20%20%20%20font%2Dsize%3A%200%2E8em%3B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20margin%3A%200%3B%0A%20%20%20%20border%3A%20none%3B%0A%7D%0A%0Aa%20%7B%0A%20%20%20%20color%3A%20%23333%3B%0A%7D%0A%0A%23TOC%20%7B%0A%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20top%3A%2038px%3B%0A%20%20%20%20left%3A%200%3B%0A%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20overflow%2Dy%3A%20scroll%3B%0A%20%20%20%20text%2Dalign%3A%20left%3B%0A%20%20%20%20background%2Dcolor%3A%20%23fafafa%3B%0A%7D%0A%0A%23TOC%20a%20%7B%0A%20%20%20%20background%3A%20transparent%3B%0A%7D%0A%0A%23TOC%20ul%20%7B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20padding%2Dleft%3A%201em%3B%0A%7D%0A%0A%23TOC%20li%20%7B%0A%20%20%20%20list%2Dstyle%2Dtype%3A%20none%3B%0A%7D%0A%0A%23TOC%20a%3Ahover%20%7B%0A%20%20%20%20color%3A%20%234390FF%0A%7D%0A%0A%23mat%C3%A9riel%20img%20%7B%0A%20%20%20%20padding%3A%200%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20width%3A%2090%25%3B%0A%20%20%20%20max%2Dwidth%3A%20600px%3B%0A%20%20%20%20margin%2Dtop%3A%202em%3B%0A%7D%0A%0Afigure%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20max%2Dwidth%3A%20600px%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%7D%0A%0Aimg%20%7B%0A%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20max%2Dwidth%3A%20600px%3B%0A%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%7D%0A%0Afigcaption%20%7B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0A%2EsourceCode%20%7B%0A%20%20%20%20overflow%2Dx%3A%20auto%3B%0A%20%20%20%20border%2Dradius%3A%208px%3B%0A%20%20%20%20background%2Dcolor%3A%20%23F7F7F7%3B%0A%7D%0A%0Atable%20caption%20%7B%0A%20%20%20%20margin%2Dbottom%3A%201em%3B%0A%20%20%20%20text%2Dalign%3A%20center%3B%0A%7D%0A%0Apre%20%7B%0A%20%20%20%20overflow%2Dx%3A%20scroll%3B%0A%7D%0A%0A%40media%20screen%20and%20%28max%2Dwidth%3A%201300px%29%20%7B%0A%20%20%20%20table%20%7B%0A%20%20%20%20%20%20%20%20width%3A%20100%25%3B%0A%20%20%20%20%20%20%20%20display%3A%20block%3B%0A%20%20%20%20%20%20%20%20overflow%2Dx%3A%20auto%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20%23TOC%20%7B%0A%20%20%20%20%20%20%20%20z%2Dindex%3A%201000%3B%0A%20%20%20%20%20%20%20%20%2F%2A%0A%20%20%20%20%20%20%20%20%2Dwebkit%2Danimation%3A%200%2E5s%20linear%200s%20slideIn%3B%0A%20%20%20%20%20%20%20%20%20%20%20%2Dmoz%2Danimation%3A%200%2E5s%20linear%200s%20slideIn%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%2Do%2Danimation%3A%200%2E5s%20linear%200s%20slideIn%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20animation%3A%200%2E5s%20linear%200s%20slideIn%3B%0A%20%20%20%20%20%20%20%20%2A%2F%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20%2F%2A%0A%20%20%20%20%40%2Dwebkit%2Dkeyframes%20slideIn%20%7B%20from%20%7B%20left%3A%20%2D100%25%3B%20%7D%20to%20%7B%20left%3A%200%3B%20%7D%20%20%7D%0A%20%20%20%20%20%20%20%40%2Dmoz%2Dkeyframes%20slideIn%20%7B%20from%20%7B%20left%3A%20%2D100%25%3B%20%7D%20to%20%7B%20left%3A%200%3B%20%7D%20%20%7D%0A%20%20%20%20%20%20%20%20%20%40%2Do%2Dkeyframes%20slideIn%20%7B%20from%20%7B%20left%3A%20%2D100%25%3B%20%7D%20to%20%7B%20left%3A%200%3B%20%7D%20%20%7D%0A%20%20%20%20%20%20%20%20%20%20%20%20%40keyframes%20slideIn%20%7B%20from%20%7B%20left%3A%20%2D100%25%3B%20%7D%20to%20%7B%20left%3A%200%3B%20%7D%20%20%7D%0A%20%20%20%20%2A%2F%0A%20%20%20%20%0A%20%20%20%20ol%20%7B%0A%20%20%20%20%20%20%20%20overflow%2Dx%3A%20scroll%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20div%2EMathJax%5FDisplay%20%7B%0A%20%20%20%20%20%20%20%20overflow%2Dx%3A%20scroll%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20p%20%7B%0A%20%20%20%20%20%20%20%20overflow%2Dx%3A%20scroll%3B%0A%20%20%20%20%7D%0A%7D%0A%0A%40media%20screen%20and%20%28min%2Dwidth%3A%201300px%29%20%7B%0A%20%20%20%20%2Emobile%2Dhidden%20%7B%0A%20%20%20%20%20%20%20%20display%3A%20block%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%23toggle%2Dnav%20%7B%0A%20%20%20%20%20%20%20%20display%3A%20none%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20body%20%7B%0A%20%20%20%20%20%20%20%20color%3A%20%23333%3B%0A%20%20%20%20%20%20%20%20width%3A%2090%25%3B%0A%20%20%20%20%20%20%20%20max%2Dwidth%3A%20900px%3B%0A%20%20%20%20%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20%20%20%20%20top%3A%200%3B%0A%20%20%20%20%20%20%20%20left%3A%20300px%3B%0A%20%20%20%20%20%20%20%20right%3A%200%3B%0A%20%20%20%20%20%20%20%20padding%3A%200%2015px%3B%0A%20%20%20%20%20%20%20%20%2Dwebkit%2Doverflow%2Dscrolling%3A%20touch%3B%0A%20%20%20%20%20%20%20%20margin%2Dright%3A%20auto%3B%0A%20%20%20%20%20%20%20%20margin%2Dleft%3A%20auto%3B%0A%20%20%20%20%20%20%20%20position%3A%20absolute%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20%23TOC%20%7B%0A%20%20%20%20%20%20%20%20font%2Dsize%3A%2014px%3B%0A%20%20%20%20%20%20%20%20border%2Dright%3A%201px%20solid%20%23e8e8e8%3B%0A%20%20%20%20%20%20%20%20padding%3A%200%2015px%3B%0A%20%20%20%20%20%20%20%20margin%2Dright%3A%200%3B%0A%20%20%20%20%20%20%20%20width%3A%20300px%3B%0A%20%20%20%20%20%20%20%20position%3A%20fixed%3B%0A%20%20%20%20%20%20%20%20top%3A%200%3B%0A%20%20%20%20%20%20%20%20left%3A%200%3B%0A%20%20%20%20%20%20%20%20bottom%3A%200%3B%0A%20%20%20%20%20%20%20%20overflow%2Dy%3A%20auto%3B%0A%20%20%20%20%7D%0A%7D%0A" rel="stylesheet">
+        
+        
+        
+        
+        <!--[if lt IE 9]>
+            <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+            </head>
+
+    <body>
 <div class="navbar">
     <button id="toggle-nav">
         <span class="sr-only">Toggle navigation</span>
@@ -40,11 +52,15 @@ code > span.er { color: #ff0000; font-weight: bold; }
         <span class="bar"></span>
     </button>
 </div>
+
 <header>
 <h1 class="title">Notes de cours</h1>
-<h2 class="author">Antoine Gagné</h2>
+<h3 class="author">Antoine Gagné</h3>
 <h3 class="date">5 février 2016</h3>
 </header>
+
+<section>
+<h2>Aperçu</h2>
 <nav id="TOC">
 <ul>
 <li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a><ul>
@@ -398,6 +414,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <li><a href="#annexe"><span class="toc-section-number">8</span> Annexe</a></li>
 </ul>
 </nav>
+</section>
+
 <p>Ce document regroupe l’ensemble de mes notes pour le cours <strong>Modèles et langages de bases de données</strong>.</p>
 <section id="introduction" class="level1">
 <h1><a href="#introduction"><span class="header-section-number">1</span> Introduction</a></h1>
@@ -3438,6 +3456,7 @@ TOUT_GESTIONNAIRE(NO_EMPLOYE, NO_EMPLOYE_GESTION) <span class="kw">as</span>
 <li id="fn1"><p>Il est important de se rappeler que ces annotations sont propres aux bases de données <em>Oracle</em>.<a href="#fnref1">↩</a></p></li>
 </ol>
 </section>
+
 <script>
     document.getElementById("TOC").className = "mobile-hidden";
 
@@ -3456,5 +3475,5 @@ TOUT_GESTIONNAIRE(NO_EMPLOYE, NO_EMPLOYE_GESTION) <span class="kw">as</span>
         }
     }, false);
 </script>
-</body>
+    </body>
 </html>

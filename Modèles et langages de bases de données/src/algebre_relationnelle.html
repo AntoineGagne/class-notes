@@ -1,0 +1,145 @@
+<h1 id="algèbre-relationnelle">Algèbre relationnelle</h1>
+<p>Dans ce chapitre, nous verrons l'algèbre relationnelle et son utilité.</p>
+<h2 id="définition">Définition</h2>
+<p>L'<strong>algèbre relationnelle</strong> est un langage théorique avec des opérations qui marchent sur une ou plusieurs relations pour définir une autre relation sans changer la relation originale.</p>
+<p>Comme à la fois les opérandes et les résultats sont des relations, le résultat d'une opération peut être passer en paramètre à une autre opération. Cela permet aux expressions d'être imbriquées. Cette propriété s'appelle <strong>fermeture</strong>.</p>
+<h2 id="opérations">Opérations</h2>
+<p>L'algèbre relationnelle supporte plusieurs opérations. Dans cette section, nous allons définir différents types d'opérations. Dans ces définitions, nous avons <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span>, deux relations définies par les attributs <span class="math"><em>A</em> = (<em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, …, <em>a</em><sub><em>N</em></sub>)</span> et <span class="math"><em>B</em> = (<em>b</em><sub>1</sub>, <em>b</em><sub>2</sub>, …, <em>b</em><sub><em>M</em></sub>)</span> respectivement.</p>
+<h3 id="opérations-unaires">Opérations unaires</h3>
+<p>L'algèbre relationnelle possède deux opérations unaires: la <strong>sélection</strong> et la <strong>projection</strong>.</p>
+<h4 id="sélection-ou-restriction">Sélection (ou restriction)</h4>
+<p>La <strong>sélection</strong> s'applique sur une seule relation <span class="math"><em>R</em></span> et définit une relation qui contient seulement les tuples de <span class="math"><em>R</em></span> qui satisfont la condition spécifée (le <em>prédicat</em>).</p>
+<p>On l'écrit</p>
+<p><br /><span class="math"><em>σ</em><sub><em>p</em><em>r</em><em>é</em><em>d</em><em>i</em><em>c</em><em>a</em><em>t</em></sub>(<em>R</em>)</span><br /></p>
+<p>où <span class="math"><em>σ</em></span> est le nom de l'opération, <span class="math"><em>p</em><em>r</em><em>é</em><em>d</em><em>i</em><em>c</em><em>a</em><em>t</em></span> est le prédicat à respecter et <span class="math"><em>R</em></span> est la relation sur laquelle l'opération est appliquée.</p>
+<p>La sélection s'applique à l'horizontal dans une table.</p>
+<h4 id="projection">Projection</h4>
+<p>La <strong>projection</strong> s'applique sur une seule relation <span class="math"><em>R</em></span> et définie une relation qui contient un sous-ensemble vertical de <span class="math"><em>R</em></span>. Elle extrait les valeurs des attributs spécifiés et élimine les duplicats.</p>
+<p>On l'écrit</p>
+<p><br /><span class="math">Π <sub><em>a</em><sub>1</sub>, …, <em>a</em><sub><em>n</em></sub></sub>(<em>R</em>)</span><br /></p>
+<p>où <span class="math">Π </span> dénote le nom de l'opération, <span class="math"><em>a</em><sub>1</sub>, …, <em>a</em><sub><em>n</em></sub></span> est le nom de chacun des attributs spécifiés et <span class="math"><em>R</em></span> est la relation sur laquelle l'opération est appliquée.</p>
+<p>La sélection s'applique à la vertical dans une table.</p>
+<h3 id="opérations-binaires">Opérations binaires</h3>
+<p>Il y a des cas où nous voulons extraire les informations de plusieurs relations à la fois. Les opérations binaires permettent de combiner les informations de deux relations à la fois.</p>
+<h4 id="union">Union</h4>
+<p>L'<strong>union</strong> de deux relations <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span> définit une relation qui contient tous les tuples de <span class="math"><em>R</em></span> ou de <span class="math"><em>S</em></span> ou bien des deux relations. Les tuples copies sont éliminés. <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span> doivent être compatibles à l'union.</p>
+<p>On l'écrit</p>
+<p><br /><span class="math"><em>R</em> ∪ <em>S</em></span><br /></p>
+<p>où <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span> sont deux relations.</p>
+<h4 id="différence">Différence</h4>
+<p>La <strong>différence</strong> définit une relation qui consiste des tuples qui sont dans la relation <span class="math"><em>R</em></span>, mais pas dans la relation <span class="math"><em>S</em></span>. <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span> doivent être compatibles à l'union.</p>
+<p>On l'écrit</p>
+<p><br /><span class="math"><em>R</em> − <em>S</em></span><br /></p>
+<p>où <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span> sont deux ensembles.</p>
+<h4 id="intersection">Intersection</h4>
+<p><strong>L'intersection</strong> définit une relation consistant de l'ensemble de tous les tuples qui sont à la fois dans <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span>. <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span> doivent être compatibles à l'union.</p>
+<p>On l'écrit</p>
+<p><br /><span class="math"><em>R</em> ∩ <em>S</em> ⇔ <em>R</em> − (<em>R</em> − <em>S</em>)</span><br /></p>
+<p>où <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span> sont des relations.</p>
+<h4 id="produit-cartésien">Produit cartésien</h4>
+<p>Le <strong>produit cartésien</strong> définit une relation qui est la concaténation de tous les tuples de la relation <span class="math"><em>R</em></span> avec tous les tuples de la relation <span class="math"><em>S</em></span>.</p>
+<p>On l'écrit</p>
+<p><br /><span class="math"><em>R</em> × <em>S</em></span><br /></p>
+<p>où <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span> sont des relations.</p>
+<h4 id="décomposition-dopérations-complexes">Décomposition d'opérations complexes</h4>
+<p>La <strong>décomposition d'opérations complexes</strong> donne un nouveau nom à <span class="math"><em>S</em></span> pour l'expression <span class="math"><em>E</em></span>, et nomme optionnellement les attributs en <span class="math"><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, …, <em>a</em><sub><em>n</em></sub></span>.</p>
+<p>On l'écrit</p>
+<p><br /><span class="math"><em>ρ</em><sub><em>s</em></sub>(<em>E</em>)ou <em>ρ</em><sub><em>s</em><sub>(<em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, …, <em>a</em><sub><em>n</em></sub>)</sub></sub>(<em>E</em>)</span><br /></p>
+<h3 id="opérations-de-jointure">Opérations de jointure</h3>
+<p>Les <strong>opérations de jointure</strong> sont parmies les opérations les plus utiles de l'algèbre relationnelle. Les opérations de jointure sont équivalents à appliquer l'opération de sélection avec le prédicat de jointure au résultat du produit cartésien des deux relations d'entrée. De manière plus symbolique, si on a <span class="math"><em>F</em></span> comme prédicat de jointure et <span class="math"><em>R</em></span> ainsi que <span class="math"><em>S</em></span>, deux relations, nous avons que l'opération de jointure peut être définie comme:</p>
+<p><br /><span class="math"><em>σ</em><sub><em>F</em></sub>(<em>R</em> × <em>S</em>)</span><br /></p>
+<p>Les types d'opérations de jointure sont les suivants:</p>
+<ul>
+<li><strong>Jointure <em>theta</em></strong> ou <strong>(<span class="math"><em>θ</em></span>-join)</strong></li>
+<li><strong>Equijointure</strong></li>
+<li><strong>Jointure naturelle</strong></li>
+<li><strong>Jointure externe</strong></li>
+<li><strong>Semi-jointure</strong></li>
+</ul>
+<h4 id="jointure-theta-theta-join">Jointure theta (<span class="math"><em>θ</em></span>-join)</h4>
+<p>L'opération de <strong>jointure theta</strong> définit une relation qui contient les tuples satisfants le prédicat <span class="math"><em>F</em></span> à partir du résultat du produit cartésien de <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span>. Le prédicat <span class="math"><em>F</em></span> est de la forme <span class="math"><em>R</em>. <em>a</em><sub><em>i</em></sub> <em>θ</em> <em>S</em>. <em>b</em><sub><em>i</em></sub></span> où <span class="math"><em>θ</em></span> peut être un des opérateur de comparaison (<span class="math"> &lt; </span>, <span class="math"> ≤ </span>, <span class="math"> &gt; </span>, <span class="math"> ≥ </span>, <span class="math"> = </span>, <span class="math"> ≠ </span>).</p>
+<p>On l'écrit</p>
+<p><br /><span class="math"><em>R</em> ⋈ <sub><em>F</em></sub><em>S</em> ⇔ <em>σ</em><sub><em>F</em></sub>(<em>R</em> × <em>S</em>)</span><br /></p>
+<p>où <span class="math"><em>F</em></span> est le prédicat et <span class="math"><em>R</em></span> ainsi que <span class="math"><em>S</em></span> sont des relations.</p>
+<h4 id="equijointure">Equijointure</h4>
+<p>L'<strong>equijointure</strong> est un cas particulier de <span class="math"><em>θ</em></span>-join. C'est le cas où le prédicat <span class="math"><em>F</em></span> contient seulement l'égalité (<span class="math"> = </span>).</p>
+<h5 id="exemple-dequijointure">Exemple d'equijointure</h5>
+<p>Nous souhaitons lister les noms et les commentaires de tous les clients qui ont vus une propriété à louer:</p>
+<p><br /><span class="math">(Π <sub>numClient,  prenom,  nom</sub>(Client)) ⋈ <sub>Client. numClient  =  Visite. numClient</sub>(Π <sub>numClient,  numPropriete,  commentaire</sub>(Visite))</span><br /></p>
+<h4 id="jointure-naturelle">Jointure naturelle</h4>
+<p>La <strong>jointure naturelle</strong> est une equijointure des deux relations <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span> sur tous leurs attributs communs <span class="math"><em>x</em></span>. Une occurence de chacun des attributs communs est enlevée des résultats.</p>
+<p>On l'écrit</p>
+<p><br /><span class="math"><em>R</em> ⋈ <em>S</em></span><br /></p>
+<p>où <span class="math"><em>R</em></span> et <span class="math"><em>S</em></span> sont des relations.</p>
+<h5 id="exemple-de-jointure-naturelle">Exemple de jointure naturelle</h5>
+<p>Nous souhaitons énumérer les noms et les commentaires de tous les clients qui ont visité une propriété à louer:</p>
+<p><br /><span class="math">(Π <sub>numClient,  prenom,  nom</sub>(Client)) ⋈ (Π <sub>numClient,  numPropriete,  commentaire</sub>(Visite))</span><br /></p>
+<h4 id="jointure-externe">Jointure externe</h4>
+<p>La <strong>jointure externe</strong> (gauche) est une jointure dans laquelle les tuples de <span class="math"><em>R</em></span> qui n'ont pas de valeurs correspondantes avec les attributs en commun avec <span class="math"><em>S</em></span> ne sont pas inclus dans la relation résultante. Les valeurs manquantes dans la deuxième relation sont mises à <em>null</em>.</p>
+<p>On l'écrit</p>
+<p><br /><span class="math">$$
+\begin{align*}
+  &amp;R \rtimes S \text{ (Jointure externe gauche) }
+  \\
+  &amp;R \ltimes S \text{ (Jointure externe droite) }
+\end{align*}
+$$</span><br /></p>
+<h5 id="exemple-de-jointure-externe">Exemple de jointure externe</h5>
+<p>Nous souhaitons produire un rapport d'état des visites de propriétés à louer:</p>
+<p><br /><span class="math">$$
+    (\Pi_{\mathrm{numPropriete},~\mathrm{rue},~\mathrm{ville}}(\mathrm{ProprieteALouer})) \rtimes~\mathrm{Visite}
+$$</span><br /></p>
+<h4 id="semi-jointure">Semi-jointure</h4>
+<p>La <strong>semi-jointure</strong> définit une relation qui contient les tuples de <span class="math"><em>R</em></span> qui participent dans la jointure de <span class="math"><em>R</em></span> avec <span class="math"><em>S</em></span> satisfaisant le prédicat <span class="math"><em>F</em></span>.</p>
+<p>On l'écrit</p>
+<p><br /><span class="math"><em>R</em> ⊳ <sub><em>F</em></sub><em>S</em> ⇔ Π <sub><em>A</em></sub>(<em>R</em> ⋈ <sub><em>F</em></sub><em>S</em>)</span><br /></p>
+<p>où <span class="math"><em>A</em></span> est l'ensemble de tous les attributs de <span class="math"><em>R</em></span>.</p>
+<h5 id="exemple-de-semi-jointure">Exemple de semi-jointure</h5>
+<p>On souhaite énumérer les détails complets de tous les membres du personnel qui travaillent à la filiale de Montréal:</p>
+<p><br /><span class="math">Personnel  ⊳ <sub>Personnel. numFiliale  =  Filiale. numFiliale</sub> (<em>σ</em><sub>Filiale. ville  =  ʹMontrealʹ</sub>(Filiale))</span><br /></p>
+<h3 id="division">Division</h3>
+<p>Assumons que la relation <span class="math"><em>R</em></span> est définie à partir de l'ensemble d'attributs <span class="math"><em>A</em></span> et que la relation <span class="math"><em>S</em></span> est définie à partir de l'ensemble d'attributs <span class="math"><em>B</em></span> tel que <span class="math"><em>B</em> ⊆ <em>A</em></span>. Soit <span class="math"><em>C</em> = <em>A</em> − <em>B</em></span>, c'est-à-dire <span class="math"><em>C</em></span> est l'ensemble des attributs de <span class="math"><em>R</em></span> qui ne sont pas des attributs de <span class="math"><em>S</em></span>. Alors, l'opération de division définit une relation à partir des attributs <span class="math"><em>C</em></span> qui consiste à l'ensemble des tuples de <span class="math"><em>R</em></span> qui concordent avec <em>tous</em> les tuples de <span class="math"><em>S</em></span>.</p>
+<p>On l'écrit</p>
+<p><br /><span class="math"><em>R</em> ÷ <em>S</em></span><br /></p>
+<p>que l'on peut aussi réécrire comme</p>
+<p><br /><span class="math">$$
+\begin{align*}
+  T_1~ &amp;\gets ~\Pi_{C}(R)
+  \\
+  T_2~ &amp;\gets ~\Pi_{C}((T_1 \times S) - R)
+  \\
+  T~ &amp;\gets ~T_{1} - T_{2}
+\end{align*}
+$$</span><br /></p>
+<h4 id="exemple-de-division">Exemple de division</h4>
+<p>On souhaite identifier tous les clients qui ont visité toutes les propriétés de trois pièces:</p>
+<p><br /><span class="math">(Π <sub>numClient,  numPropriete</sub>(Visite)) ÷ (Π <sub>numPropriete</sub>(<em>σ</em><sub>piece  =  3</sub>(ProprieteALouer)))</span><br /></p>
+<h3 id="agrégation">Agrégation</h3>
+<p>Applique la liste des fonctions agrégates, <span class="math"><em>A</em><em>L</em></span>, à la relation <span class="math"><em>R</em></span> pour définir une relation à partir de la liste agrégate. <span class="math"><em>A</em><em>L</em></span> contient une paire (<span class="math">⟨fonction_agrégate ⟩, ⟨attribut ⟩</span> ou plus.</p>
+<p>On l'écrit</p>
+<p><br /><span class="math">ℑ<sub><em>A</em><em>L</em></sub>(<em>R</em>)</span><br /></p>
+<p>Les principales fonctions agrégates sont les suivantes:</p>
+<ul>
+<li><em>COUNT</em>: Retourne le nombre de valeurs de l'attribut associé.</li>
+<li><em>SUM</em>: Retourne la somme des valeurs de l'attribut associé.</li>
+<li><em>AVG</em>: Retourne la moyenne des valeurs de l'attribut associé.</li>
+<li><em>MIN</em>: Retourne la plus petite valeur de l'attribut associé.</li>
+<li><em>MAX</em>: Retourne la plus grande valeur de l'attribut associé.</li>
+</ul>
+<h4 id="exemple-dagrégation">Exemple d'agrégation</h4>
+<p>On souhaite trouver le salaire minimum, maximum et moyen des employés:</p>
+<p><br /><span class="math"><em>ρ</em><sub><em>R</em></sub>(monMin,  monMax,  maMoyenne) ℑ<sub>MIN salaire,  MAX salaire,  AVG salaire</sub>(Personnel)</span><br /></p>
+<h3 id="regroupement">Regroupement</h3>
+<p>Groupe les tuples de la relation <span class="math"><em>R</em></span> par les attributs de groupement, <span class="math"><em>G</em><em>A</em></span>, et applique ensuite la liste de fonctions agrégates <span class="math"><em>A</em><em>L</em></span> pour définir une nouvelle relation. <span class="math"><em>A</em><em>L</em></span> contient une paire (<span class="math">⟨fonction_agrégate ⟩, ⟨attribut ⟩</span> ou plus. La relation résultante contient les attributs de groupement <span class="math"><em>G</em><em>A</em></span> avec le résultat de chacune des fonctions agrégates.</p>
+<p>On l'écrit</p>
+<p><br /><span class="math"><sub><em>G</em><em>A</em></sub>ℑ<sub><em>A</em><em>L</em></sub>(<em>R</em>)</span><br /></p>
+<p>La forme générale de l'opération de regroupement est la suivante:</p>
+<p><br /><span class="math"><sub><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, …, <em>a</em><sub><em>n</em></sub></sub>ℑ<sub>⟨<em>A</em><sub><em>p</em></sub><em>a</em><sub><em>p</em></sub>⟩, ⟨<em>A</em><sub><em>q</em></sub><em>a</em><sub><em>q</em></sub>⟩, …, ⟨<em>A</em><sub><em>z</em></sub><em>a</em><sub><em>z</em></sub>⟩</sub>(<em>R</em>)</span><br /></p>
+<p>où <span class="math"><em>R</em></span> est une relation quelconque, <span class="math"><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, …, <em>a</em><sub><em>n</em></sub></span> sont des attributs de <span class="math"><em>R</em></span>, <span class="math"><em>a</em><sub><em>p</em></sub>, <em>a</em><sub><em>q</em></sub>, …, <em>a</em><sub><em>z</em></sub></span> sont d'autres attributs de <span class="math"><em>R</em></span> et <span class="math"><em>A</em><sub><em>p</em></sub>, <em>A</em><sub><em>q</em></sub>, …, <em>A</em><sub><em>z</em></sub></span> sont des fonctions agrégates. Les tuples de <span class="math"><em>R</em></span> sont partitionnés de sorte que:</p>
+<ul>
+<li>tous les tuples dans un groupe on la même valeur pour <span class="math"><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, …, <em>a</em><sub><em>n</em></sub></span>;</li>
+<li>les tuples dans différents groupes ont des valeurs différentes pour <span class="math"><em>a</em><sub>1</sub>, <em>a</em><sub>2</sub>, …, <em>a</em><sub><em>n</em></sub></span>.</li>
+</ul>
+<h4 id="exemple-de-regroupement">Exemple de regroupement</h4>
+<p>Nous souhaitons trouver le nombre d'employés qui travaillent dans chaque filiale et calculer la somme de leurs salaires:</p>
+<p><br /><span class="math"><em>ρ</em><sub><em>R</em></sub>(numFiliale,  monCompte,  maSomme)<sub>numFiliale</sub>ℑ<sub>COUNT numPersonnel,  SUM salaire</sub>(Personnel)</span><br /></p>

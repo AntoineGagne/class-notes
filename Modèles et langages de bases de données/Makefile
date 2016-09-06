@@ -1,24 +1,36 @@
+files = ./src/introduction.md \
+		./src/SGBD_et_modele_relationnel_de_donnees.md \
+		./src/normalisation.md \
+		./src/normalisation_avancee.md \
+		./src/algebre_relationnelle.md \
+		./src/SQL.md \
+		./src/PL_SQL.md \
+		./src/annexe.md
+
+latex_flags = -SNs --normalize --listings --chapters
+
+common_html_flags = -SNs --toc --toc-depth=6 --normalize \
+					--template=../templates/class_notes.html \
+					--to=html5 \
+					-A ../templates/html/navbar_animations.html \
+					--section-divs
+html_flags = --mathjax \
+			 --css=../../templates/css/notes_style.css
+self_contained_html_flags = --self-contained \
+							--css=../templates/css/notes_style.css \
+							--mathml
+
 all: self_contained_html html
 
 html: create_dir
-	pandoc -S -N -s -B ../web_notes/html/navbar.html -A \
-	../web_notes/html/navbar_animations.html --section-divs --mathjax --normalize --to=html5 \
-	--toc --toc-depth=6 --css=../../web_notes/css/notes_style.css ./src/introduction.md ./src/SGBD_et_modele_relationnel_de_donnees.md \
-	./src/normalisation.md ./src/normalisation_avancee.md \
-	./src/algebre_relationnelle.md ./src/SQL.md ./src/PL_SQL.md ./src/annexe.md -o ./build/notes.html
+	pandoc $(common_html_flags) $(html_flags) $(files) -o ./build/notes.html
 
 self_contained_html: create_dir
-	pandoc -S -N -s --section-divs -B ../web_notes/html/navbar.html -A \
-	../web_notes/html/navbar_animations.html --self-contained --normalize --mathml --to=html5 \
-	--toc --toc-depth=6 --css=../web_notes/css/notes_style.css ./src/introduction.md ./src/SGBD_et_modele_relationnel_de_donnees.md \
-	./src/normalisation.md ./src/normalisation_avancee.md \
-	./src/algebre_relationnelle.md ./src/SQL.md ./src/PL_SQL.md ./src/annexe.md -o ./build/self_contained_notes.html
+	pandoc $(common_html_flags) $(self_contained_html_flags) $(files) \
+		-o ./build/self_contained_notes.html
 
 pdf: create_dir
-	pandoc -S -N -s --normalize --listings --chapters \
-	--toc --toc-depth=6 ./src/introduction.md ./src/SGBD_et_modele_relationnel_de_donnees.md \
-	./src/normalisation.md ./src/normalisation_avancee.md ./src/algebre_relationnelle.md \
-	./src/SQL.md ./src/PL_SQL.md ./src/annexe.md -o ./build/notes.pdf
+	pandoc $(latex_flags) $(files) -o ./build/notes.pdf
 
 sort_appendix: 
 	cat ./src/annexe.md | ./sort_appendix.py > temp.md \

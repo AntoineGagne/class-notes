@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html $if(lang)$ lang="$lang$"$endif$$if(dir)$ dir="$dir$"$endif$>
+    <head>
+        <meta charset="utf-8">
+        <title>$title$</title>
+
+        <meta name="description" content="$title$">
+        $for(author)$
+          <meta name="author" content="$author$" />
+        $endfor$
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+
+        $if(highlighting-css)$
+            <style type="text/css">
+        $highlighting-css$
+            </style>
+        $endif$
+
+        $if(quotes)$
+            <style type="text/css">q { quotes: "“" "”" "‘" "’"; }</style>
+        $endif$
+
+        $for(css)$
+          <link rel="stylesheet" href="$css$">
+        $endfor$
+
+        $if(math)$
+            $math$
+        $endif$
+
+        $for(custom-css)$
+            <link rel="stylesheet" href="$custom-css$"/>
+        $endfor$
+
+        $for(custom-js)$
+            <script src="$custom-js$"></script>
+        $endfor$
+
+        <!--[if lt IE 9]>
+            <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+        $for(header-includes)$
+          $header-includes$
+        $endfor$
+    </head>
+
+    <body>
+$for(include-before)$
+$include-before$
+$endfor$
+<div class="navbar">
+    <button id="toggle-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+</div>
+
+<header>
+<h1 class="title">$title$</h1>
+$for(author)$
+<h3 class="author">$author$</h3>
+$endfor$
+<h3 class="date">$date$</h3>
+</header>
+
+$if(toc)$
+<section>
+<h2>Aperçu</h2>
+<nav id="$idprefix$TOC">
+$toc$
+</nav>
+</section>
+$endif$
+
+$body$
+
+$for(include-after)$
+$include-after$
+$endfor$
+    </body>
+</html>
