@@ -1,4 +1,5 @@
-files = src/annexe.md
+files = src/introduction_a_la_theorie_des_probabilites.md \
+		src/annexe.md
 latex_flags = -SNs --normalize --listings --chapters
 
 common_html_flags = -SNs --toc --toc-depth=6 --normalize \
