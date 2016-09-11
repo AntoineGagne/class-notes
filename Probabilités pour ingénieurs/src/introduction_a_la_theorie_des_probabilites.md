@@ -27,11 +27,11 @@ où
 | $n(A)$: Nombre de fois que $A$ est réalisé
 
 **Définition**
-:   $\mathcal{E} \longrightarrow \Omega$
+:   $\mathscr{E} \longrightarrow \Omega$
 
 où
 
-| $\mathcal{E}$: Expérience aléatoire
+| $\mathscr{E}$: Expérience aléatoire
 | $\Omega$: L'ensemble de tous les résultats possibles (connus)
 
 **Exemple**: Quelle est la probabilité d'obtenir un 10 en tirant deux dés ?
@@ -51,7 +51,7 @@ $$
 La cardinalité de l'ensemble des résultats connus est
 
 $$
-\left\mid \Omega\right\mid = 36
+\left | \Omega \right | = 36
 $$
 
 Nous avons donc la probabilité suivante:
