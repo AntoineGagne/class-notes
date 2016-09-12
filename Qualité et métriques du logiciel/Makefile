@@ -1,4 +1,5 @@
 files = src/presentation_du_cours.md \
+		src/introduction_a_la_qualite.md \
 		src/annexe.md
 latex_flags = -SNs --normalize --listings --chapters
 

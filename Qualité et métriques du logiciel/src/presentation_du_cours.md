@@ -1,6 +1,6 @@
 % Qualité et métrique du logiciel
 % Antoine Gagné
-% 7 septembre 2016
+% Mon Sep 12 18:58:57 EDT 2016
 
 Ces notes tirés du cours *Qualité et métriques du logiciel* traitent des points suivants:
 
@@ -12,6 +12,8 @@ Ces notes tirés du cours *Qualité et métriques du logiciel* traitent des poin
 - Application et prise en charge de la qualité dans un projet (suivi des anomalies, intégration continue, etc.).
 - Audit et certification.
 - Outils spécialisés et automatisation.
+
+# Présentation du cours
 
 ## Types de qualité
 
