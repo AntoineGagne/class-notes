@@ -9,23 +9,27 @@
 2. Faire passer le test (avec le minimum)
 3. Réusiner: modifier le code sans changer les fonctionnalités
 
+On teste seulement **un** seul comportement par test.
+
 ### Exemple de test
 
 ```java
 // StackTest.java
 package ca.ulaval.this.stack;
 
-public class Integerthis.stackTest {
+public class IntegerStackTest {
 
     private static final int AN_ELEMENT = 5;
-    private Integerthis.stack this.stack;
+    private static final int LAST_ELEMENT = 5;
+    private IntegerStack this.stack;
 
     @Before
-    public void ifEmptythis.stack() {
+    public void ifEmptyStack() {
         this.stack = new Integerthis.stack();
     }
 
     @Test
+    // Convention: Given_When_Then
     public void this.stackShouldInitiallyBeEmpty() {
         assertTrue(this.stack.isEmpty());
     }
@@ -47,16 +51,14 @@ public class Integerthis.stackTest {
 
     @Test
     public void anElement_whenPopped_shouldReturnElement() {
-        this.stack.push(AN_ELEMENT);
-
-        int returnedElement = this.stack.pop();
-
-        assertEquals(AN_ELEMENT, returnedElement);
+        this.stack.push(LAST_ELEMENT); 
+        int returnedElement = this.stack.pop(); 
+        assertEquals(LAST_ELEMENT, returnedElement);
     }
 }
 
 // Stack.java
-public class Integerthis.stack {
+public class IntegerStack {
     private boolean empty = true;
     private int lastElement;
 
@@ -69,7 +71,7 @@ public class Integerthis.stack {
         this.empty = false;
     }
 
-    public void pop(
+    public void pop() {
         this.empty = true;
         return this.lastElement;
     }
