@@ -9,19 +9,20 @@
 2. Faire passer le test (avec le minimum)
 3. Réusiner: modifier le code sans changer les fonctionnalités
 
-On teste seulement **un** seul comportement par test.
+On teste seulement **un** seul comportement par test, mais il peut y avoir plusieurs `assert` dans le test. Selon le CQS, une méthode devrait seulement être soit une *query/request* ou une commande.
 
 ### Exemple de test
 
 ```java
 // StackTest.java
-package ca.ulaval.this.stack;
+package ca.ulaval.IntegerStack;
 
 public class IntegerStackTest {
 
-    private static final int AN_ELEMENT = 5;
+    private static final int ONE_ELEMENT = 5;
     private static final int LAST_ELEMENT = 5;
-    private IntegerStack this.stack;
+    private static final int FIRST_ELEMENT = 4;
+    private IntegerStack stack;
 
     @Before
     public void ifEmptyStack() {
@@ -29,20 +30,20 @@ public class IntegerStackTest {
     }
 
     @Test
-    // Convention: Given_When_Then
-    public void this.stackShouldInitiallyBeEmpty() {
+    public void stackShouldInitiallyBeEmpty() {
         assertTrue(this.stack.isEmpty());
     }
 
     @Test
     public void whenPushing_shouldAddLElement() {
-        this.stack.push(AN_ELEMENT); 
+        this.stack.push(ONE_ELEMENT); 
         assertFalse(this.stack.isEmpty());
     }
 
     @Test
+    // Convention: Given_When_Then
     public void anElement_whenPopped_shouldRemoveElement() {
-        this.stack.push(AN_ELEMENT);
+        this.stack.push(ONE_ELEMENT);
 
         this.stack.pop();
 
@@ -51,9 +52,18 @@ public class IntegerStackTest {
 
     @Test
     public void anElement_whenPopped_shouldReturnElement() {
+        this.stack.push(FIRST_ELEMENT);
         this.stack.push(LAST_ELEMENT); 
-        int returnedElement = this.stack.pop(); 
-        assertEquals(LAST_ELEMENT, returnedElement);
+
+        int firstPop = this.stack.pop(); 
+        int secondPop = this.stack.pop();
+
+        assertEquals(LAST_ELEMENT, firstPop);
+        assertEquals(FIRST_ELEMENT, secondPop);
+    }
+
+    @Test(expected = NoElementException.class)
+    public void empty_whenPopped_throwNoElementException() {
     }
 }
 
@@ -61,6 +71,7 @@ public class IntegerStackTest {
 public class IntegerStack {
     private boolean empty = true;
     private int lastElement;
+    private List<Integer> elements = new ArrayList<>();
 
     public boolean isEmpty() {
         return this.empty;
@@ -72,8 +83,19 @@ public class IntegerStack {
     }
 
     public void pop() {
-        this.empty = true;
-        return this.lastElement;
+        this.vide = true;
+        int index = this.elements.size() - 1;
+        Integer element = this.elements.get(index);
+        this.elements.remove(0);
+        return this.elements;
     }
 }
 ```
+
+## Tests unitaires
+
+### Définition
+
+- Vide à répondre à la question: est-ce que le produit est construit correctement
+- Test ciblé et bas-niveau d'une unité
+- Un test unitaire est isolé
