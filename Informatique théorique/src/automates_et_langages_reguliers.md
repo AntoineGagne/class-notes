@@ -37,6 +37,14 @@ $$
 
 Si $\Sigma$ est un alphabet, la clotûre de $\Sigma$ dénotée par $\Sigma^*$ est l'ensemble des mots de **longueur finie** sur l'alphabet $\Sigma$. Par définition, $\epsilon \in \Sigma^*$ pour n'importe quel alphabet $\Sigma$.
 
+### Exemple
+
+Soit l'alphabet $\Sigma = \{a, b, c\}$. Alors,
+
+$$
+\Sigma^* = \{\epsilon, a, b, c, aa, ab, ac,\dots, aaa, aab, \dots, aaaa, aaab, \dots, aaaaa, \dots\}
+$$
+
 ## Langage
 
 ### Définition
