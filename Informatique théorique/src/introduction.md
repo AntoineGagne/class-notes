@@ -15,6 +15,8 @@ Ces notes tirées du cours *Informatique théorique* couvriront les sujets suiva
 
 ## Définition
 
+Un modèle de calcul, c'est un modèle qui reçoit des données en entrées, qui traite ces entrées et retourne le résultat en sortie.
+
 ## Types
 
 - **Automates finis**: Il s'agit de modèles de calcul extrêmement  simple. Ils sont dépourvus de mémoire et sont donc incapables de  savoir si  leur entrée  est un  bloc de  0 suivis  d'un block  1 de  même longueur.

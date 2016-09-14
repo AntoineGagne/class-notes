@@ -43,17 +43,17 @@ Si $\Sigma$ est un alphabet, la clotûre de $\Sigma$ dénotée par $\Sigma^*$ es
 
 Un langage est un sous-ensemble de $\Sigma^*$. Autrement dit, un langage est un ensemble de mots sur un alphabet donné.
 
-## Automates finis
-
-### Principe des tiroirs
+## Principe des tiroirs
 
 Le principe des tiroirs stipule que si on répartit les éléments d'un ensemble $A$ avec les éléments d'un ensemble $B$ et que $A < B$ alors il va y avoir des éléments de $B$ qui vont être jumelés plusieurs fois avec des éléments de $A$ différents. 
 
 Plus formellement, si nous avons $n, k \in \mathbb{N}^+$ et que nous répartissons $n$ paires de chaussettes dans $k$ tiroirs, alors un des tiroirs contient au moins deux paires de chaussettes. Plus généralement, un des tiroirs contient au moins $\frac{n}{k}$ paires de chaussettes.
 
-#### Exemple
+### Exemple
 
 Dans tout ensemble d'au moins 367 personnes, il existe toujours deux personnes qui ont la même date d'anniversaire.
+
+## Automates finis
 
 ### Définition
 
@@ -64,6 +64,8 @@ Un automate fini est une machine qui reçoit un mot en entrée lettre par lettre
 | $\delta: Q \times \Sigma \rightarrow Q$ est une fonction de transition
 | $q_0 \in Q$ est l'état initial
 | $F \subseteq Q$ est l'ensemble des états acceptants, aussi appelés états finaux
+
+Pour un même langage $L$, il peut y avoir plusieurs automates possibles pour reconnaître $L$ (il n'y en a toutefois qu'un seul de taille minimale).
 
 ### Diagrammes d'état
 
@@ -106,3 +108,13 @@ Le langage accepté (aussi appelé langage reconnu) par un automate fini déterm
 ### Langage régulier
 
 Un langage $K \subseteq \Sigma^*$ est un langage régulier s'il existe un automate fini déterministe tel que $L(M) = K$.
+
+### Exemple de construction d'automate fini déterministe
+
+Sur l'alphabet $\{0, 1\}$, soit $L$ l'ensemble des mots dans lesquels chaque $0$ est suivi d'un $1$. Montrons que $L$ est régulier.
+
+- Il faut accepter le mot vide, car il est possible que la première lettre soit un 1.
+- Il faut que le premier état soit un état acceptant parce que si on reçoit juste un $1$, l'automate s'arrête.
+- Il va également falloir avoir un état poubelle pour les cas où un $0$ est suivi d'un autre $0$.
+
+
