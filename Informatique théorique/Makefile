@@ -1,4 +1,5 @@
 files = src/introduction.md \
+		src/automates_et_langages_reguliers.md \
 		src/annexe.md
 latex_flags = -SNs --normalize --listings --chapters
 
