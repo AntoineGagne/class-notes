@@ -15,7 +15,7 @@ $\Sigma = \{a, b, c\}$ est un alphabet.
 ### Définition
 
 Un mot ou une séquence est une suite finie de lettres de l'alphabet.
-La longueur d'un mot $w$ est dénoté $|w|$
+La longueur d'un mot $w$ est dénoté $|w|$.
 
 ### Concaténation
 
