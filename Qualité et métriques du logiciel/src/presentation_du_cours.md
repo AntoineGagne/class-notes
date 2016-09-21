@@ -1,6 +1,6 @@
 % Qualité et métrique du logiciel
 % Antoine Gagné
-% Mon Sep 12 19:55:17 EDT 2016
+% Mon Sep 19 18:48:43 EDT 2016
 
 Ces notes tirés du cours *Qualité et métriques du logiciel* traitent des points suivants:
 
