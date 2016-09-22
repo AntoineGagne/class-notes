@@ -26,7 +26,7 @@ public class IntegerStackTest {
 
     @Before
     public void ifEmptyStack() {
-        this.stack = new Integerthis.stack();
+        this.stack = new IntegerStack();
     }
 
     @Test
