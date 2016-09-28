@@ -15,12 +15,12 @@ html_flags = --mathjax \
 self_contained_html_flags = --self-contained \
 							--css=../templates/css/notes_style.css \
 							--mathml
-js_graph_library = ../templates/scripts/build/sigma.min.js \
-				   ../templates/scripts/build/plugins/sigma.parsers.json.min.js \
-				   ../templates/scripts/build/plugins/sigma.renderers.edgeLabels.min.js \
-				   ../templates/scripts/build/plugins/sigma.renderers.parallelEdges.min.js \
-				   ../templates/scripts/build/plugins/sigma.renderers.customEdgeShapes.min.js \
-				   ../templates/scripts/build/plugins/sigma.renderers.customShapes.min.js
+js_graph_library = ../templates/scripts/graphs/sigma.min.js \
+				   ../templates/scripts/graphs/plugins/sigma.parsers.json.min.js \
+				   ../templates/scripts/graphs/plugins/sigma.renderers.edgeLabels.min.js \
+				   ../templates/scripts/graphs/plugins/sigma.renderers.parallelEdges.min.js \
+				   ../templates/scripts/graphs/plugins/sigma.renderers.customEdgeShapes.min.js \
+				   ../templates/scripts/graphs/plugins/sigma.renderers.customShapes.min.js
 
 all: self_contained_html html
 
