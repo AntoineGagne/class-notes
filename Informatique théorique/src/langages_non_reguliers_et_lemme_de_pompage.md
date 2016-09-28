@@ -16,6 +16,22 @@ Cela doit donc être le cas pour le mot $w = a^pb^p$ et il existe donc un décou
 
 Le lemme de pompage nous assure que ce mot appartient à $K$ mais cela n'est pas le cas puisque $p + \lvert y \rvert \gt p$. Cette contradiction montre que $K$ n'est pas régulier.
 
+### Autre exemple
+
+On souhaite démontrer que $K = \{xx \mid x \in \{a, b\}^*\}$ n'est pas régulier. Supposons que $K$ est régulier et donc que $K$ satisfait le lemme de pompage pour une certaine longueur de pompage $p \gt 0$. 
+
+Quel que soit $p$, considérons le mot $w = a^pb^pa^pb^p$. Ce mot est de longueur $4p$ et appartient à $K$ donc il peut être &laquo; pompé &raquo; (c'est-à-dire décomposé selon les conditions du lemme de pompage).
+
+Plus précisément, il existe $w = xyz$ tel que
+
+1. $\lvert xy \rvert \le p$
+2. $\lvert y \rvert \gt 0$
+3. $xy^iz \in K$
+
+Puisque $\lvert xy \rvert \le p$ et puisque les $p$ premiers symboles de $w$ sont des $a$, on sait que $y$ ne contient que des $a$ (Notez qu'on ne sait pas exactement combien de $a$ sont contenus dans $y$, on sait seulement qu'il y en a $j$ pour un certain $j$ compris entre $1$ et $p$).
+
+Prenons $i = 2$. On a $xy^2z = xyyz = a^{p + j}b^pa^pb^p$, mais ce mot ne fait clairement pas partie du langage puisque $j > 0$. Cela contredit le lemme de pompage, donc $K$ n'est pas régulier.
+
 ## Automates finis non-déterministes
 
 ### Définition
@@ -48,3 +64,139 @@ Soit $M = (Q, \Sigma, \rho, q_0, F)$ un automate fini non-déterministe. On dit 
 $q_0 = p_0 \xrightarrow{a_1} p_1 \xrightarrow{a_2} p_2 \dots p_{n - 1} \xrightarrow{a_n} p_n \in F$
 
 La séquence d'états $p_0, p_1, \dots, p_n$ correspond à un chemin tracé par le mot $w$ dans le diagramme de transitions correspondant à $M$ à partir de l'état initial $q_0$. La définition dit donc que $w$ est accepté s'il existe un chemin étiqueté $w$ qui, à partir de l'état initial, aboutit dans un état acceptant.
+
+Tant que la séquence est capable d'atteindre l'état acceptant, on dit que la séquence est acceptée et même si le mot fini sur un état non-acceptant.
+
+### Déterminisation des AFN
+
+Pour tout automate fini non-déterministe $N$, il existe un automate fini déterministe $D$ tel que $L(N) = L(D)$.
+
+## Automates non-déterministes avec transitions $\epsilon$
+
+### Définition
+
+Un automate fini non-déterministe avec transitions $\epsilon$ (abrégé $\epsilon$-AFN) est un automate fini non-déterministe auquel on rajoute des transitions de la forme ($p$, $\epsilon$, $q$). Ces transitions peuvent être utilisées à volonté et permettent de « sauter » d'un état $p$ à un état $q$.
+
+### Théorème
+
+Pour tout $\epsilon$-AFN $N$, il existe un automate fini déterministe $D$ tel que $L(N) = L(D)$.
+
+### Exemple
+
+<div id='exemple-1-epsilon-afn' style="height: 400px"></div>
+
+<script type="text/javascript">
+    (function () {
+        const data = {
+            "nodes": [
+                {
+                    "id": "a",
+                    "label": "A",
+                    "x": 0,
+                    "y": 0,
+                    "size": 5
+                },
+                {
+                    "id": "b",
+                    "label": "B",
+                    "x": 1,
+                    "y": 0,
+                    "size": 5
+                },
+                {
+                    "id": "c",
+                    "label": "C",
+                    "x": 2,
+                    "y": 0,
+                    "size": 5
+                },
+                {
+                    "id": "d",
+                    "label": "D",
+                    "x": 0,
+                    "y": 1,
+                    "size": 5
+                }
+            ],
+            "edges": [
+                {
+                    "id": "edge-ab",
+                    "label": "a, ϵ",
+                    "source": "a",
+                    "target": "b",
+                    "size": 4,
+                    "type": "arrow"
+                },
+                {
+                    "id": "edge-bc",
+                    "label": "b",
+                    "source": "b",
+                    "target": "c",
+                    "size": 4,
+                    "type": "curvedArrow"
+                },
+                {
+                    "id": "edge-cb",
+                    "label": "a",
+                    "source": "c",
+                    "target": "b",
+                    "size": 4,
+                    "type": "curvedArrow"
+                },
+                {
+                    "id": "edge-ad",
+                    "label": "b",
+                    "source": "a",
+                    "target": "d",
+                    "size": 4,
+                    "type": "arrow"
+                },
+                {
+                    "id": "edge-bd",
+                    "label": "a",
+                    "source": "b",
+                    "target": "d",
+                    "size": 4,
+                    "type": "arrow"
+                },
+                {
+                    "id": "edge-dd",
+                    "label": "a, b",
+                    "source": "d",
+                    "target": "d",
+                    "size": 4,
+                    "type": "curvedArrow"
+                },
+                {
+                    "id": "edge-bb",
+                    "label": "a",
+                    "source": "b",
+                    "target": "b",
+                    "size": 4,
+                    "type": "curvedArrow"
+                },
+                {
+                    "id": "edge-cc",
+                    "label": "b",
+                    "source": "c",
+                    "target": "c",
+                    "size": 4,
+                    "type": "curvedArrow"
+                }
+            ]
+        };
+
+        const exemple1AnfEpsilon = new sigma({
+            graph: data,
+            renderer: {
+                container: 'exemple-1-epsilon-afn',
+                type: "canvas"
+            },
+            settings: {
+                defaultNodeColor: '#ec5148'
+            }
+        });
+    })();
+</script>
+
+Le mot $bb$ est accepté car on peut passer de l'état initial $A$ à l'état $B$ en utilisant la $\epsilon$-transition.

@@ -1,4 +1,13 @@
 # Annexe
 
-**ANF**
-:   Automate fini non-déterministe
+## Liste des sigles et acronymes
+
++----------------+------------------------------------------------------------+
+| **Acronyme**   | **Nom complet**                                            |
++================+============================================================+
+| ANF            | Automate fini non-déterministe                             |
++----------------+------------------------------------------------------------+
+| $\epsilon$-AFN | Automate fini non-déterministe avec transitions $\epsilon$ |
++----------------+------------------------------------------------------------+
+
+## Définitions

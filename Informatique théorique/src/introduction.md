@@ -1,6 +1,6 @@
 % Informatique théorique
 % Antoine Gagné
-% Wed Sep 14 09:42:08 EDT 2016
+% Wed Sep 28 10:36:50 EDT 2016
 
 Ces notes tirées du cours *Informatique théorique* couvriront les sujets suivants:
 

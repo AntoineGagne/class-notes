@@ -1,5 +1,7 @@
 # Annexe
 
+## Liste de définitions
+
 **Biologie de synthèse**
 :   Science qui cherche à créer de la vie en laboratoire.
 
@@ -11,6 +13,11 @@
 
 **Effets émergents**
 :   Des effets qui sont découverts plus tard après une catastrophe.
+
+**Homoncule**
+:   Un      adulte      miniature      qui,      selon      la      théorie      de
+    préformation,    habiterait    la     cellule    germatrice    et    produirait
+    un    individu   mature    seulement   par    une   augmentation    de   taille.
 
 **Malus**
 :   Qui s'oppose au minimax.

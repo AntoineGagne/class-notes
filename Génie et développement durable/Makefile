@@ -1,5 +1,6 @@
 files = src/introduction.md \
 		src/industrialisation_et_catastrophe.md \
+		src/biologie_de_synthese.md \
 		src/annexe.md
 latex_flags = -SNs --normalize --listings --chapters
 
