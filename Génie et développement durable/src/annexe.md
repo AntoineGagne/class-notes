@@ -5,8 +5,14 @@
 **Biologie de synthèse**
 :   Science qui cherche à créer de la vie en laboratoire.
 
+**Biomimétisme**
+:   Imitation du vivant.
+
 **Catastrophe**
 :   Événement qu'on ne peut contrôler ou anticiper.
+
+**Écomimétisme**
+:   Imitation de l'environnement.
 
 **Écoumène**
 :   Terme utilisé pour spécifié une zone habité par des humains.
