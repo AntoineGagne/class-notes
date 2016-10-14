@@ -1,1 +1,1 @@
-web: npm start
+web: make -j 4 && npm start

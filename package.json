@@ -4,6 +4,6 @@
     },
     "main": "index.js",
     "scripts": {
-        "start": "make -j 4 && node index.js"
+        "start": "node index.js"
     }
 }
