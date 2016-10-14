@@ -39,3 +39,25 @@ Les deux touchent à l'économie, mais le développement durable parle du besoin
 ## Économie monde
 
 Ensemble géographique qui dicte comment l'économie fonctionne.
+
+## Dépendance au pétrole
+
+Génère différents types de problèmes:
+
+- Inventivité
+- Ordre politique
+    - La richesse provenant du pétrole permet à certains États de se maintenir malgré de nombreux manquements face au *Droit international*.
+
+### Problème du pétrole
+
+- Source importante de pollution
+- Défis en matière d'éthique de l'environnement
+- Répartition peu équitable des capitaux pour des raisons historiques
+
+### Par rapport au développement durable
+
+Le développement durable implique une vision *tripartite* de la réalité internationale axée sur une **synergie**:
+
+- Environnement
+- Économie
+- Société

@@ -25,3 +25,18 @@ L'industrie chimique utilisée pour éliminer les choses nuisibles. Cette révol
 ## Pêche
 
 La pêche n'est pas une activité durable pour le moment.
+
+## Agroalimentaire
+
+### Importance
+
+- Une des activités économiques les plus importantes dans la majorité des pays. 
+- Importance stratégique dépassant la simple balance commerciale, malgré les traités de libre-échange.
+    - Politiques de souveraineté alimentaire
+    - Possession et occupation des territoires
+    - Rapport à la culture structurant (dans la tradition française)
+- Point de rencontre de l’innovation technologique, de la protection de la biodiversité et de la résilience des cultures.
+
+### Impact de la libéralisation et de la capitalisation
+
+- Augmentation du coût des aliments de base

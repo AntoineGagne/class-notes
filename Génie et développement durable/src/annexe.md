@@ -27,9 +27,9 @@
 :   Tout supérieur à la somme de ses parties.
 
 **Homoncule**
-:   Un      adulte      miniature      qui,      selon      la      théorie      de
-    préformation,    habiterait    la     cellule    germatrice    et    produirait
-    un    individu   mature    seulement   par    une   augmentation    de   taille.
+:   Un adulte miniature qui, selon la théorie de
+    préformation, habiterait la cellule germatrice et produirait
+    un individu mature seulement par une augmentation de taille.
 
 **Malus**
 :   Qui s'oppose au minimax.
@@ -37,11 +37,17 @@
 **Métaphysique**
 :   Qui n'a pas trait au physique.
 
+**Minimax**
+:   La notion de rendre *minimal* le dommage *maximum*.
+
 **Néolibéralisme**
 :   Pas un mouvement unifié. Il s'agit d'une école de pensée.
 
 **Oligarchie**
 :   Monopole de plusieurs personnes.
+
+**Présupposé**
+:   Théorie rationaliste qui s’appuie sur l’idée selon laquelle la raison humaine peut établir des règles morales a priori.
 
 **Technosphère**
 :   Terme      utilisé      pour     désigné      les      terres      qui
