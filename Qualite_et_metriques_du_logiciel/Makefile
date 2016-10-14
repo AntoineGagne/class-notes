@@ -17,14 +17,14 @@ self_contained_html_flags = --self-contained \
 							--css=../templates/css/notes_style.css \
 							--mathml
 
-all: self_contained_html html
+all: html
 
 html: create_dir
-	pandoc $(common_html_flags) $(html_flags) $(files) -o ./build/notes.html
+	pandoc $(common_html_flags) $(html_flags) $(files) -o ./build/index.html
 
 self_contained_html: create_dir
 	pandoc $(common_html_flags) $(self_contained_html_flags) $(files) \
-		-o ./build/self_contained_notes.html
+		-o ./build/index.html
 
 pdf: create_dir
 	pandoc $(latex_flags) $(files) -o ./build/notes.pdf

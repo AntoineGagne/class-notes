@@ -22,14 +22,14 @@ js_graph_library = ../templates/scripts/graphs/sigma.min.js \
 				   ../templates/scripts/graphs/plugins/sigma.renderers.customEdgeShapes.min.js \
 				   ../templates/scripts/graphs/plugins/sigma.renderers.customShapes.min.js
 
-all: self_contained_html html
+all: html
 
 html: copy_graphing_library	
-	pandoc $(common_html_flags) $(html_flags) $(files) -o ./build/notes.html
+	pandoc $(common_html_flags) $(html_flags) $(files) -o ./build/index.html
 
 self_contained_html: copy_graphing_library
 	pandoc $(common_html_flags) $(self_contained_html_flags) $(files) \
-		-o ./build/self_contained_notes.html
+		-o ./build/index.html
 
 pdf: create_dir
 	pandoc $(latex_flags) $(files) -o ./build/notes.pdf

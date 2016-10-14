@@ -1,3 +1,7 @@
+% Processus du génie logiciel
+% Antoine Gagné
+% Fri Oct 14 16:01:19 EDT 2016
+
 # Le praticien réflexif; l'ingénieur logiciel et le professionnalisme
 
 ## Le practicien réflexif
