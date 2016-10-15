@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 files = src/presentation_du_cours.md \
 		src/introduction_a_la_qualite.md \
 		src/architecture_le_domaine.md \

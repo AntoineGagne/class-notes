@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 files = src/introduction_a_la_theorie_des_probabilites.md \
 		src/analyse_combinatoire.md \
 		src/annexe.md

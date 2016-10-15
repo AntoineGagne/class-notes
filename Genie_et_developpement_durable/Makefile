@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 files = src/introduction.md \
 		src/industrialisation_et_catastrophe.md \
 		src/biologie_de_synthese.md \

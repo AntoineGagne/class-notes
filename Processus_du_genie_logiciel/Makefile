@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 files = ./src/practicien.md \
 		./src/annexe.md
 

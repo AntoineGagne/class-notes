@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 SUBDIRS = Genie_et_developpement_durable \
 		  Informatique_theorique \
 		  Modeles_et_langages_de_bases_de_donnees \

@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 files = ./src/introduction.md \
 		./src/SGBD_et_modele_relationnel_de_donnees.md \
 		./src/normalisation.md \
