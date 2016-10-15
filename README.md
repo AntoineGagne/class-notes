@@ -14,4 +14,6 @@ A collection of my class notes taken in Markdown.
 To build, you must first go into the directory for which you want the notes and you then run the command `make`.
 If you want to remove the notes, you just run the command `make clean`.
 
+## Online
 
+The notes are also hosted online at this [address](https://class-notes.herokuapp.com/).
