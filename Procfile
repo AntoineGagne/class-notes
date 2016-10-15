@@ -1,1 +1,1 @@
-web: apt-get install pandoc && make -j 4 && npm start
+web: which pandoc && make -j 4 && npm start
