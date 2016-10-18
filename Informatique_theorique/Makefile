@@ -19,21 +19,13 @@ html_flags = --mathjax \
 self_contained_html_flags = --self-contained \
 							--css=../templates/css/notes_style.css \
 							--mathml
-js_graph_library = ../templates/scripts/graphs/sigma.min.js \
-				   ../templates/scripts/graphs/plugins/sigma.parsers.json.min.js \
-				   ../templates/scripts/graphs/plugins/sigma.renderers.edgeLabels.min.js \
-				   ../templates/scripts/graphs/plugins/sigma.renderers.parallelEdges.min.js \
-				   ../templates/scripts/graphs/plugins/sigma.renderers.customEdgeShapes.min.js \
-				   ../templates/scripts/graphs/plugins/sigma.renderers.customShapes.min.js
-
 all: html
 
-html: copy_graphing_library	
+html: create_dir
 	pandoc $(common_html_flags) $(html_flags) $(files) -o ./build/index.html
 
-self_contained_html: copy_graphing_library
-	pandoc $(common_html_flags) $(self_contained_html_flags) $(files) \
-		-o ./build/index.html
+self_contained_html: create_dir
+	pandoc $(common_html_flags) $(self_contained_html_flags) $(files) -o ./build/index.html
 
 pdf: create_dir
 	pandoc $(latex_flags) $(files) -o ./build/notes.pdf
@@ -41,9 +33,6 @@ pdf: create_dir
 sort_appendix: 
 	cat ./src/annexe.md | ./sort_appendix.py > temp.md \
 		&& mv temp.md ./src/annexe.md
-
-copy_graphing_library: create_dir
-	cp $(js_graph_library) build/
 
 create_dir:
 	mkdir -p build

@@ -2,20 +2,29 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Class Notes</title>
+        <title>Notes de cours</title>
 
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"/>
 
-        <link rel="stylesheet" href="templates/css/notes_style.css">
-        <script src="templates/script/menu.js"></script>
+        <link rel="stylesheet" href="templates/css/notes_style.css"/>
+        <script src="templates/scripts/menu.js"></script>
     </head>
 
     <body>
-        <header>
-            <nav>
+        <nav>
+            <div class="navbar">
+                <button id="toggle-nav">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+
+            <section id="TOC">
                 <ul>
                     <li>
                         <a href="genie-developpement-durable/">Génie et développement durable</a>
@@ -39,7 +48,14 @@
                         <a href="systemes-exploitation-pour-ingenieurs/">Systèmes d'exploitation pour ingénieurs</a>
                     </li>
                 </ul>
-            </nav>
-        </header>
+            </section>
+        </nav>
+
+        <article>
+            <header>
+                <h1 class="title">Notes de cours</h1>
+                <h3 class="author">Antoine Gagné</h3>
+            </header>
+        </article>
     </body>
 </html>
