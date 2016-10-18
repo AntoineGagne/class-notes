@@ -1,4 +1,4 @@
-% Qualité et métrique du logiciel
+% Qualité et métriques du logiciel
 % Antoine Gagné
 % Mon Sep 19 18:48:43 EDT 2016
 

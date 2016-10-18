@@ -1,4 +1,4 @@
-% Notes de cours
+% Modèles et langages de bases de données
 % Antoine Gagné
 % 5 février 2016
 
