@@ -3,6 +3,7 @@ SHELL := /bin/bash
 files = src/introduction.md \
 		src/automates_et_langages_reguliers.md \
 		src/langages_non_reguliers_et_lemme_de_pompage.md \
+		src/expressions_regulieres.md \
 		src/automates_a_piles.md \
 		src/annexe.md
 latex_flags = -SNs --normalize --listings --chapters
