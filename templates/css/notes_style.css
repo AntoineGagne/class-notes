@@ -103,6 +103,7 @@ a {
 }
 
 .title {
+    font-variant: small-caps;
     margin-top: 1em;
     margin-bottom: 0.4em;
 }
