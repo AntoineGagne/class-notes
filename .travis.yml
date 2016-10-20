@@ -1,5 +1,6 @@
+language: haskell
 before_script:
-- sudo apt-get install pandoc
+- sudo cabal install pandoc
 script: make -j 4
 deploy:
   api_key:
