@@ -1,5 +1,5 @@
 before_script:
-- apt-get install pandoc
+- sudo apt-get install pandoc
 script: make -j 4
 deploy:
   api_key:
