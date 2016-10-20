@@ -1,4 +1,4 @@
-# Class Notes
+# Class Notes [![Build Status](https://travis-ci.org/AntoineGagne/class-notes.svg?branch=master)](https://travis-ci.org/AntoineGagne/class-notes)
 
 A collection of my class notes taken in Markdown.
 
