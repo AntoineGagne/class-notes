@@ -1,7 +1,7 @@
-language: R
+language: c
 sudo: false
 
-script: make -j 4
+script: echo "Dummy build"
 
 deploy:
   api_key:
