@@ -8,12 +8,19 @@ SUBDIRS = Genie_et_developpement_durable \
 		  Qualite_et_metriques_du_logiciel \
 		  Systemes_d_exploitation_pour_ingenieurs
 
-BUILDDIRS = $(DIRS:%=build-%)
-CLEANDIRS = $(DIRS:%=clean-%)
+BUILDDIRS = $(SUBDIRS:%=build-%)
+CLEANDIRS = $(SUBDIRS:%=clean-%)
+
+all: $(BUILDDIRS)
+$(SUBDIRS): $(BUILDDIRS)
+$(BUILDDIRS):
+	$(MAKE) -C $(@:build-%=%)
+
+clean: $(CLEANDIRS)
+$(CLEANDIRS): 
+	$(MAKE) -C $(@:clean-%=%) clean
 
 .PHONY: subdirs $(SUBDIRS)
-
-all: $(SUBDIRS)
-
-$(SUBDIRS):
-	$(MAKE) -C $@
+.PHONY: subdirs $(BUILDDIRS)
+.PHONY: subdirs $(CLEANDIRS)
+.PHONY: all clean
