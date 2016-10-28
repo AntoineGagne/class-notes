@@ -47,11 +47,12 @@
 :   Monopole de plusieurs personnes.
 
 **Présupposé**
-:   Théorie rationaliste qui s’appuie sur l’idée selon laquelle la raison humaine peut établir des règles morales a priori.
+:   Théorie rationaliste qui s’appuie sur l’idée selon laquelle la raison 
+    humaine peut établir des règles morales a priori.
 
 **Technosphère**
-:   Terme      utilisé      pour     désigné      les      terres      qui
-    ont   été    habité     et      transformé     par      les     humains.
+:   Terme utilisé pour désigné les terres qui ont été habité et transformé par 
+    les humains.
 
 **Transhumanisme**
 :   Mouvement de pensée qui dit qu'on est capable de contrôler l'évolution.
