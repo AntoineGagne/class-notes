@@ -6,6 +6,7 @@ files = src/presentation_du_cours.md \
 		src/clean_code.md \
 		src/revues_de_code.md \
 		src/laboratoire_1.md \
+		src/projet_de_session.md \
 		src/annexe.md
 latex_flags = -SNs --normalize --listings --chapters
 

@@ -18,6 +18,15 @@
     top: 0;
 }
 
+.footnoteRef {
+    transition: ease-in-out .15s color;
+    color: red;
+}
+
+.footnoteRef:hover {
+    color: darkred;
+}
+
 #toggle-nav {
     cursor: pointer;
     margin-top: 5px;
