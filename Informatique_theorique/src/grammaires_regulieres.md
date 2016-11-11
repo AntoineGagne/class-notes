@@ -61,3 +61,29 @@ $$\begin{align}
 Que nous pourrions réécrire
 
 $$S \implies ASC \implies aSC \implies aBC \implies abBC \implies abC \implies abc$$
+
+## Exemple
+
+On peut dériver la séquence $aabbcc$ comme suit:
+
+$$S \implies abNSc$$
+
+Règles:
+
+| $S \rightarrow abNSc$
+| $S \rightarrow \epsilon$
+| $bNa \rightarrow abN$
+| $bNb \rightarrow bbN$
+| $bNc \rightarrow bc$
+
+$$S \implies abNSc \implies abNabNScc \implies abNabNcc \implies aabNbNcc \implies aabbNcc \implies aabbcc$$
+
+## Langages générés par une grammaire
+
+### Définition
+
+Soit $G = (V, T, S, R)$. Si $T \subseteq \Sigma$ où $\Sigma$ est un alphabet, on dit que $G$ est une grammaire sur $\Sigma$. Soit
+
+$$L(G) = \{w \in T^* \mid w \text{ est dérivée de } S\}$$
+
+On dit que $L(G)$ est généré par $G$.
