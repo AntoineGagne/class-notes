@@ -283,29 +283,3 @@ Construisez un automate à pile qui accepte les mots de la forme $x\$y$ où $x$ 
         });
     })();
 </script>
-
-# Grammaires régulières
-
-## Définition
-
-Ensemble de règle qui permettent de *construire* les mots d'un langage. Les grammaires permettent de *générer* des langages.
-
-## Définition formelle
-
-Une grammaire est un quadruplet $(V, T, S, R)$ tel que
-
-- $V$ est un ensemble fini de symboles non terminaux (alphabet non terminal)
-- $T$ est un ensemble fini de symboles terminaux (alphabet terminal)
-- $S \in V$ est le *symbole de départ* qu'on nomme aussi axiome ou symbole initial
-- $R$ est un ensemble fini de règles de réécriture (ou productions ou règles de substitution). Elles sont formées d'un terme de gauche, d'une flèche ($\rightarrow$) et d,un terme de droite. Les termes gauche et droite peuvent être n'importe quelle combinaison de symboles de $V$ ou de $T$ pourvu qu'il y ait au moins un symbole de $V$ à gauche. Le côté droit peut être vide, ce qui est indiqué par un $\epsilon$. On parle alors de règle-$\epsilon$.
-
-## Exemple
-
-Voici une grammaire $(V, T, S, R)$ où 
-
-| $V = \{S, A, B, C\}$
-| $T = \{a, b, c\}$
-| $S$ est le symbole de départ
-| $R = \left\{ \begin{align} S &\rightarrow ASC \\ S &\rightarrow B \\ B &\rightarrow bB \\ B &\rightarrow \epsilon \\ A &\rightarrow a \\ C &\rightarrow c \end{align}\right\}$
-
-**Note:** La règle $B \rightarrow \epsilon$ est une règle-$\epsilon$
