@@ -35,7 +35,7 @@ $$
 
 ### Définition
 
-Si $\Sigma$ est un alphabet, la clotûre de $\Sigma$ dénotée par $\Sigma^*$ est l'ensemble des mots de **longueur finie** sur l'alphabet $\Sigma$. Par définition, $\epsilon \in \Sigma^*$ pour n'importe quel alphabet $\Sigma$.
+Si $\Sigma$ est un alphabet, la clôture de $\Sigma$ dénotée par $\Sigma^*$ est l'ensemble des mots de **longueur finie** sur l'alphabet $\Sigma$. Par définition, $\epsilon \in \Sigma^*$ pour n'importe quel alphabet $\Sigma$.
 
 ### Exemple
 

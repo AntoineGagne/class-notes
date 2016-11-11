@@ -90,9 +90,8 @@ On dit que $L(G)$ est généré par $G$.
 
 ### Exemple
 
-Quel est le langage généré par chacune des grammaires suivantes:
+Quel est le langage généré par la grammaire suivante:
 
-1.
 $$\begin{align}
     S &\rightarrow AB \\
     A &\rightarrow aA \\
@@ -114,3 +113,31 @@ Une grammaire régulière est une grammaire avec les restrictions suivantes:
     - soit un symbole terminal suivi d'un symbole non terminal
     - soit un seul symbole terminal
     - soit $\epsilon$
+
+### Exemple
+
+$$\begin{align}
+    S &\rightarrow bB \\
+    B &\rightarrow aA \\
+    A &\rightarrow aS \\
+    A &\rightarrow a \\
+    B &\rightarrow bA \\
+\end{align}$$
+
+est une grammaire régulière. Considérons deux exemples de dérivations.
+
+1.
+$$S \implies bB \implies bbA \implies bbaS \implies bbabB \implies bbabaA \implies bbabaa$$
+2.
+$$S \implies bB \implies baA \implies baaS \implies baabB \implies baabaA \implies baabaa$$
+
+### Exemple
+
+Construire une grammaire régulière générant le langage $\{a^pbc^q \mid p \in \mathbb{N} \land q \in \mathbb{N}^+\}$.
+
+| $S \rightarrow aS$
+| $S \rightarrow bA$
+| $A \rightarrow cA$
+| $A \rightarrow c$
+
+**Note:** On a la règle $A \rightarrow c$ et non la règle $A \rightarrow \epsilon$, car $q \in \mathbb{N}^+$. Pour avoir la règle $A \rightarrow \epsilon$, il aurait fallu avoir $q \in \mathbb{N}$.
