@@ -9,6 +9,7 @@ files = src/introduction.md \
 		src/energie.md \
 		src/discussion_en_classe.md \
 		src/dechets_societe_de_consommation_et_obsolescence_programmee.md \
+		src/developper_nord_du_quebec.md \
 		src/annexe.md
 latex_flags = -SNs --normalize --listings --chapters
 

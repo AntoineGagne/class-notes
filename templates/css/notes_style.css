@@ -19,6 +19,8 @@
 }
 
 .footnoteRef {
+    font-size: 0.9em;
+    padding-left: 1px;
     transition: ease-in-out .15s color;
     color: red;
 }
