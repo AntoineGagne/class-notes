@@ -1,4 +1,4 @@
-# Grammaires régulières
+# Grammaires
 
 ## Définition
 
@@ -87,3 +87,30 @@ Soit $G = (V, T, S, R)$. Si $T \subseteq \Sigma$ où $\Sigma$ est un alphabet, o
 $$L(G) = \{w \in T^* \mid w \text{ est dérivée de } S\}$$
 
 On dit que $L(G)$ est généré par $G$.
+
+### Exemple
+
+Quel est le langage généré par chacune des grammaires suivantes:
+
+1.
+$$\begin{align}
+    S &\rightarrow AB \\
+    A &\rightarrow aA \\
+    A &\rightarrow \epsilon \\
+    B &\rightarrow Bb \\
+    B &\rightarrow b \\
+\end{align}$$
+
+$$R: L = \{a^nb^m \mid m \in \mathbb{N}^+ \land n \in \mathbb{N}\}$$
+
+## Grammaires régulières
+
+### Définition
+
+Une grammaire régulière est une grammaire avec les restrictions suivantes:
+
+- Le côté gauche des règles consiste en un seul symbole non terminal
+- Le côté droit des règles est
+    - soit un symbole terminal suivi d'un symbole non terminal
+    - soit un seul symbole terminal
+    - soit $\epsilon$

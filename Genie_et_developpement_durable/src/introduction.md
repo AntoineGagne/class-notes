@@ -1,6 +1,5 @@
 % Génie et développement durable
 % Antoine Gagné
-% Fri Oct 14 12:13:31 EDT 2016
 
 # Introduction
 

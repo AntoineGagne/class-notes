@@ -1,5 +1,7 @@
 SHELL := /bin/bash
 
+NOW := $(shell date +"%c")
+
 files = src/introduction_a_la_theorie_des_probabilites.md \
 		src/analyse_combinatoire.md \
 		src/variable_aleatoire_et_distribution_le_cas_multidimensionnel.md \
@@ -9,6 +11,7 @@ latex_flags = -SNs --normalize --listings --chapters
 common_html_flags = -SNs --toc --toc-depth=6 --normalize \
 					--template=../templates/class_notes.html \
 					--to=html5 \
+					-V date="$(NOW)" \
 					-A ../templates/html/navbar_animations.html \
 					--section-divs
 html_flags = --mathjax \

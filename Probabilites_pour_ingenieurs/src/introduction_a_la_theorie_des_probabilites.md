@@ -1,6 +1,5 @@
 % Probabilités et statistiques pour ingénieurs
 % Antoine Gagné
-% Thu Sep 8 11:54:41 EDT 2016
 
 Ces notes tirées du cours *Probabilités et statistiques pour ingénieurs* traitent des sujets suivants:
 

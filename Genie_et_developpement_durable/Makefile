@@ -1,5 +1,7 @@
 SHELL := /bin/bash
 
+NOW := $(shell date +"%c")
+
 files = src/introduction.md \
 		src/industrialisation_et_catastrophe.md \
 		src/biologie_de_synthese.md \
@@ -13,6 +15,7 @@ latex_flags = -SNs --normalize --listings --chapters
 common_html_flags = -SNs --toc --toc-depth=6 --normalize \
 					--template=../templates/class_notes.html \
 					--to=html5 \
+					-V date="$(NOW)" \
 					-A ../templates/html/navbar_animations.html \
 					--section-divs
 html_flags = --mathjax \
