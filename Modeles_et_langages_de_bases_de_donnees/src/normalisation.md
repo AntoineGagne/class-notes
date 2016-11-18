@@ -174,13 +174,13 @@ Nous avons une table avec les attributs *teacher_id*, *subject*
 et *teacher_age*. La clé primaire est donnée par les attributs
 *teacher_id* et *subject*.
 
-![Exemple de la normalisation d'une table en 1NF - Première photo](images/1NF_to_2NF.png)
+![Exemple de la normalisation d'une table en 1NF - Première photo](../images/1NF_to_2NF.png)
 
 Comme *teacher_age* dépend de *teacher_id* seulement, il n'est
 pas complètement dépendant de la clé primaire. Nous devons donc
 séparer la table comme suit:
 
-![Exemple de la normalisation d'une table en 1NF - Deuxième photo](images/1NF_to_2NF_2nd_image.png)
+![Exemple de la normalisation d'une table en 1NF - Deuxième photo](../images/1NF_to_2NF_2nd_image.png)
 
 ### Deuxième forme normale à la troisième forme normale
 
@@ -206,7 +206,7 @@ Nous avons les attributs *emp_id*, *emp_name*, *emp_zip*,
 *emp_state*, *emp_city* et *emp_district*. L'attribut 
 *emp_id* est la clé primaire. 
 
-![Exemple de la normalisation d'une table en 2NF - Première photo](images/2NF_to_3NF.png)
+![Exemple de la normalisation d'une table en 2NF - Première photo](../images/2NF_to_3NF.png)
 
 On remarque que *emp_state*, *emp_city* et *emp_district* sont 
 dépendants de l'attribut *emp_zip* qui lui-même est dépendant 
@@ -214,4 +214,4 @@ de l'attribut *emp_id*. Nous avons donc une dépendance
 transitive. Pour s'en débarrasser, on sépare la table de la 
 façon suivante:
 
-![Exemple de la normalisation d'une table en 2NF - Deuxième photo](images/2NF_to_3NF_2nd_image.png)
+![Exemple de la normalisation d'une table en 2NF - Deuxième photo](../images/2NF_to_3NF_2nd_image.png)
