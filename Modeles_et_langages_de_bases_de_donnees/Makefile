@@ -24,8 +24,8 @@ self_contained_html_flags = --self-contained \
 
 all: html
 
-html: create_dir
-	pandoc $(common_html_flags) $(html_flags) $(files) -o ./build/index.html
+html: link_images
+	@pandoc $(common_html_flags) $(html_flags) $(files) -o ./build/index.html
 
 self_contained_html: create_dir
 	pandoc $(common_html_flags) $(self_contained_html_flags) $(files) \
@@ -39,7 +39,10 @@ sort_appendix:
 		&& mv temp.md ./src/annexe.md
 
 create_dir:
-	mkdir -p build
+	@mkdir -p build
+
+link_images: create_dir
+	@ln -sf "$(shell pwd)/images" build/
 
 clean:
 	rm -r ./build/

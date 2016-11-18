@@ -11,7 +11,7 @@
 
 Préexistante à un individu.
 
-![Communauté organique](../img/communaute_organique.svg)
+![Communauté organique](img/communaute_organique.svg)
 
 ##### Exemples
 
@@ -23,7 +23,7 @@ Préexistante à un individu.
 
 Basée sur les intérêts personnels.
 
-![Communauté d'intérêts](../img/communaute_dinterets.svg)
+![Communauté d'intérêts](img/communaute_dinterets.svg)
 
 ##### Exemples
 
