@@ -5,6 +5,7 @@ NOW := $(shell date +"%c")
 files = src/introduction_a_la_theorie_des_probabilites.md \
 		src/analyse_combinatoire.md \
 		src/variable_aleatoire_et_distribution_le_cas_multidimensionnel.md \
+		src/esperance_mathematique.md \
 		src/annexe.md
 latex_flags = -SNs --normalize --listings --chapters
 
