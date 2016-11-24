@@ -156,7 +156,7 @@
 - `thenCallsSeatAssignation` ne devrait pas avoir ce nom-là
     - `thenAssignSeat` serait mieux
     - Pourquoi `anyString` ?
-- `givenAPassengerHashAndRandomMode_whenAssignASeat_thenReturnsCreatedStatusCOdeANdValidLocation`
+- `givenAPassengerHashAndRandomMode_whenAssignASeat_thenReturnsCreatedStatusCodeAndValidLocation`
     - `String.format` inutile
 
 ### `SeatAssignationStrategyFactory`
