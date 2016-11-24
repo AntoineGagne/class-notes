@@ -64,8 +64,101 @@
 
 - Changer le nom `whenCreateReservation_thenReturnCreated`
 
-### Boarding
+### `Boarding`
 
 - Faire attention à respecter les principes de domaine
 - Surveiller les violations du *Tell Don't Ask*
 - Un objet `Passenger` dans `boarding` et dans `reservation`
+
+## Revue de code no. 2
+
+## `Boarding`
+
+### `AMSSimulator`
+
+- Nom à changer (ce n'est pas un simulateur)
+- Devrait être une interface
+- Devrait s'appeler `AMS` ou `AMSClient`
+- *Strategy* un peu trop *overkill*
+
+### `RandomPlanModelSelectionStrategy`
+
+- Pas de test pour `RandomPlanModelSelectionStrategy`
+- Pas de *seed*, pas uniforme
+
+### `BaggageResponseAssembler`
+
+- Il devrait avoir une validation des unités
+- Avoir un *value object* qui représente un poids
+    - Avec des méthodes comme `toUnit`
+
+### `BaggageService`
+
+- Utiliser une factory
+- Architecture lourde
+    - Les trucs économiques n'ont pas vraiment rapport avec les bagages
+    - Faire la logique dans le passager ou dans les deux
+
+### `seats`
+
+- Peut-être utiliser des sous-packages
+- Les `PlaneModelID` et autres ne devraient pas être dans `ams`
+- Les services ne vont pas dans le domaine
+    - Les services devraient être dans un autre package
+
+### `CheckedBaggage`
+
+- Avoir un *value object* éviterait les `if`
+
+### `Baggage`
+
+### `EconomicCheckedBaggage`
+
+#### Tests
+
+- Les tests vont être dupliqués
+- On va tester les classes abstraites quand la majorité des méthodes implémentées sont dans une classe abstraite
+- `givenInvalidLinearDimensionUnit_whenValidate_Baggage_thenThrowsException` devrait être dans l'assembleur
+
+### `FlightLayoutRepositoryInMemory`
+
+#### `assignSeat`
+
+- Un peu bizarre d'enlever le siège quand il est invalide
+- Ne semble pas faire partie d'un entrepôt
+    - Semble plus être dans le domaine
+
+### `SeatAssignation`
+
+- Peut-être du code qui ne devrait pas être là
+- Le nom ne correspond pas vraiment à ce que c'est
+- `Seat` devrait faire plus de choses
+- Il y a un problème de délégation
+
+#### `addFlightLayoutIfDoesNotExist`
+
+- Devrait être dans un *repository*
+- Devrait être appelé *blueprint*
+
+#### `filterBySeatClass`
+
+- Devrait être dans un *repository*
+    - Ou peut-être pas
+    - Devrait être néanmoins ailleurs
+
+### `SeatAssignationResource`
+
+#### Tests
+
+- Deux *ss* dans *resource*
+- L'assembleur devrait être *mocké*
+-  `givenAPassengerHashAndRandomMode`, le `RandomMode` pourrait être enlevé
+- `thenCallsSeatAssignation` ne devrait pas avoir ce nom-là
+    - `thenAssignSeat` serait mieux
+    - Pourquoi `anyString` ?
+- `givenAPassengerHashAndRandomMode_whenAssignASeat_thenReturnsCreatedStatusCOdeANdValidLocation`
+    - `String.format` inutile
+
+### `SeatAssignationStrategyFactory`
+
+- Peut-être faire un *enum*
