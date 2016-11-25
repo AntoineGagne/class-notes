@@ -14,4 +14,3 @@ for line in file_content:
     system_input += "\n\n" + line
 
 print(system_input[4:])
-
