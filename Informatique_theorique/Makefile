@@ -8,6 +8,7 @@ files = src/introduction.md \
 		src/expressions_regulieres.md \
 		src/automates_a_piles.md \
 		src/grammaires_regulieres.md \
+		src/machines_de_turing.md \
 		src/annexe.md
 latex_flags = -SNs --normalize --listings --chapters
 
