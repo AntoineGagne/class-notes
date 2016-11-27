@@ -5,8 +5,8 @@
 Une machine de Turing est un septuplet $(S, \Sigma, \Gamma, \delta, q_0, q_{\mathrm{acc}}, q_{\mathrm{rej}})$ où
 
 | $S$ est un ensemble fini d'états
-| $\Sigma$ est l'alphabet de la machine ou alphabet d'entrée (les séquences d'entrée sont formées avec cet alphabet.) L'espace libre (ou blanc), symbolisé par $‿$ (`U+203F`) ne fait pas partie de $\Sigma$, i.e. qu'on a $‿ \not\in \Sigma$
-| $\Gamma$ est l'alphabet du ruban, on a $\Sigma \subseteq \Gamma$ et $‿ \in \Gamma$
+| $\Sigma$ est l'alphabet de la machine ou alphabet d'entrée (les séquences d'entrée sont formées avec cet alphabet.) L'espace libre (ou blanc), symbolisé par $\sqcup$ ne fait pas partie de $\Sigma$, i.e. qu'on a $\sqcup \not\in \Sigma$
+| $\Gamma$ est l'alphabet du ruban, on a $\Sigma \subseteq \Gamma$ et $\sqcup \in \Gamma$
 | $\delta$ est la fonction de transition tel que
 
 $$\delta : (S \setminus \left\{q_{\mathrm{acc}}, q_{\mathrm{rej}}\right\} \times \Gamma \rightarrow S \times \Gamma \times \left\{L, R\right\})$$
@@ -41,7 +41,7 @@ Les diagrammes de transition pour les machines de Turing auront donc des flèche
 
 ### Exemple
 
-Prenons l'alphabet d'entrée $\left\{0, 1\right\}$ et l'alphabet de ruban $\left\{0, 1, \#, ‿\right\}$. Construisons un groupe d'états d'une machine de Turing qui a l'effet suivant:
+Prenons l'alphabet d'entrée $\left\{0, 1\right\}$ et l'alphabet de ruban $\left\{0, 1, \#, \sqcup\right\}$. Construisons un groupe d'états d'une machine de Turing qui a l'effet suivant:
 
 En partant de la configuration initiale sur un mot non-vide, la machine écrit $\#$ dans la première case puis décale toute la séquence d'entrée d'une case vers la droite.
 
@@ -133,7 +133,7 @@ Voici le diagramme de transitions de cette machine de Turing:
                 },
                 {
                     "id": "edge-AC",
-                    "label": "‿; 0, R",
+                    "label": "⊔; 0, R",
                     "source": "A",
                     "target": "C",
                     "size": 4,
@@ -141,7 +141,7 @@ Voici le diagramme de transitions de cette machine de Turing:
                 },
                 {
                     "id": "edge-BC",
-                    "label": "‿; 1, R",
+                    "label": "⊔; 1, R",
                     "source": "B",
                     "target": "C",
                     "size": 4,
@@ -169,8 +169,8 @@ $$\begin{align}
     &q_0 0  1 0     \\
     &\#  A  1 0     \\
     &\#  0  B 0     \\
-    &\#  0  1 A ‿   \\
-    &\#  0  1 0 C ‿ 
+    &\#  0  1 A \sqcup   \\
+    &\#  0  1 0 C \sqcup 
 \end{align}$$
 
 ## Différences avec les différents type d'automates
@@ -357,7 +357,7 @@ Le rôle des états 1 à 4 est d'assurer que la séquence d'entrée est bien de 
                 },
                 {
                     "id": "edge-34",
-                    "label": "‿; ‿, L",
+                    "label": "⊔; ⊔, L",
                     "source": "3",
                     "target": "4",
                     "size": 4,
@@ -421,7 +421,7 @@ Le rôle des états 1 à 4 est d'assurer que la séquence d'entrée est bien de 
                 },
                 {
                     "id": "edge-9qacc",
-                    "label": "‿; ‿, R",
+                    "label": "⊔; ⊔, R",
                     "source": "9",
                     "target": "qacc",
                     "size": 4,
@@ -429,7 +429,7 @@ Le rôle des états 1 à 4 est d'assurer que la séquence d'entrée est bien de 
                 },
                 {
                     "id": "edge-q0qacc",
-                    "label": "‿; ‿, R",
+                    "label": "⊔; ⊔, R",
                     "source": "q0",
                     "target": "qacc",
                     "size": 4,
