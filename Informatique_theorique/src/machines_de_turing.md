@@ -1,7 +1,6 @@
 # Machines de Turing
 
-## Définition
-
+## Définition 
 Une machine de Turing est un septuplet $(S, \Sigma, \Gamma, \delta, q_0, q_{\mathrm{acc}}, q_{\mathrm{rej}})$ où
 
 | $S$ est un ensemble fini d'états
@@ -512,3 +511,108 @@ Le langage accepté est le langage $L_a$. Le complément de $L_a$ est l'ensemble
 - Simplicité du modèle. Chaque instruction est vraiment réduite à sa plus simple expression
 - Malgré la simplicité, possède une très grande puissance de calcul
 - Défaut résultant: pour décrire avec une machine de Turing un processus compliqué, la machine est forcément très complexe
+
+## Langages Turing-acceptables
+
+Un langage est *Turing-acceptable* s'il existe un programme $M$ tel que étant donnée une entrée $w$:
+
+- Si $w \in L$ alors $M$ s'arrête et accepte $w$
+- Si $w \not\in L$ alors $M$ s'arrête et rejette $w$ ou ne s'arrête pas
+
+### Exemple
+
+Considérons le problème de déterminer si une machine de Turing donnée accepte une entrée donnée.
+
+$$\mathrm{Acc}_\mathrm{MT} = \left\{\left\langle M, w \right\rangle \mid M \text{ est une machine de Turing } \land M \text{ accepte } w\right\}$$
+
+Ce langage est Turing-acceptable puisque c'est précisément le langage reconnu par la machine de Turing universelle.
+
+## Décidabilité
+
+### Définition
+
+Un langage $L$ est *Turing-décidable* (ou simplement *décidable*) s'il existe une machine de Turing $M$ qui recevant $w$ en entrée
+
+- s'arrête et accepte si $w \in L$
+- s'arrête et rejette si $w \not\in L$
+
+Une telle machine est un *décideur* pour $L$.
+
+### Théorème
+
+Le langage suivant est décidable
+
+$$\mathrm{Acc}_{\mathrm{AFD}} = \left\{\left\langle M, w\right\rangle \mid M \text{ est un automate fini déterministe} \land M \text{ accepte } w\right\}$$
+
+### Théorème
+
+Si $L$ est Turing acceptable et si son complément $L^c$ est également Turing acceptable, alors le langage $L$ est décidable.
+
+## Indécidabilité
+
+### Théorème
+
+Le langage
+
+$$\mathrm{Acc}_{\mathrm{MT}} = \left\{\left\langle M, w \right\rangle \mid M \text{ est une machine de Turing} \land M \text{ accepte } w\right\}$$
+
+est indécidable.
+
+#### Démonstration
+
+La preuve est par contradiction. Supposons que $\mathrm{Acc}_{\mathrm{MT}}$ est décidable grâce à la machine de Turing $N$.
+
+$N$ a donc le comportement suivant. Elle reçoit $\left\langle M, w\right\rangle$ où $M$ est une machine de Turing et $w$ est une entrée pour cette machine. Après un nombre fini d'étapes, $N$ s'arrête et
+
+1. accepte si $M$ accepte $w$
+2. rejette explicitement si $M$ n'accepte pas
+
+Maintenant, construisons une nouvelle machine $D$ (comme dans diagonale) qui fait appel à $N$.
+
+| $D$ reçoit $\left\langle M \right\rangle$ et exécute $N$ sur l'entrée $\left\langle M, \left\langle M\right\rangle\right\rangle$.
+| Si $N$ accepte $\left\langle M, \left\langle M\right\rangle\right\rangle$, alors $D$ arrête et rejette $\left\langle M\right\rangle$
+| Si $N$ rejette $\left\langle M, \left\langle M\right\rangle\right\rangle$, alors $D$ arrête et accepte $\left\langle M\right\rangle$
+
+## Exemple
+
+Soit $NV_{\mathrm{MT}} = \left\{\left\langle N \right\rangle \mid N \text{ est une machine de Turing } \land L\left(N\right) \neq \varnothing\right\}$. Nous voulons montrer que ce langage n'est pas décidable.
+
+Supposons qu'il existe un algorithme $R$ qui permet de décider si $L\left(N\right) \neq \varnothing$ et montrons qu'un tel algorithme pourrait être exploité pour décider $\mathrm{Acc}_{\mathrm{MT}}$.
+
+Supposons que $NV_{\mathrm{MT}}$ est décidable grâce à la machine de Turing $R$. On peut définir pour chaque machine de Turing $M$ et chaque entrée $w$ une machine de Turing $S_{M, w}$ comme suit:
+
+$S_{M, w} = \text{ « Entrée } x\text{:}$
+
+1. Si $x \neq 0$ alors **rejeter $x$**
+2. Si $x = 0$ alors simuler $M$ sur $w$ et **accepter $x$** si et seulement si $M$ accepte $w$ »
+
+$S_{M, w}$ est un exemple de programme obtenu en modifiant un programme $M$ préexistant. Toute la richesse de $\left\langle M \right\rangle$ est encore présente dans $\left\langle S_{M, w} \right\rangle$. On peut obtenir $\left\langle S_{M, w} \right\rangle$ à partir de $\left\langle M \right\rangle$ et $w$ très facilement: il ne s'agit que de greffer un morceau de code dans un autre. 
+
+Si on ne comprend rien à ce que fait $M$ sur $w$ alors on ne comprend presque rien à ce que fait $S_{M, w}$. Par contre, on comprend assez bien le lien entre ce qu'on ignore du comportement de $M$ sur $w$ et ce qu'on ignore du comportement de $S_{M, w}$.
+
+Que fait $S_{M, w}$ sur l'entrée $x$ ? Si $x \neq 0$, alors on ne se rend jamais à l'étape deux, qui est celle qui dépend du comportement de $M$. Si $x = 0$, alors $x$ est accepté si et seulement si $M$ accepte $w$.
+
+Quelles entrées sont acceptées par $S_{M, w}$ ? Que vaut $L\left(S_{M, w}\right)$ ? Tous les $x$ sont rejetés sauf peut-être $0$.
+
+| Si $M$ accepte $w$ alors $L\left(S_{M, w}\right) = \left\{0\right\}$
+| Si $M$ n'accepte pas $w$ alors $L\left(S_{M, w}\right) = \varnothing$
+
+Notez aussi qu'il est facile de construire la machine $S_{M, w}$ à partir de $\left\langle M \right\rangle$ et $w$.
+
+Que fait alors la machine de Turing suivante ?
+
+$T = \text{« Entrée } \left\langle M, w \right\rangle$:
+
+1. Construire la machine $S_{M, w}$ et produire $\left\langle S_{M, w} \right\rangle$
+2. Simuler $R$ sur l'entrée $\left\langle S_{M_w} \right\rangle$
+    - Si $R$ accepte $\left\langle S_{M, w} \right\rangle$ alors **accepter** $\left\langle M, w \right\rangle$
+    - Si $R$ rejette $\left\langle S_{M, w} \right\rangle$ alors **rejeter** $\left\langle M, w \right\rangle$ »
+
+Considérons deux cas:
+
+1. Si $M$ accepte $w$ alors $L\left(S_{M, w}\right) = \left\{0\right\}$. Ce langage n'est pas vide donc $R$ va accepter $\left\langle S_{M, w} \right\rangle$ et $T$ accepte $\left\langle M, w \right\rangle$.
+2. Si $M$ n'accepte pas $w$ alors $L\left(S_{M, w}\right) = \varnothing$ donc $R$ va rejeter $\left\langle S_{M, w} \right\rangle$ et $T$ rejette $\left\langle M, w \right\rangle$.
+
+Donc, $L\left(T\right) = \mathrm{Acc}_{\mathrm{MT}}$. Mais, $T$ termine toujours, car $R$ est un décideur. Donc, $\mathrm{Acc}_{\mathrm{MT}}$ est décidable.
+
+Il y a une contradiction. Donc, $NV_{\mathrm{MT}}$ n'est pas décidable.
