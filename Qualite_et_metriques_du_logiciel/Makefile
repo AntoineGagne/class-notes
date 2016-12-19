@@ -6,7 +6,9 @@ files = src/presentation_du_cours.md \
 		src/introduction_a_la_qualite.md \
 		src/architecture_le_domaine.md \
 		src/clean_code.md \
+		src/types_de_tests.md \
 		src/architecture.md \
+		src/working_effectively_with_legacy_code.md \
 		src/revues_de_code.md \
 		src/laboratoire_1.md \
 		src/projet_de_session.md \
@@ -27,10 +29,10 @@ self_contained_html_flags = --self-contained \
 
 all: html
 
-html: create_dir
+html: link_images
 	@pandoc $(common_html_flags) $(html_flags) $(files) -o ./build/index.html
 
-self_contained_html: create_dir
+self_contained_html: link_images
 	pandoc $(common_html_flags) $(self_contained_html_flags) $(files) \
 		-o ./build/index.html
 
@@ -43,6 +45,9 @@ sort_appendix:
 
 create_dir:
 	@mkdir -p build
+
+link_images: create_dir
+	@ln -sf "$(shell pwd)/img" build/
 
 clean:
 	@rm -r ./build/
