@@ -18,6 +18,7 @@ app.use('/qualite-et-metriques-du-logiciel', express.static(`${path}/Qualite_et_
 app.use('/systemes-exploitation-pour-ingenieurs', express.static(`${path}/Systemes_d_exploitation_pour_ingenieurs/build`));
 app.use('/ethique-et-professionnalisme', express.static(`${path}/Ethique_et_professionnalisme/build`));
 app.use('/conception-et-analyse-dalgorithmes', express.static(`${path}/Conception_et_analyse_dalgorithmes/build`));
+app.use('/projet-de-conception-multidisciplinaire', express.static(`${path}/Projet_de_conception_multidisciplinaire`));
 
 http.listen(port, () => {
     console.log('Listening on: ' + port + '...');

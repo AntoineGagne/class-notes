@@ -2,7 +2,6 @@ SHELL := /bin/bash
 NOW := $(shell date +"%c")
 
 files = ./src/introduction.md \
-		./src/etudes_de_cas.md \
 		./src/annexe.md
 
 latex_flags = -SNs --normalize --listings --chapters
@@ -42,4 +41,4 @@ link_images: create_dir
 	@ln -sf "$(shell pwd)/images" build/
 
 clean:
-	rm -r ./build/
+	@rm -r ./build/

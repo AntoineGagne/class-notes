@@ -8,7 +8,8 @@ SUBDIRS = Genie_et_developpement_durable \
 		  Qualite_et_metriques_du_logiciel \
 		  Systemes_d_exploitation_pour_ingenieurs \
 		  Ethique_et_professionnalisme \
-		  Conception_et_analyse_dalgorithmes
+		  Conception_et_analyse_dalgorithmes \
+		  Projet_de_conception_multidisciplinaire
 
 BUILDDIRS = $(SUBDIRS:%=build-%)
 CLEANDIRS = $(SUBDIRS:%=clean-%)
