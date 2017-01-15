@@ -59,8 +59,24 @@ En dernier lieu, l'hygiéniste recommande les mesures préventives à instaurer 
 
 ## L'ergonomie
 
+En ergonomie, des professionnels de disciplines variées tels qu'ingénieurs ou physiologistes appliquent leurs connaissances et leurs habilités en physiologie, anthropométrie, dynamométrie, nutrition et autre à la solution de problèmes qui se présentent à l'interface homme-machine.
+
 ## La psychologie industrielle
 
+Le psychologue industriel s'est intéressé aux facteurs humains impliqués dans la genèse des accidents, l'objectif premier étant de rechercher la cause des accidents, mais c'est surtout afin de mieux comprendre les aspects de la situation de travail qui a occasionné le danger afin de pouvoir mieux contrer ce dernier à la source.
+
 ## L'épidémiologie
+
+Cette discipline, qui étudie le comportement de phénomènes dans une collectivité, permet au médecin du travail, médecin d'entreprise ou de la santé publique, d'observer dans la communauté des travailleurs les caractéristiques de santé propres non pas à chaque individu pris isolément, mais au groupe de travailleurs.
+
+Il y a deux branches d'épidémiologie: descriptive et analytique.
+
+### Épidémiologie descriptive
+
+L'épidémiologie descriptive a pour objet la distribution de la maladie dans une population. Elle fournit des données sur le type de maladie et les causes de décès dans une communauté. Elle décrit l'évolution de ces maladies dans le temps et établit leur incidence parmi différents sous-groupes de travailleurs.
+
+### Épidémiologie analytique
+
+L'épidémiologie analytique étudie les causes de l'apparition de la maladie selon deux méthodes: l'étude de cohorte et l'étude de cas-témoins.
 
 ## La sécurité industrielle
