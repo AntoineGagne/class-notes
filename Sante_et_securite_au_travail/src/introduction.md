@@ -35,7 +35,27 @@ La médecine du travail est une branche de la santé communautaire qui a pour ob
 
 ## La toxicologie
 
+Le toxicologue assume des fonctions de première importance. C'est lui qui étudie le comportement des produits toxiques dans l'organisme: leur mode d'entrée, leur distribution dans les différents organes du corps, leur dégradation en sous-produits et leur excrétion. C'est lui qui détermine la toxicité des substances chimiques et leur danger.
+
 ## L'hygiène industrielle
+
+La première tâche de l'hygiéniste industriel, c'est l'identification, la mesure et l'élimination ou le contrôle des contraintes ou des contaminants qui existent dans un milieu de travail. 
+
+Dans un deuxième temps, l'hygiéniste industriel évalue l'importance des contraintes en qualité (nature, risque, contagiosité) et en quantité.
+
+En dernier lieu, l'hygiéniste recommande les mesures préventives à instaurer dans un milieu pour contrôler les contraintes. Ces mesures comprendront entre autres: 
+
+- la substitution d'un matériau par un autre moins dangereux;
+- le remplacement ou la modification du procédé;
+- l'isolation ou le cloisonnement d'un poste de travail pour réduire le nombre de personnes exposées;
+- l'utilisation de procédés humides pour restreindre les sources de poussières;
+- la ventilation locale;
+- la ventilation générale ou la diffusion;
+- la protection personnelle;
+- l'entretien des locaux;
+- la réduction du temps d'exposition;
+- l'entraînement et l'éducation;
+- l'automatisation et le télé-contrôle
 
 ## L'ergonomie
 
