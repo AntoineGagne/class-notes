@@ -1,5 +1,27 @@
 # Prendre une décision éthique
 
+## En classe
+
+### Le jugement professionnel
+
+Être capable de prendre la meilleure décision de manière autonome.
+
+#### Raisonnement technique
+
+Convertir un problème en équation résoluble par la science. On aborde toujours la question du *comment*, mais pas du *pourquoi*.
+
+#### Raisonnement stratégique
+
+On se donne des objectifs et on s'assure de les atteindre. Les limites sont qu'on doit parfois utilisé des moyens contestables pour y parvenir.
+
+#### Le raisonnement normatif
+
+Tente d'appliquer les règles et de faire des actions qui sont conformes à celles-ci. Le sens des actions n'a pas lieu dans ce type de raisonnement, un peu comme un robot qui fait ce qu'on lui dit de faire.
+
+#### Le raisonnement éthique
+
+Décider en fonction des parties prenantes. Prendre la meilleure décision possible dans les circonstances. Il y a des incertitudes quant à la décision.
+
 ## Étapes
 
 ### Prendre conscience de la situation
