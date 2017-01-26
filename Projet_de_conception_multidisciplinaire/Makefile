@@ -2,6 +2,7 @@ SHELL := /bin/bash
 NOW := $(shell date +"%c")
 
 files = ./src/introduction.md \
+		./src/introduction_a_la_vision_artificielle.md \
 		./src/annexe.md
 
 latex_flags = -SNs --normalize --listings --chapters
