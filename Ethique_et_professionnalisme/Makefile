@@ -4,6 +4,7 @@ NOW := $(shell date +"%c")
 files = ./src/introduction.md \
 		./src/notions_et_vocabulaire.md \
 		./src/prendre_une_decision_ethique.md \
+		./src/jugement_professionnel.md \
 		./src/etudes_de_cas.md \
 		./src/annexe.md
 
