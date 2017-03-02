@@ -2,6 +2,7 @@ SHELL := /bin/bash
 NOW := $(shell date +"%c")
 
 files = ./src/introduction_a_l_algorithmique.md \
+		./src/fondements_de_analyse_des_algorithmes.md \
 		./src/annexe.md
 
 latex_flags = -SNs --normalize --listings --chapters
