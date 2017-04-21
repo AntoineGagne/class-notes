@@ -26,6 +26,12 @@ $$O(n) = \left\{t(n) \mid \exists c \, \exists n_0 \implies t(n) \leq cg(n) \qqu
 
 **Exemple:** Démontrons^[Important !]
 
+$$\begin{align*}
+    n\left(n + 1\right) &\in O(n^2) \\
+    n\left(n + 1\right) &= n^2 + n \\
+             &\leq n^2 + n^2 \qquad{} \forall n \geq 1 \\
+             &= 2n \\
+
 **Exemple:** Démontrons
 
 **Exemple:** Démontrons
