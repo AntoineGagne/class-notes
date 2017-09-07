@@ -10,7 +10,8 @@ SUBDIRS = Genie_et_developpement_durable \
 		  Ethique_et_professionnalisme \
 		  Conception_et_analyse_dalgorithmes \
 		  Projet_de_conception_multidisciplinaire \
-		  Sante_et_securite_au_travail
+		  Sante_et_securite_au_travail \
+		  Architecture_logicielle
 
 BUILDDIRS = $(SUBDIRS:%=build-%)
 CLEANDIRS = $(SUBDIRS:%=clean-%)

@@ -20,6 +20,7 @@ app.use('/ethique-et-professionnalisme', express.static(`${path}/Ethique_et_prof
 app.use('/conception-et-analyse-dalgorithmes', express.static(`${path}/Conception_et_analyse_dalgorithmes/build`));
 app.use('/projet-de-conception-multidisciplinaire', express.static(`${path}/Projet_de_conception_multidisciplinaire/build`));
 app.use('/sante-et-securite-au-travail', express.static(`${path}/Sante_et_securite_au_travail/build`));
+app.use('/architecture-logicielle', express.static(`${path}/Architecture_logicielle/build`));
 
 http.listen(port, () => {
     console.log('Listening on: ' + port + '...');
