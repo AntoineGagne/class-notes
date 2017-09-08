@@ -8,19 +8,25 @@ const http = require('http').Server(app);
 const port = process.env.PORT || 3000;
 
 const path = __dirname;
+const routes = [
+    ['/genie-developpement-durable', 'Genie_et_developpement_durable'],
+    ['/informatique-theorique', 'Informatique_theorique'],
+    ['/modeles-et-langages-de-bases-de-donnees', 'Modeles_et_langages_de_bases_de_donnees'],
+    ['/probabilites-pour-ingenieurs', 'Probabilites_pour_ingenieurs'],
+    ['/processus-du-genie-logiciel', 'Processus_du_genie_logiciel'],
+    ['/qualite-et-metriques-du-logiciel', 'Qualite_et_metriques_du_logiciel'],
+    ['/systemes-exploitation-pour-ingenieurs', 'Systemes_d_exploitation_pour_ingenieurs'],
+    ['/ethique-et-professionnalisme', 'Ethique_et_professionnalisme'],
+    ['/conception-et-analyse-dalgorithmes', 'Conception_et_analyse_dalgorithmes'],
+    ['/projet-de-conception-multidisciplinaire', 'Projet_de_conception_multidisciplinaire'],
+    ['/sante-et-securite-au-travail', 'Sante_et_securite_au_travail'],
+    ['/architecture-logicielle', 'Architecture_logicielle']
+];
+
 app.use('/', express.static(path));
-app.use('/genie-developpement-durable', express.static(`${path}/Genie_et_developpement_durable/build/`));
-app.use('/informatique-theorique', express.static(`${path}/Informatique_theorique/build`));
-app.use('/modeles-et-langages-de-bases-de-donnees', express.static(`${path}/Modeles_et_langages_de_bases_de_donnees/build`));
-app.use('/probabilites-pour-ingenieurs', express.static(`${path}/Probabilites_pour_ingenieurs/build`));
-app.use('/processus-du-genie-logiciel', express.static(`${path}/Processus_du_genie_logiciel/build`));
-app.use('/qualite-et-metriques-du-logiciel', express.static(`${path}/Qualite_et_metriques_du_logiciel/build`));
-app.use('/systemes-exploitation-pour-ingenieurs', express.static(`${path}/Systemes_d_exploitation_pour_ingenieurs/build`));
-app.use('/ethique-et-professionnalisme', express.static(`${path}/Ethique_et_professionnalisme/build`));
-app.use('/conception-et-analyse-dalgorithmes', express.static(`${path}/Conception_et_analyse_dalgorithmes/build`));
-app.use('/projet-de-conception-multidisciplinaire', express.static(`${path}/Projet_de_conception_multidisciplinaire/build`));
-app.use('/sante-et-securite-au-travail', express.static(`${path}/Sante_et_securite_au_travail/build`));
-app.use('/architecture-logicielle', express.static(`${path}/Architecture_logicielle/build`));
+for (let [route, filePath] of routes) {
+    app.use(route, express.static(`${path}/${filePath}/build/`));
+}
 
 http.listen(port, () => {
     console.log('Listening on: ' + port + '...');
