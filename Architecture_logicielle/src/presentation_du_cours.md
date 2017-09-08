@@ -15,4 +15,27 @@ Ces notes tirés du cours *Architecture logicielle* traitent des points suivants
 * Développer l'aptitude à poser un regard critique sur la formation reçue
   afin d'assurer une amélioration continue du cours.
 
-# Présentation du cours
+# Description du projet
+
+* Gestion de service de taxis
+* Commande de taxis via une application mobile
+* Gestion de la flotte de véhicules
+* Client léger: les calculs vont se faire en grande partie du côté serveur
+* Accessible via un serveur `REST`
+
+## Fonctionnalités
+
+* Commande d'un taxi
+* Rapports journaliers
+* Facturation des clients
+* Gestion des chauffeurs et des véhicules
+
+## Domaine
+
+* Une course de taxi est entre un point A et un point B (pas d'arrêts)
+* Temps
+* Connaître la position de son taxi en temps réel
+* Distance
+* Tarifs: tarif initial et augmente en fonction du kilométrage (peut augmenter
+  en fonction du temps aussi)
+* Types de véhicules
