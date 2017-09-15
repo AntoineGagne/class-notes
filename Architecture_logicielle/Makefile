@@ -3,6 +3,8 @@ SHELL := /bin/bash
 NOW := $(shell date +"%c")
 
 files = src/presentation_du_cours.md \
+		src/introduction.md \
+		src/patrons_de_conception.md \
 		src/annexe.md
 latex_flags = -SNs --normalize --listings --chapters
 
