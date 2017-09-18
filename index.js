@@ -20,7 +20,8 @@ const routes = [
     ['/conception-et-analyse-dalgorithmes', 'Conception_et_analyse_dalgorithmes'],
     ['/projet-de-conception-multidisciplinaire', 'Projet_de_conception_multidisciplinaire'],
     ['/sante-et-securite-au-travail', 'Sante_et_securite_au_travail'],
-    ['/architecture-logicielle', 'Architecture_logicielle']
+    ['/architecture-logicielle', 'Architecture_logicielle'],
+    ['/interface-personne-machine', 'Interface personne-machine']
 ];
 
 app.use('/', express.static(path));
