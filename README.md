@@ -7,7 +7,6 @@ A collection of my class notes taken in Markdown.
 - Make
 - Pandoc
 - LaTeX compiler (if you want the PDFs)
-- Python 3 (if you want to use the script to sort the appendix)
 
 ## How to build
 
