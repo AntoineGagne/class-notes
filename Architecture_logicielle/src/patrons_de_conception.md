@@ -78,3 +78,17 @@ les SUV de luxe et réguliers.
 #### Diagramme UML
 
 ![State UML](img/state.png)
+
+### Decorator
+
+### Composite
+
+### Flyweight
+
+### Chain of Responsability
+
+## Patrons d'état et de logique d'affaires
+
+### Domain Object
+
+- Détient du comportement et des données

@@ -32,10 +32,6 @@ self_contained_html: link_images
 pdf: create_dir
 	pandoc $(latex_flags) $(files) -o ./build/notes.pdf
 
-sort_appendix: 
-	cat ./src/annexe.md | ./sort_appendix.py > temp.md \
-		&& mv temp.md ./src/annexe.md
-
 create_dir:
 	@mkdir -p build
 
