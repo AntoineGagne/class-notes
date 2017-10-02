@@ -13,6 +13,9 @@
 **Approche participative**
 :   On intègre les usagers dans l'équipe et on conçoit avec eux.
 
+**Étude ethnographiques**
+:   L'étude et l'observation des peuples.
+
 **Manipulation directe**
 :   Voir directement en temps réel la réaction de ce qu'on fait dans l'écran.
 
