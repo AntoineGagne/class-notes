@@ -12,7 +12,8 @@ SUBDIRS = Genie_et_developpement_durable \
 		  Projet_de_conception_multidisciplinaire \
 		  Sante_et_securite_au_travail \
 		  Architecture_logicielle \
-		  Interface_personne_machine
+		  Interface_personne_machine \
+		  Securite_dans_les_reseaux_informatiques
 
 BUILDDIRS = $(SUBDIRS:%=build-%)
 CLEANDIRS = $(SUBDIRS:%=clean-%)

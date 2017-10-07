@@ -21,7 +21,8 @@ const routes = [
     ['/projet-de-conception-multidisciplinaire', 'Projet_de_conception_multidisciplinaire'],
     ['/sante-et-securite-au-travail', 'Sante_et_securite_au_travail'],
     ['/architecture-logicielle', 'Architecture_logicielle'],
-    ['/interface-personne-machine', 'Interface_personne_machine']
+    ['/interface-personne-machine', 'Interface_personne_machine'],
+    ['/securite-dans-les-reseaux-informatiques', 'Securite_dans_les_reseaux_informatiques']
 ];
 
 app.use('/', express.static(path));
