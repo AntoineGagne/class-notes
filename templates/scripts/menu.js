@@ -1,18 +1,19 @@
-window.onload = function () {
-    document.getElementById("TOC").className = "mobile-hidden";
+"use strict";
 
+const whenDocumentIsReady = new Promise(resolve => {
+    document.addEventListener("DOMContentLoaded", resolve);
+});
+
+const addTableOfContentToggleEvent = function () {
+    const tableOfContents = document.getElementById("TOC");
     const button = document.getElementById("toggle-nav");
+    tableOfContents.classList.add("mobile-hidden");
 
     button.addEventListener("click", function() {
-        const tableOfContents = document.getElementById("TOC");
         const navbar = document.getElementsByClassName("navbar")[0];
-        if (tableOfContents.className === "") {
-            navbar.id = "";
-            tableOfContents.className = "mobile-hidden";
-        }
-        else {
-            navbar.id = "fixed-navbar";
-            tableOfContents.className = "";
-        }
+        navbar.id = tableOfContents.classList.contains("mobile-hidden") ? "fixed-navbar" : "";
+        tableOfContents.classList.toggle("mobile-hidden");
     }, false);
 }
+
+whenDocumentIsReady.then(addTableOfContentToggleEvent);
