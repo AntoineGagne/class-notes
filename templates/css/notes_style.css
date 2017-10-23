@@ -123,6 +123,8 @@ a {
     text-decoration: none;
     color: #4078c0;
     background-color: transparent;
+    max-width: 200px;
+    word-wrap: break-word;
 }
 
 .title {
