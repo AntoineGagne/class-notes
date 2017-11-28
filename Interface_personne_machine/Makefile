@@ -6,6 +6,7 @@ files = src/presentation_du_cours.md \
 		src/introduction.md \
 		src/approche_par_personas.md \
 		src/evaluation_des_ipm.md \
+		src/cognition.md \
 		src/annexe.md
 latex_flags = -SNs --normalize --listings --chapters
 

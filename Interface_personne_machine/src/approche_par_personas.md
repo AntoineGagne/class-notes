@@ -26,3 +26,7 @@
 
 - Ne marche pas
     - Il y a toujours quelqu'un qui va influencer les autres
+
+## Différences entre l'approche par personas et l'analyse hiérarchique
+
+- L'approche par personas est plus appropriée pour des applications grand public
